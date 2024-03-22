@@ -11,7 +11,7 @@
         name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1"
       />
-      <title>【GAMES101】03 变换（二维与三维）（未整理） |  Hxy&#39;s Ocean</title>
+      <title>【GAMES101】03 变换（二维与三维） |  Hxy&#39;s Ocean</title>
   <meta name="generator" content="hexo-theme-ayer">
       
       <link rel="shortcut icon" href="/favicon.ico" />
@@ -64,7 +64,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【GAMES101】03 变换（二维与三维）（未整理）
+  【GAMES101】03 变换（二维与三维）
 </h1>
  
 
@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">296</span>
+            <span class="post-count">111</span>
         </span>
     </span>
 
@@ -108,25 +108,18 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="缩放变换"><a href="#缩放变换" class="headerlink" title="缩放变换"></a>缩放变换</h2><p>Sx  0    </p>
-<p>0   Sy      就叫缩放矩阵，与xy点乘得到缩放后的矩阵</p>
-<h2 id="镜像变换"><a href="#镜像变换" class="headerlink" title="镜像变换"></a>镜像变换</h2><h2 id="错切变换"><a href="#错切变换" class="headerlink" title="错切变换"></a>错切变换</h2><p>对于图片来说每个点的y坐标都没变</p>
-<p>对于左上角的点来说变化应该是0+a</p>
-<p>对于右上角的点来说变化应该是1+a</p>
-<p>对于左边中间的点来说变化应该是0+a&#x2F;2</p>
-<p>所以每个点的变化应该是x+ay</p>
-<p>故矩阵如图</p>
-<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p>默认绕（0，0）转，默认逆时针旋转</p>
-<p>公式推导：</p>
-<p>如果用一个矩阵乘以输入可以得到输出的坐标，那么称这个变换叫线性变换</p>
-<h2 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h2><p>平移可以写成</p>
-<p>x &#x3D; x + tx</p>
-<p>y &#x3D; y + ty</p>
-<p>矩阵如图，无法写成线性变换的样子，为了解决平移这个特例，人们引入齐次坐标</p>
-<p>齐次坐标</p>
-<p>（齐次坐标这里老师讲的非常透彻，深入浅出，忘记了知识点的话建议直接看视频）</p>
-<h2 id="2D变换的齐次坐标形式"><a href="#2D变换的齐次坐标形式" class="headerlink" title="2D变换的齐次坐标形式"></a>2D变换的齐次坐标形式</h2><h2 id="反向变换"><a href="#反向变换" class="headerlink" title="反向变换"></a>反向变换</h2><h2 id="复合变换"><a href="#复合变换" class="headerlink" title="复合变换"></a>复合变换</h2><p>注意：先旋转在平移写作  （T·R·向量）  从右往左写</p>
-<p>（3D变换）</p>
+  <h1 id="2D线性变换"><a href="#2D线性变换" class="headerlink" title="2D线性变换"></a>2D线性变换</h1><p>我们将如下图所示的简单矩阵乘法定义为对向量的线性变换。<br><img src="/../../../images/GAMES101/0301.png" alt="2D线性变换"></p>
+<h2 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h2><p><img src="/../../../images/GAMES101/0302.png" alt="缩放"></p>
+<h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p><img src="/../../../images/GAMES101/0303.png" alt="镜像"></p>
+<h2 id="错切"><a href="#错切" class="headerlink" title="错切"></a>错切</h2><p><img src="/../../../images/GAMES101/0304.png" alt="错切"></p>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p><img src="/../../../images/GAMES101/0305.png" alt="旋转"></p>
+<h1 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h1><h2 id="平移无法写成线性变换"><a href="#平移无法写成线性变换" class="headerlink" title="平移无法写成线性变换"></a>平移无法写成线性变换</h2><p><img src="/../../../images/GAMES101/0306.png" alt="平移"></p>
+<h2 id="解决办法：齐次坐标"><a href="#解决办法：齐次坐标" class="headerlink" title="解决办法：齐次坐标"></a>解决办法：齐次坐标</h2><p><img src="/../../../images/GAMES101/0307.png" alt="解决办法：齐次坐标"></p>
+<h2 id="2D变换的齐次坐标形式"><a href="#2D变换的齐次坐标形式" class="headerlink" title="2D变换的齐次坐标形式"></a>2D变换的齐次坐标形式</h2><p><img src="/../../../images/GAMES101/0308.png" alt="2D变换的齐次坐标形式"></p>
+<h2 id="反向变换"><a href="#反向变换" class="headerlink" title="反向变换"></a>反向变换</h2><p><img src="/../../../images/GAMES101/0309.png" alt="反向变换"></p>
+<h2 id="复合变换"><a href="#复合变换" class="headerlink" title="复合变换"></a>复合变换</h2><p>注意：先旋转，再平移，写作 T·R·向量，从右往左写</p>
+<h1 id="3D变换"><a href="#3D变换" class="headerlink" title="3D变换"></a>3D变换</h1><p>增加一个维度，其他类似</p>
+<p><img src="/../../../images/GAMES101/0310.png" alt="3D变换"></p>
  
       <!-- reward -->
       
@@ -196,7 +189,7 @@
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            【GAMES101】04 变换（模型、视图、投影）（未整理）
+            【GAMES101】04 变换（模型、视图、投影）
           
         </div>
       </a>
@@ -204,7 +197,7 @@
     
       <a href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9102%20%E5%90%91%E9%87%8F%E4%B8%8E%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">【GAMES101】02 向量与线性代数（未整理）</div>
+        <div class="article-nav-title">【GAMES101】02 向量与线性代数</div>
       </a>
     
   </nav>
