@@ -149,6 +149,201 @@
     
     
     <article
+  id="post-Course/CMU 15-445/【CMU 15-445】Project 01 Buffer Pool Manager"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/08/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%91Project%2001%20Buffer%20Pool%20Manager/"
+    >【CMU 15-445】Project 01 Buffer Pool Manager</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/08/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%91Project%2001%20Buffer%20Pool%20Manager/" class="article-date">
+  <time datetime="2024-03-07T16:00:00.000Z" itemprop="datePublished">2024-03-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p>虽然看的课是Fall 2019的课，但由于Fall 2019的GradeScope打分已停止，这里做的是<a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2023/assignments.html"> Fall 2023 </a>的项目。</p>
+<p>由于迟先生的加入，从Fall 2022开始，CMU 15-445的Project有了较大的改版，难度也提升了。</p>
+<h2 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1. 环境搭建"></a>1. 环境搭建</h2><ul>
+<li>Windows11+WSL2+Ubantu 22.04</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cmu-db/bustub.git">bustub</a> (2023 Fall)</li>
+<li>VScode + Clang + CMake</li>
+</ul>
+<h2 id="2-实现"><a href="#2-实现" class="headerlink" title="2. 实现"></a>2. 实现</h2> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Project/" rel="tag">Project</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】06 哈希表"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/07/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9106%20%E5%93%88%E5%B8%8C%E8%A1%A8/"
+    >【CMU 15-445】06 哈希表</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/07/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9106%20%E5%93%88%E5%B8%8C%E8%A1%A8/" class="article-date">
+  <time datetime="2024-03-06T16:00:00.000Z" itemprop="datePublished">2024-03-07</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/06-hashtables.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/06-hashtables.pdf">Notes</a></p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>大部分内容就是数据结构中哈希表的内容，结合数据结构和数据库的实现好理解很多。</p>
+<h2 id="1-数据结构"><a href="#1-数据结构" class="headerlink" title="1. 数据结构"></a>1. 数据结构</h2><p>DBMS对系统内部的许多不同部分使用各种数据结构：</p>
+<ul>
+<li>Internal Meta-Data（内部元数据）：跟踪有关数据库和系统状态的信息。</li>
+<li>Core Data Storage （核心数据存储）：可用作数据库中元组的基本存储。</li>
+<li>Temporary Data Structures（临时数据结构）：DBMS可以在处理查询时动态构建数据结构，以加快执行速度(例如，用于 joins 的哈希表)。</li>
+<li>Table Indexes（表索引）：辅助数据结构，使查找特定元组更容易。</li>
+</ul>
+<p>设计决策：</p>
+<ul>
+<li>数据组织：我们如何布局内存以及在数据结构中存储哪些信息。</li>
+<li>并发性：如何让多线程不出问题地访问数据结构。</li>
+</ul>
+<h2 id="2-哈希表"><a href="#2-哈希表" class="headerlink" title="2. 哈希表"></a>2. 哈希表</h2><p>哈希表实现了将 key 映射到 value 的关联数组抽象数据类型。它提供了平均O(1)的计算复杂度（时间）和O(n)的存储复杂度（空间）。</p>
+<p>哈希表实现由两部分组成：</p>
+<ul>
+<li>哈希函数：如何将大的密钥空间映射到较小的域中。它用于计算存储桶或槽数组的索引。需要考虑快速执行和冲突率之间的权衡。</li>
+<li>哈希方案：如何处理散列后的密钥冲突。需要考虑分配大型哈希表以减少冲突与执行额外指令以查找&#x2F;插入键之间的权衡。</li>
+</ul>
+<h2 id="3-哈希函数"><a href="#3-哈希函数" class="headerlink" title="3. 哈希函数"></a>3. 哈希函数</h2><p>哈希函数接受任何 key 作为其输入。然后，它返回该 key 的整数表示(即,“hash”)。函数的输出是确定性的(即，相同的键应该始终生成相同的散列输出)。</p>
+<p>DBMS不想使用密码散列函数(例如，SHA-256)，因为我们不需要担心保护密钥的内容。这些散列函数主要由DBMS内部使用，因此信息不会泄漏到系统之外。对于本课，我们只关心散列函数的速度和冲突率。目前最先进的散列函数是Facebook XXHash3。</p>
+<blockquote>
+<p>Tips1:</p>
+<p>加密常见Hash:</p>
+<ul>
+<li>SHA-256</li>
+<li>MD5(2004年被山大王小云老师破解)</li>
+</ul>
+<p>数据库常见Hash：</p>
+<ul>
+<li>CRC-64(1975)</li>
+<li>MurmurHash(2008)</li>
+<li>Google CityHash(2011)</li>
+<li>Facebook XXHash(2012)</li>
+<li>Google FarmHash(2014)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Tips2:</p>
+<p>不要自己写哈希，浪费时间，直接拿来用</p>
+</blockquote>
+<h2 id="4-静态（Static）哈希方案"><a href="#4-静态（Static）哈希方案" class="headerlink" title="4. 静态（Static）哈希方案"></a>4. 静态（Static）哈希方案</h2><p>静态哈希方案是其中哈希表的大小是固定的方案。这意味着如果DBMS耗尽了哈希表中的存储空间，则它必须使用更大的表从头开始重建它。通常，新哈希表的大小是原始哈希表的2倍。（我们已知哈希表的大小，且不动态增长。）</p>
+<p>为了减少浪费比较的次数，重要的是要避免碰撞×散列key。这需要具有两倍于预期元素数量的段数的哈希表。</p>
+<h3 id="4-1-Linear-Probe-Hashing"><a href="#4-1-Linear-Probe-Hashing" class="headerlink" title="4.1. Linear Probe Hashing"></a>4.1. Linear Probe Hashing</h3><p>线性探针哈希，这是最基本的 hashing 方案。它通常也是最快的。它使用单一的槽表。哈希函数允许DBMS快速跳转到 slots 并查找所需的 key 。（其实就是开放地址法）</p>
+<ul>
+<li>通过线性搜索表中的下一个空闲插槽来解决冲突；</li>
+<li>要查看值是否存在，请使用散列转到 slot ，并扫描 key 。如果找到所需的 key 或遇到空 slot ，扫描将停止。<blockquote>
+<p>删除时添加⼀个tombstone(墓碑)标记</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4-2-Robin-Hood-Hashing"><a href="#4-2-Robin-Hood-Hashing" class="headerlink" title="4.2. Robin Hood Hashing"></a>4.2. Robin Hood Hashing</h3><p>这是线性探测散列的扩展，它寻求减少每个 key 从它们在哈希表中的最佳位置的最大距离。允许线程从“rich”keys 中窃取slot，并将它们分配给“poor”keys。</p>
+<ul>
+<li>每个 key 跟踪它们在表中从其最佳位置开始的位置的数量。</li>
+<li>插入时，如果第一个 key 比第二个 key 离其最佳位置的距离更远，则一个 key 将占据另一个 key 的槽。然后，必须将删除的 key 重新插入到表中。</li>
+</ul>
+<h3 id="4-3-Cuckoo-Hashing"><a href="#4-3-Cuckoo-Hashing" class="headerlink" title="4.3. Cuckoo Hashing"></a>4.3. Cuckoo Hashing</h3><p>这种方法不是使用单个哈希表，而是使用不同的哈希函数维护多个哈希表。哈希函数是相同的算法(例如，XXHash、CityHash)；它们通过使用不同的 seeds 为相同的 key 生成不同的哈希。</p>
+<ul>
+<li>在插入时，检查每一张表，并挑选任何有空位的 slot 。</li>
+<li>如果没有表有空闲的 slot ，则从其中一个表中取出元素，并对其进行重新 hash 以找到新的位置。</li>
+<li>如果我们找到一个循环，那么我们可以用新的hash函数 seeds 重建所有hash表(不太常见)，或者使用更大的表重建hash表(更常见)。</li>
+</ul>
+<h2 id="5-动态（Dynamic）哈希方案"><a href="#5-动态（Dynamic）哈希方案" class="headerlink" title="5. 动态（Dynamic）哈希方案"></a>5. 动态（Dynamic）哈希方案</h2><p>静态散列方案要求DBMS知道它想要存储的元素的数量n。否则，如果需要增大&#x2F;缩小大小，它将重新构建该表。</p>
+<p>动态哈希方案能够按需调整哈希表的大小，而无需重新构建整个表。这些方案以不同的方式执行调整大小的操作，这些方式可以最大化读取或写入。</p>
+<h3 id="5-1-链式哈希-Chained-Hashing"><a href="#5-1-链式哈希-Chained-Hashing" class="headerlink" title="5.1. 链式哈希 Chained Hashing"></a>5.1. 链式哈希 Chained Hashing</h3><p>这是最常见的动态散列方案。DBMS为哈希表中的每个 slot 维护 桶buckets 的链接列表。</p>
+<ul>
+<li>通过将具有相同hash key 的元素放入同一 buckets 来解决冲突。</li>
+<li>如果 buckets 已满，则向链中添加另一个buckets 。哈希表可以无限增长，因为DBMS不断添加新的 buckets 。</li>
+</ul>
+<h3 id="5-2-可扩展哈希-Extendible-Hashing"><a href="#5-2-可扩展哈希-Extendible-Hashing" class="headerlink" title="5.2. 可扩展哈希 Extendible Hashing"></a>5.2. 可扩展哈希 Extendible Hashing</h3><p>链式散列的改进变体，它拆分 buckets ，而不是让链永远增长。该方法允许哈希表中的多个槽位置指向相同的桶链。</p>
+<p>重新平衡哈希表背后的核心思想是在拆分时移动 buckets 条目，并增加要检查以在哈希表中查找条目的 bits 数。这意味着DBMS只需在拆分链的 buckets 内移动数据；所有其他 buckets 保持不变。</p>
+<ul>
+<li>DBMS维护全局和局部深度 bit 计数，以确定在槽数组中查找桶所需的 bit 数。</li>
+<li>当 buckets 满时，DBMS拆分 buckets 并重新洗牌其元素。如果拆分 buckets 的局部深度小于全局深度，则新buckets 只是添加到现有槽数组中。否则，DBMS会将槽数组的大小增加一倍以容纳新的 buckets ，并递增全局深度计数器。</li>
+</ul>
+<h3 id="5-3-线性哈希-Linear-Hashing"><a href="#5-3-线性哈希-Linear-Hashing" class="headerlink" title="5.3. 线性哈希 Linear Hashing"></a>5.3. 线性哈希 Linear Hashing</h3><p>该方案不是在桶溢出时立即拆分桶，而是维护一个拆分指针来跟踪下一个要拆分的桶。无论该指针是否指向溢出的桶，DBMS总是拆分。溢出标准由实现决定。</p>
+<ul>
+<li>当任何桶溢出时，通过添加新的槽条目在指针位置拆分桶，并创建新的散列函数。</li>
+<li>如果散列函数映射到先前由指针指向的槽，则应用新的散列函数。</li>
+<li>当指针到达最后一个槽时，删除原有的散列函数，代之以新的散列函数。</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-Course/CMU 15-445/【CMU 15-445】05 缓冲池"
   class="article article-type-post"
   itemscope
@@ -792,118 +987,6 @@
     <footer class="article-footer">
        
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%B0%E9%9A%BE/" rel="tag">困难</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-Coding/LeetCode/【LeetCode】134. 加油站"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/02/29/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91134.%20%E5%8A%A0%E6%B2%B9%E7%AB%99/"
-    >【LeetCode】134. 加油站</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/02/29/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91134.%20%E5%8A%A0%E6%B2%B9%E7%AB%99/" class="article-date">
-  <time datetime="2024-02-29T08:00:00.000Z" itemprop="datePublished">2024-02-29</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a> / <a class="article-category-link" href="/categories/Coding/LeetCode/">LeetCode</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>从头到尾遍历每个加油站，并检查以该加油站为起点，最终能否行驶一周。</p>
-<p>但在一些特殊输入时会超出时间限制，原因在于起点不应逐个遍历，而要跳至第一个无法到达的加油站开始继续检查，可以将时间复杂度从O(n^2)降至O(n)。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">canCompleteCircuit</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; gas, vector&lt;<span class="type">int</span>&gt;&amp; cost)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = gas.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; n) &#123;</span><br><span class="line">            <span class="type">int</span> sumOfGas = <span class="number">0</span>, sumOfCost = <span class="number">0</span>;</span><br><span class="line">            <span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (cnt &lt; n) &#123;</span><br><span class="line">                <span class="type">int</span> j = (i + cnt) % n;</span><br><span class="line">                sumOfGas += gas[j];</span><br><span class="line">                sumOfCost += cost[j];</span><br><span class="line">                <span class="keyword">if</span> (sumOfCost &gt; sumOfGas) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                cnt++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (cnt == n) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                i = i + cnt + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag">中等</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-Coding/LeetCode/【LeetCode】380. O(1) 时间插入、删除和获取随机元素 copy"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/02/29/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91380.%20O(1)%20%E6%97%B6%E9%97%B4%E6%8F%92%E5%85%A5%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E5%85%83%E7%B4%A0%20copy/"
-    >【LeetCode】380. O(1)时间插入、删除和获取随机元素</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/02/29/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91380.%20O(1)%20%E6%97%B6%E9%97%B4%E6%8F%92%E5%85%A5%E3%80%81%E5%88%A0%E9%99%A4%E5%92%8C%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E5%85%83%E7%B4%A0%20copy/" class="article-date">
-  <time datetime="2024-02-29T07:00:00.000Z" itemprop="datePublished">2024-02-29</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Coding/">Coding</a> / <a class="article-category-link" href="/categories/Coding/LeetCode/">LeetCode</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>哈希+变长数组</p>
-<p>变长数组可以在O(1)的时间内完成获取随机元素操作，但是由于无法在O(1)的时间内判断元素是否存在，因此不能在O(1)时间内完成插入和删除操作。哈希表可以在O(1)的时间内完成插入和删除操作，但是由于无法根据下标定位到特定元素，因此不能在O(1)的时间内完成获取随机元素操作。为了满足插入、删除和获取随机元素操作的时间复杂度都是 O(1)，需要将变长数组和哈希表结合，变长数组中存储元素，哈希表中存储每个元素在变长数组中的下标。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">sdclass RandomizedSet &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">RandomizedSet</span>() &#123;</span><br><span class="line">        <span class="built_in">srand</span>((<span class="type">unsigned</span>)<span class="built_in">time</span>(<span class="literal">NULL</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">insert</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (indices.<span class="built_in">count</span>(val)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> index = nums.<span class="built_in">size</span>();</span><br><span class="line">        nums.<span class="built_in">emplace_back</span>(val);</span><br><span class="line">        indices[val] = index;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">bool</span> <span class="title">remove</span><span class="params">(<span class="type">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!indices.<span class="built_in">count</span>(val)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> index = indices[val];</span><br><span class="line">        <span class="type">int</span> last = nums.<span class="built_in">back</span>();</span><br><span class="line">        nums[index] = last;</span><br><span class="line">        indices[last] = index;</span><br><span class="line">        nums.<span class="built_in">pop_back</span>();</span><br><span class="line">        indices.<span class="built_in">erase</span>(val);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getRandom</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> randomIndex = <span class="built_in">rand</span>()%nums.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">return</span> nums[randomIndex];</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; nums;</span><br><span class="line">    unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; indices;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag">中等</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%93%88%E5%B8%8C/" rel="tag">哈希</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li></ul>
 
     </footer>
   </div>

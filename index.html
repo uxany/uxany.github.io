@@ -196,6 +196,115 @@
 
     
     <article
+  id="post-Coding/LeetCode/【LeetCode】227. 基本计算器Ⅱ"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/04/30/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91227.%20%E5%9F%BA%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%99%A8%E2%85%A1/"
+    >【LeetCode】227. 基本计算器Ⅱ</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/04/30/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91227.%20%E5%9F%BA%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%99%A8%E2%85%A1/" class="article-date">
+  <time datetime="2024-04-30T05:00:00.000Z" itemprop="datePublished">2024-04-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Coding/">Coding</a> / <a class="article-category-link" href="/categories/Coding/LeetCode/">LeetCode</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">calculate</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        stack&lt;<span class="type">int</span>&gt; st;</span><br><span class="line">        stack&lt;<span class="type">char</span>&gt; opst;</span><br><span class="line">        <span class="type">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//遍历字符串，将数字和符号入栈，当遇到符号且符号栈顶为乘除符号时，弹出元素将计算后的重新入栈</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; s.<span class="built_in">length</span>(); ++i) &#123;</span><br><span class="line">            <span class="type">char</span> c = s[i];</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">isdigit</span>(c)) &#123; <span class="comment">// 使用isdigit检查是否为数字</span></span><br><span class="line">                num = num * <span class="number">10</span> + (c - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (!opst.<span class="built_in">empty</span>() &amp;&amp; (opst.<span class="built_in">top</span>() == <span class="string">&#x27;*&#x27;</span> || opst.<span class="built_in">top</span>() == <span class="string">&#x27;/&#x27;</span>)) &#123;</span><br><span class="line">                    num = (opst.<span class="built_in">top</span>() == <span class="string">&#x27;*&#x27;</span>) ? st.<span class="built_in">top</span>() * num : st.<span class="built_in">top</span>() / num;</span><br><span class="line">                    opst.<span class="built_in">pop</span>();</span><br><span class="line">                    st.<span class="built_in">pop</span>();</span><br><span class="line">                &#125;</span><br><span class="line">                st.<span class="built_in">push</span>(num);</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">                opst.<span class="built_in">push</span>(c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 处理遍历完字符串后，栈顶符号是乘除的情况</span></span><br><span class="line">        <span class="keyword">if</span> (!opst.<span class="built_in">empty</span>() &amp;&amp; (opst.<span class="built_in">top</span>() == <span class="string">&#x27;*&#x27;</span> || opst.<span class="built_in">top</span>() == <span class="string">&#x27;/&#x27;</span>)) &#123;</span><br><span class="line">            num = (opst.<span class="built_in">top</span>() == <span class="string">&#x27;*&#x27;</span>) ? st.<span class="built_in">top</span>() * num : st.<span class="built_in">top</span>() / num;</span><br><span class="line">            opst.<span class="built_in">pop</span>();</span><br><span class="line">            st.<span class="built_in">pop</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        st.<span class="built_in">push</span>(num); </span><br><span class="line">        num = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">//此时符号栈中应只有加减号</span></span><br><span class="line">        <span class="keyword">while</span> (!opst.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">            <span class="type">char</span> op = opst.<span class="built_in">top</span>();</span><br><span class="line">            opst.<span class="built_in">pop</span>();</span><br><span class="line">            <span class="type">int</span> prev = st.<span class="built_in">top</span>();</span><br><span class="line">            st.<span class="built_in">pop</span>();</span><br><span class="line">            ans = (op == <span class="string">&#x27;+&#x27;</span>) ? ans + prev : ans - prev;</span><br><span class="line">        &#125;</span><br><span class="line">        ans += st.<span class="built_in">top</span>();</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Coding/LeetCode/【LeetCode】224. 基本计算器"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/04/30/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91224.%20%E5%9F%BA%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%99%A8/"
+    >【LeetCode】224. 基本计算器</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/04/30/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91224.%20%E5%9F%BA%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%99%A8/" class="article-date">
+  <time datetime="2024-04-30T03:00:00.000Z" itemprop="datePublished">2024-04-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Coding/">Coding</a> / <a class="article-category-link" href="/categories/Coding/LeetCode/">LeetCode</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>括号展开 + 栈</p>
+<p>核心是利用栈击穿括号，将符号转变为没有括号的样子。</p>
+<p>栈顶保留括号前符号，加号括号内符号不变，减号括号内符号反转。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">calculate</span><span class="params">(string s)</span> </span>&#123;</span><br><span class="line">        stack&lt;<span class="type">char</span>&gt; st; <span class="comment">// 存储正负号</span></span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>, num = <span class="number">0</span>, op = <span class="number">1</span>;</span><br><span class="line">        st.<span class="built_in">push</span>(op);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">char</span> c : s) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="string">&#x27; &#x27;</span>) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (c &gt;= <span class="string">&#x27;0&#x27;</span>) num = num * <span class="number">10</span> - <span class="string">&#x27;0&#x27;</span> + c;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                ans += op * num;</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (c == <span class="string">&#x27;+&#x27;</span>) op = st.<span class="built_in">top</span>();</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;-&#x27;</span>) op = -st.<span class="built_in">top</span>();</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (c == <span class="string">&#x27;(&#x27;</span>) st.<span class="built_in">push</span>(op); <span class="comment">// 将括号前符号放入栈顶</span></span><br><span class="line">                <span class="keyword">else</span> st.<span class="built_in">pop</span>();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans + op * num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%B0%E9%9A%BE/" rel="tag">困难</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="tag">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-Coding/前端/【前端】React笔记"
   class="article article-type-post"
   itemscope
@@ -805,226 +914,6 @@
 </li>
 <li>操作系统也是程序<ul>
 <li>AbstractMachine 扩展了程序的语义，仅此而已</li>
-</ul>
-</li>
-</ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-Course/NJU OS/【NJU OS】08 并发 Bug 和应对"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/03/19/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9108%20%E5%B9%B6%E5%8F%91%20Bug%20%E5%92%8C%E5%BA%94%E5%AF%B9/"
-    >【NJU OS】08 并发 Bug 和应对</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/03/19/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9108%20%E5%B9%B6%E5%8F%91%20Bug%20%E5%92%8C%E5%BA%94%E5%AF%B9/" class="article-date">
-  <time datetime="2024-03-19T07:00:00.000Z" itemprop="datePublished">2024-03-19</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="应对Bug的方法"><a href="#应对Bug的方法" class="headerlink" title="应对Bug的方法"></a>应对Bug的方法</h2><h3 id="基本思路：否定你自己"><a href="#基本思路：否定你自己" class="headerlink" title="基本思路：否定你自己"></a>基本思路：否定你自己</h3><blockquote>
-<p>虽然不太愿意承认，但始终假设自己的代码是错的。</p>
-</blockquote>
-<h3 id="Bug-多的根本原因：编程语言的缺陷"><a href="#Bug-多的根本原因：编程语言的缺陷" class="headerlink" title="Bug 多的根本原因：编程语言的缺陷"></a>Bug 多的根本原因：编程语言的缺陷</h3><blockquote>
-<p>软件是需求 (规约) 在计算机数字世界的投影。</p>
-</blockquote>
-<h3 id="更实在的方法：防御性编程"><a href="#更实在的方法：防御性编程" class="headerlink" title="更实在的方法：防御性编程"></a>更实在的方法：防御性编程</h3><blockquote>
-<p>把程序需要满足的条件用 assert 表达出来。</p>
-</blockquote>
-<h2 id="并发-Bug：死锁-Deadlock"><a href="#并发-Bug：死锁-Deadlock" class="headerlink" title="并发 Bug：死锁 (Deadlock)"></a>并发 Bug：死锁 (Deadlock)</h2><h3 id="AA-Deadlock"><a href="#AA-Deadlock" class="headerlink" title="AA-Deadlock"></a>AA-Deadlock</h3><h3 id="ABBA-Deadlock"><a href="#ABBA-Deadlock" class="headerlink" title="ABBA-Deadlock"></a>ABBA-Deadlock</h3><h3 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h3><p>死锁产生的四个必要条件 (Edward G. Coffman, 1971):</p>
-<ul>
-<li>互斥：一个资源每次只能被一个进程使用</li>
-<li>请求与保持：一个进程请求资阻塞时，不释放已获得的资源</li>
-<li>不剥夺：进程已获得的资源不能强行剥夺</li>
-<li>循环等待：若干进程之间形成头尾相接的循环等待资源关系</li>
-</ul>
-<h2 id="并发-Bug：数据竞争-Data-Race"><a href="#并发-Bug：数据竞争-Data-Race" class="headerlink" title="并发 Bug：数据竞争 (Data Race)"></a>并发 Bug：数据竞争 (Data Race)</h2><h3 id="数据竞争"><a href="#数据竞争" class="headerlink" title="数据竞争"></a>数据竞争</h3><p>不同的线程同时访问同一段内存，且至少有一个是写。</p>
-<p>Peterson 算法告诉大家：</p>
-<p>你们写不对无锁的并发程序，所以事情反而简单了</p>
-<p>用互斥锁保护好共享数据，消灭一切数据竞争</p>
-<h2 id="其他类型并发Bug"><a href="#其他类型并发Bug" class="headerlink" title="其他类型并发Bug"></a>其他类型并发Bug</h2><h3 id="原子性违反-AV"><a href="#原子性违反-AV" class="headerlink" title="原子性违反(AV)"></a>原子性违反(AV)</h3><h3 id="顺序违反-Ov"><a href="#顺序违反-Ov" class="headerlink" title="顺序违反(Ov)"></a>顺序违反(Ov)</h3><h2 id="应对并发Bug的方法"><a href="#应对并发Bug的方法" class="headerlink" title="应对并发Bug的方法"></a>应对并发Bug的方法</h2><h3 id="Lockedep"><a href="#Lockedep" class="headerlink" title="Lockedep"></a>Lockedep</h3><h3 id="ThreadSanitizer"><a href="#ThreadSanitizer" class="headerlink" title="ThreadSanitizer"></a>ThreadSanitizer</h3><h3 id="更多的检查：动态程序分析"><a href="#更多的检查：动态程序分析" class="headerlink" title="更多的检查：动态程序分析"></a>更多的检查：动态程序分析</h3><h3 id="动态分析工具：Sanitizers"><a href="#动态分析工具：Sanitizers" class="headerlink" title="动态分析工具：Sanitizers"></a>动态分析工具：Sanitizers</h3><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>常见的并发 bug<ul>
-<li>死锁、数据竞争、原子性&#x2F;顺序违反</li>
-</ul>
-</li>
-<li>不要盲目相信自己：检查、检查、检查<ul>
-<li>防御性编程：检查</li>
-<li>动态分析：打印 + 检查</li>
-</ul>
-</li>
-</ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-Course/NJU OS/【NJU OS】07 真实世界的并发编程"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/03/17/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9107%20%E7%9C%9F%E5%AE%9E%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"
-    >【NJU OS】07 真实世界的并发编程</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/03/17/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9107%20%E7%9C%9F%E5%AE%9E%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="article-date">
-  <time datetime="2024-03-17T09:00:00.000Z" itemprop="datePublished">2024-03-17</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="高性能计算中的并发编程"><a href="#高性能计算中的并发编程" class="headerlink" title="高性能计算中的并发编程"></a>高性能计算中的并发编程</h2><h3 id="高性能计算程序：特点"><a href="#高性能计算程序：特点" class="headerlink" title="高性能计算程序：特点"></a>高性能计算程序：特点</h3><ul>
-<li>系统模拟：天气预报、能源、分子生物学</li>
-<li>人工智能：神经网络训练</li>
-<li>矿厂：纯粹的 hash 计算</li>
-<li>HPC-China 100</li>
-</ul>
-<h3 id="高性能计算：主要挑战"><a href="#高性能计算：主要挑战" class="headerlink" title="高性能计算：主要挑战"></a>高性能计算：主要挑战</h3><p>计算任务如何分解？</p>
-<ul>
-<li>计算图需要容易并行化<ul>
-<li>机器-线程两级任务分解</li>
-</ul>
-</li>
-<li>生产者-消费者解决一切<ul>
-<li>MPI - “a specification for the developers and users of message passing libraries”, OpenMP - “multi-platform shared-memory parallel programming in C&#x2F;C++ and Fortran”</li>
-</ul>
-</li>
-<li>Parallel and Distributed Computation: Numerical Methods</li>
-</ul>
-<p>线程间如何通信</p>
-<ul>
-<li>通信不仅发生在节点&#x2F;线程之间，还发生在任何共享内存访问</li>
-<li>还记得被 mem-ordering.c 支配的恐惧吗？</li>
-</ul>
-<hr>
-<h2 id="数据中心里的并发编程"><a href="#数据中心里的并发编程" class="headerlink" title="数据中心里的并发编程"></a>数据中心里的并发编程</h2><h3 id="数据中心程序：特点"><a href="#数据中心程序：特点" class="headerlink" title="数据中心程序：特点"></a>数据中心程序：特点</h3><p>以数据 (存储) 为中心</p>
-<ul>
-<li>从互联网搜索 (Google)、社交网络 (Facebook&#x2F;Twitter) 起家</li>
-<li>支撑各类互联网应用：微信&#x2F;QQ&#x2F;支付宝&#x2F;游戏&#x2F;网盘&#x2F;……</li>
-</ul>
-<p>算法&#x2F;系统对 HPC 和数据中心的意义</p>
-<ul>
-<li>你有 1,000,000 台服务器</li>
-<li>如果一个算法&#x2F;实现能快 1%，就能省 10,000 台服务器 一套房 ≈ 50 台服务器(不计运维成本)</li>
-</ul>
-<h3 id="数据中心：主要挑战"><a href="#数据中心：主要挑战" class="headerlink" title="数据中心：主要挑战"></a>数据中心：主要挑战</h3><p>多副本情况下的高可靠、低延迟数据访问</p>
-<ul>
-<li>在服务海量地理分布请求的前提下<ul>
-<li>数据要保持一致 (Consistency)</li>
-<li>服务时刻保持可用 (Availability)</li>
-<li>容忍机器离线 (Partition tolerance)</li>
-</ul>
-</li>
-</ul>
-<h3 id="如何用一台-可靠的-计算机尽可能多地服务并行的请求"><a href="#如何用一台-可靠的-计算机尽可能多地服务并行的请求" class="headerlink" title="如何用一台 (可靠的) 计算机尽可能多地服务并行的请求"></a>如何用一台 (可靠的) 计算机尽可能多地服务并行的请求</h3><ul>
-<li>关键指标：QPS, tail latency, …</li>
-</ul>
-<p>我们有的工具</p>
-<ul>
-<li>线程 (threads)</li>
-<li>协程 (coroutines)<ul>
-<li>多个可以保存&#x2F;恢复的执行流 (M2 - libco)</li>
-<li>比线程更轻量 (完全没有系统调用，也就没有操作系统状态)</li>
-</ul>
-</li>
-</ul>
-<h3 id="数据中心：协程和线程"><a href="#数据中心：协程和线程" class="headerlink" title="数据中心：协程和线程"></a>数据中心：协程和线程</h3><p>数据中心</p>
-<ul>
-<li>同一时间有数千&#x2F;数万个请求到达服务器</li>
-<li>计算部分<ul>
-<li>需要利用好多处理器<ul>
-<li>线程 → 这就是我擅长的 (Mandelbrot Set)</li>
-<li>协程 → 一人出力，他人摸鱼</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>I&#x2F;O 部分<ul>
-<li>会在系统调用上 block (例如请求另一个服务或读磁盘)<ul>
-<li>协程 → 一人干等，他人围观</li>
-<li>线程 → 每个线程都占用可观的操作系统资源</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Go-和-Goroutine"><a href="#Go-和-Goroutine" class="headerlink" title="Go 和 Goroutine"></a>Go 和 Goroutine</h3><h3 id="现代编程语言上的系统编程"><a href="#现代编程语言上的系统编程" class="headerlink" title="现代编程语言上的系统编程"></a>现代编程语言上的系统编程</h3><hr>
-<h2 id="我们身边的并发编程"><a href="#我们身边的并发编程" class="headerlink" title="我们身边的并发编程"></a>我们身边的并发编程</h2><hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>并发编程的真实应用场景<ul>
-<li>高性能计算 (注重任务分解): 生产者-消费者 (MPI&#x2F;OpenMP)</li>
-<li>数据中心 (注重系统调用): 线程-协程 (Goroutine)</li>
-<li>人机交互 (注重易用性): 事件-流图 (Promise)</li>
 </ul>
 </li>
 </ul>

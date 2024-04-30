@@ -149,6 +149,186 @@
     
     
     <article
+  id="post-Course/CMU 15-445/【CMU 15-445】12 查询处理 I"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/14/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9112%20%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%20I/"
+    >【CMU 15-445】12 查询处理 I</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/14/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9112%20%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%20I/" class="article-date">
+  <time datetime="2024-03-13T16:00:00.000Z" itemprop="datePublished">2024-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/12-queryexecution1.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/12-queryexecution1.pdf">Notes</a></p>
+<h2 id="1-查询计划-Query-Plan"><a href="#1-查询计划-Query-Plan" class="headerlink" title="1. 查询计划 Query Plan"></a>1. 查询计划 Query Plan</h2><p>DBMS将SQL语句转换为查询计划。operators 排列成一棵树。数据从树叶流向根部。树中根节点的输出是查询的结果。通常，operators 是二元的(1-2个子运算符)。可以以多种方式执行相同的查询计划。大多数DBMS都希望尽可能多地使用索引扫描(一种数据访问方式)。</p>
+<h2 id="2-处理模型-Processing-Models"><a href="#2-处理模型-Processing-Models" class="headerlink" title="2. 处理模型 Processing Models"></a>2. 处理模型 Processing Models</h2><p>DBMS处理模型 定义系统如何执行查询计划。对于不同的工作负载，不同的模型具有不同的权衡。</p>
+<p>还可以实现这些模型以自上而下 top-to-bottom (最常见)或自下而上 bottom-to-top 地调用运算符。</p>
+<h3 id="Iterator-Model（迭代模型）"><a href="#Iterator-Model（迭代模型）" class="headerlink" title="Iterator Model（迭代模型）"></a>Iterator Model（迭代模型）</h3><p>这是最常见的处理模型，几乎每个(基于行的)DBMS都使用它。允许流水线操作，其中DBMS可以在检索下一个元组之前通过尽可能多的运算符处理元组。</p>
+<p>每个查询计划操作符都实现 next 函数：</p>
+<p>每次调用next时，操作符要么返回单个元组，要么返回空标记(如果没有更多的元组)。<br>运算符实现了一个循环，该循环在其子级上调用next以检索其元组，然后处理它们(即，在父级上调用next，在其子级上调用next)。<br>一些操作符会一直阻塞，直到子级发出它们的所有元组(联接、子查询、排序依据)。这些被称为管道断路器pipeline breakers。</p>
+<p>输出控制很容易使用这种方法(LIMIT)，因为一旦拥有了所需的所有元组，操作符就可以停止对其子运算符调用next。</p>
+<h3 id="Materialization-Model（物化模型）"><a href="#Materialization-Model（物化模型）" class="headerlink" title="Materialization Model（物化模型）"></a>Materialization Model（物化模型）</h3><p>每个 operator 一次处理其所有输入，然后一次发出其所有输出。operator 将其输出“物化”为单个结果。</p>
+<p>每个查询计划操作符都实现一个Output 函数：</p>
+<p>操作符一次处理其子代的所有元组。<br>此函数的返回结果是运算符将发出的所有元组。当操作符完成执行时，DBMS再也不需要返回到它来检索更多数据。<br>这种方法更适合于OLTP工作负载，因为查询一次通常只访问少量的元组。因此，检索元组的函数调用较少。不适合具有大型中间结果的OLAP查询，因为DBMS可能不得不在操作符之间将这些结果溢出到磁盘。</p>
+<h3 id="Vectorization-Model"><a href="#Vectorization-Model" class="headerlink" title="Vectorization Model"></a>Vectorization Model</h3><p>就像迭代模型，其中每个操作符实现一个next函数。但每个运算符都会发出大量数据(即向量)，而不是单个元组：</p>
+<p>运算符实现可以针对处理批数据进行优化，而不是一次只处理一个项目。<br>此方法非常适合必须扫描大量元组的OLAP查询，因为调用next函数的次数较少。</p>
+<h2 id="3-访问方法-Access-Methods"><a href="#3-访问方法-Access-Methods" class="headerlink" title="3. 访问方法 Access Methods"></a>3. 访问方法 Access Methods</h2><p>访问方法是DBMS访问 表中存储的数据 的方式。这些将是查询计划中的底部操作符，它们将数据“feed”到树中它上面的操作符中。关系代数中没有相应的运算符。</p>
+<p>顺序扫描 Sequential Scan<br>对于表中的每一页，迭代每一页并从缓冲池中检索它。对于每个页面，迭代所有元组并计算谓词以决定是否包含元组。</p>
+<p>优化：</p>
+<ul>
+<li>预取 Prefetching：提前获取下几个页面，以便DBMS在访问每个页面时不必阻塞。</li>
+<li>并行化 Parallelization：使用多个线程&#x2F;进程并行执行扫描。</li>
+<li>缓冲池绕过 Buffer Pool Bypass：扫描操作符将其从磁盘获取的页面存储在其本地内存中，而不是缓冲池中。这避免了顺序洪泛问题。</li>
+<li>区域映射 Zone Map：预计算页面中每个元组属性的聚合。然后，DBMS可以通过首先检查其区域映射来检查它是否需要访问页面。每个页面的区域映射存储在单独的页面中，并且每个区域映射页面中通常有多个条目。因此，可以减少在顺序扫描中检查的总页数。</li>
+<li>延迟物化 Late Materialization：每个操作符传递给下一个操作符所需的最少量信息(例如，记录ID)。这仅在列存储系统(即DSM)中有用。</li>
+<li>堆聚簇 Heap Clustering：元组按照聚簇索引指定的顺序存储在堆页面中。</li>
+</ul>
+<h3 id="索引扫描-Index-Scan"><a href="#索引扫描-Index-Scan" class="headerlink" title="索引扫描 Index Scan"></a>索引扫描 Index Scan</h3><p>DBMS选择一个(或多个)索引来查找查询所需的元组。</p>
+<p>当使用多个索引时，DBMS对每个索引执行搜索并生成一组匹配的记录ID。可以使用位图、哈希表或Bloom过滤器来实现此记录ID。DBMS根据查询的谓词(UNION和INTERSECT)组合这些集合。然后，它检索记录并应用任何剩余的术语。更高级的DBMS支持多索引扫描。</p>
+<p>按元组在非聚簇索引中出现的顺序检索元组效率较低。DBMS可以首先找出它需要的所有元组，然后根据它们的页面ID对它们进行排序。</p>
+<h2 id="4-表达评估-Expression-Evaluation"><a href="#4-表达评估-Expression-Evaluation" class="headerlink" title="4. 表达评估 Expression Evaluation"></a>4. 表达评估 Expression Evaluation</h2><p>DBMS将查询计划表示为树。运算符内部将是一个表达式树。例如，filter 操作符的 WHERE 子句。</p>
+<p>树中的节点代表不同的表达式类型：</p>
+<ul>
+<li>比较(&#x3D;、&lt;、&gt;、！&#x3D;)</li>
+<li>交集(AND)、并集(OR)</li>
+<li>算术运算符(+、-、*、&#x2F;、%)</li>
+<li>常量和参数V值</li>
+<li>元组属性引用</li>
+</ul>
+<p>为了在运行时计算表达式树，DBMS维护一个上下文句柄，该句柄包含执行的元数据，如当前元组、参数和表架构。然后，DBMS遍历树以计算其操作符并生成结果。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】11 Joins 算法"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/13/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9111%20Joins%20%E7%AE%97%E6%B3%95/"
+    >【CMU 15-445】11 Joins 算法</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/13/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9111%20Joins%20%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2024-03-13T07:30:00.000Z" itemprop="datePublished">2024-03-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/11-joins.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/11-joins.pdf">Notes</a></p>
+<h2 id="1-Joins-连接"><a href="#1-Joins-连接" class="headerlink" title="1. Joins 连接"></a>1. Joins 连接</h2><p>好的数据库设计的目标是将信息重复量降至最低。这就是我们基于规范化理论编写表的原因。因此，重建原始表需要连接。</p>
+<h3 id="Operator-Output"><a href="#Operator-Output" class="headerlink" title="Operator Output"></a>Operator Output</h3><p>对于在联接属性上匹配的元组 r∈R 和元组 s∈S ，联接运算符会将 r 和 s 连接到一个新的输出元组中。</p>
+<p>实际上，连接操作符生成的输出元组的内容各不相同。它取决于DBMS的处理模型、存储模型和查询本身：</p>
+<ul>
+<li>数据：将外部表和内部表中属性的值复制到元组中，并将其放入仅用于该操作符的中间结果表中。这种方法的优点是，查询计划中的未来运算符永远不需要返回到基表来获取更多数据。缺点是这需要更多的内存来物化整个元组。</li>
+<li>记录ID：DBMS只复制连接 key 和匹配元组的记录ID。这种方法非常适合列存储，因为DBMS不会复制查询不需要的数据。这就是所谓的后期物化。</li>
+</ul>
+<h3 id="Cost-分析"><a href="#Cost-分析" class="headerlink" title="Cost 分析"></a>Cost 分析</h3><p>我们将用来分析不同联接算法的 cost 指标将是用于计算 joins 的磁盘I&#x2F;O数量。这包括从磁盘读取数据以及将中间数据写出磁盘所引起的I&#x2F;O。</p>
+<p>本课程使用的变量：表 R 中有 M 个页面，M 个元组；表 S 中 N 个页面，N 个元组。</p>
+<h2 id="2-Nested-Loop-Join-嵌套循环连接"><a href="#2-Nested-Loop-Join-嵌套循环连接" class="headerlink" title="2. Nested Loop Join 嵌套循环连接"></a>2. Nested Loop Join 嵌套循环连接</h2><p>在high-level 上，这种类型的联接算法由两个嵌套的for循环组成，这两个循环迭代两个表中的元组并比较每个唯一的元组。如果元组与连接谓词匹配，则输出它们。外部for循环中的表称为外部表，而内部for循环中的表称为内表。</p>
+<p>DBMS总是希望使用“较小”的表作为外部表。较小的可以是元组的数量或页面的数量。DBMS还希望在内存中缓冲尽可能多的外部表。如果可能，利用索引在内部表中查找匹配项。</p>
+<h3 id="Simple-Nested-Loop-Join"><a href="#Simple-Nested-Loop-Join" class="headerlink" title="Simple Nested Loop Join"></a>Simple Nested Loop Join</h3><p>对于外部表中的每个元组，将其与内表中的每个元组进行比较。这是最糟糕的情况，假设每个元组都有一个磁盘I&#x2F;O要读取(即没有缓存或访问局部性)。Cost：M+(m×N)</p>
+<h3 id="Block-Nested-Loop-Join"><a href="#Block-Nested-Loop-Join" class="headerlink" title="Block Nested Loop Join"></a>Block Nested Loop Join</h3><p>对于外部表中的每个块，从内表中获取每个块，并比较这两个块中的所有元组。该算法执行的磁盘访问较少，因为我们针对每个外部表块而不是每个元组扫描内部表。Cost：M+(M×N)</p>
+<p>如果DBMS具有可用于计算联接的B个缓冲区，则它可以使用B−2个缓冲区来扫描外部表。它将使用1个缓冲区来保存来自内部表的一个块，并使用1个缓冲区来存储连接的输出。</p>
+<h3 id="Index-Nested-Loop-Join"><a href="#Index-Nested-Loop-Join" class="headerlink" title="Index Nested Loop Join"></a>Index Nested Loop Join</h3><p>以前的嵌套循环连接算法执行得很差，因为DBMS必须执行顺序扫描来检查内表中的匹配。但是，如果数据库已经为连接键上的一个表建立了索引，则可以使用该索引来加快比较速度。外层的表将是没有索引的表。内表将是带有索引的表。</p>
+<p>假设每个索引探测器的成本是每个元组的某个常量值C。成本：M+(m×C)</p>
+<h2 id="3-Sort-Merge-Join"><a href="#3-Sort-Merge-Join" class="headerlink" title="3. Sort-Merge Join"></a>3. Sort-Merge Join</h2><p>High-level是根据这两个表的 join key 对它们进行排序。然后对已排序的表执行顺序扫描，以计算联接。如果一个或两个表已按联接属性排序，则此算法非常有用。</p>
+<p>此算法的最坏情况是两个表中所有元组的联接属性包含相同的值。这在真实的数据库中不太可能发生。</p>
+<ul>
+<li>阶段1-排序：首先根据连接属性对两个输入表进行排序。</li>
+<li>阶段2-合并：并行扫描两个已排序的表，并发出匹配的元组。</li>
+</ul>
+<p>假设DBMS有B个缓冲区可用于该算法：</p>
+<h2 id="4-Hash-Join"><a href="#4-Hash-Join" class="headerlink" title="4. Hash Join"></a>4. Hash Join</h2><p>哈希联接算法的high-level思想是使用哈希表根据它们的联接属性将元组分割成更小的块。这减少了DBMS计算联接时每个元组需要执行的比较次数。哈希联接只能用于完整联接键上的等联接 equi-joins。</p>
+<p>如果元组 r∈R 和元组 s∈S 满足联接条件，则它们的联接属性值相同。如果该值被hash为某个值i，则R元组必须在桶 ri 中，而S元组必须在桶 si 中。因此，只需要将桶 ri 中的R个元组与桶 si 中的S个元组进行比较。</p>
+<h3 id="Basic-Hash-Join"><a href="#Basic-Hash-Join" class="headerlink" title="Basic Hash Join"></a>Basic Hash Join</h3><ul>
+<li>阶段1-Build：扫描外部关系并使用连接属性上的hash函数 h1 填充hash表。哈希表中的key 是联接属性。该值取决于实施情况。</li>
+<li>阶段2-Probe：扫描内部关系，对每个元组使用哈希函数 h1，跳到哈希表中的某个位置，找到匹配的元组。由于哈希表中可能存在冲突，因此DBMS将需要检查联接属性的原始值，以确定元组是否真正匹配。<br>如果DBMS知道外部表的大小，则联接可以使用静态哈希表。如果它不知道大小，则联接必须使用动态哈希表或允许溢出页面。</li>
+</ul>
+<h3 id="Grace-Hash-Join-Hybrid-Hash-Join-Grace哈希连接-混合哈希连接"><a href="#Grace-Hash-Join-Hybrid-Hash-Join-Grace哈希连接-混合哈希连接" class="headerlink" title="Grace Hash Join &#x2F; Hybrid Hash Join (Grace哈希连接&#x2F;混合哈希连接)"></a>Grace Hash Join &#x2F; Hybrid Hash Join (Grace哈希连接&#x2F;混合哈希连接)</h3><p>当表不能放入主内存时，您不希望缓冲池管理器不断地调入和调出表。Grace Hash Join是基本Hash Join的扩展，它还将内部表 hash 到写到磁盘的分区中。Grace 这个名字来自20世纪80年代在日本开发的格蕾丝数据库机器。</p>
+<ul>
+<li>阶段＃1-构建：扫描外部表和内部表，并使用连接属性上的哈希函数 h1 填充哈希表。散列表的桶根据需要写入磁盘。如果单个桶不适合内存，则用户使用第二个散列函数h2（其中h1！&#x3D;h2）进行分区以进一步划分该桶。</li>
+<li>阶段＃2-探测：对于每个桶级，检索外部和内部表的相应页面。然后在这两页中对元组执行嵌套循环连接。页面将适合内存，因此此加入操作将很快。<br>分区阶段Cost：2×(M+N) —— 两次：从磁盘中读数据 和将数据写出到磁盘</li>
+</ul>
+<p>探测阶段Cost：(M+N)</p>
+<p>总Cost：3×(M+N)</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-Course/NJU OS/【NJU OS】02 操作系统上的程序"
   class="article article-type-post"
   itemscope
@@ -893,201 +1073,6 @@
 <li>遍历时需要去buffer pool管理器，让其将page id转换为指针，这样的开销太大</li>
 <li>保存page id时⽤page指针来替换，写出到磁盘时再将page指针换成page id</li>
 <li>指针重排是将基于名称或位置的引用转换为直接指针引用（内存地址）</li>
-</ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-Course/CMU 15-445/【CMU 15-445】Project 01 Buffer Pool Manager"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/03/08/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%91Project%2001%20Buffer%20Pool%20Manager/"
-    >【CMU 15-445】Project 01 Buffer Pool Manager</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/03/08/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%91Project%2001%20Buffer%20Pool%20Manager/" class="article-date">
-  <time datetime="2024-03-07T16:00:00.000Z" itemprop="datePublished">2024-03-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><img src="/../../../images/CMU%2015-445.png"></p>
-<p>虽然看的课是Fall 2019的课，但由于Fall 2019的GradeScope打分已停止，这里做的是<a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2023/assignments.html"> Fall 2023 </a>的项目。</p>
-<p>由于迟先生的加入，从Fall 2022开始，CMU 15-445的Project有了较大的改版，难度也提升了。</p>
-<h2 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1. 环境搭建"></a>1. 环境搭建</h2><ul>
-<li>Windows11+WSL2+Ubantu 22.04</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/cmu-db/bustub.git">bustub</a> (2023 Fall)</li>
-<li>VScode + Clang + CMake</li>
-</ul>
-<h2 id="2-实现"><a href="#2-实现" class="headerlink" title="2. 实现"></a>2. 实现</h2> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Project/" rel="tag">Project</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-Course/CMU 15-445/【CMU 15-445】06 哈希表"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/03/07/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9106%20%E5%93%88%E5%B8%8C%E8%A1%A8/"
-    >【CMU 15-445】06 哈希表</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/03/07/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9106%20%E5%93%88%E5%B8%8C%E8%A1%A8/" class="article-date">
-  <time datetime="2024-03-06T16:00:00.000Z" itemprop="datePublished">2024-03-07</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><img src="/../../../images/CMU%2015-445.png"></p>
-<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/06-hashtables.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/06-hashtables.pdf">Notes</a></p>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>大部分内容就是数据结构中哈希表的内容，结合数据结构和数据库的实现好理解很多。</p>
-<h2 id="1-数据结构"><a href="#1-数据结构" class="headerlink" title="1. 数据结构"></a>1. 数据结构</h2><p>DBMS对系统内部的许多不同部分使用各种数据结构：</p>
-<ul>
-<li>Internal Meta-Data（内部元数据）：跟踪有关数据库和系统状态的信息。</li>
-<li>Core Data Storage （核心数据存储）：可用作数据库中元组的基本存储。</li>
-<li>Temporary Data Structures（临时数据结构）：DBMS可以在处理查询时动态构建数据结构，以加快执行速度(例如，用于 joins 的哈希表)。</li>
-<li>Table Indexes（表索引）：辅助数据结构，使查找特定元组更容易。</li>
-</ul>
-<p>设计决策：</p>
-<ul>
-<li>数据组织：我们如何布局内存以及在数据结构中存储哪些信息。</li>
-<li>并发性：如何让多线程不出问题地访问数据结构。</li>
-</ul>
-<h2 id="2-哈希表"><a href="#2-哈希表" class="headerlink" title="2. 哈希表"></a>2. 哈希表</h2><p>哈希表实现了将 key 映射到 value 的关联数组抽象数据类型。它提供了平均O(1)的计算复杂度（时间）和O(n)的存储复杂度（空间）。</p>
-<p>哈希表实现由两部分组成：</p>
-<ul>
-<li>哈希函数：如何将大的密钥空间映射到较小的域中。它用于计算存储桶或槽数组的索引。需要考虑快速执行和冲突率之间的权衡。</li>
-<li>哈希方案：如何处理散列后的密钥冲突。需要考虑分配大型哈希表以减少冲突与执行额外指令以查找&#x2F;插入键之间的权衡。</li>
-</ul>
-<h2 id="3-哈希函数"><a href="#3-哈希函数" class="headerlink" title="3. 哈希函数"></a>3. 哈希函数</h2><p>哈希函数接受任何 key 作为其输入。然后，它返回该 key 的整数表示(即,“hash”)。函数的输出是确定性的(即，相同的键应该始终生成相同的散列输出)。</p>
-<p>DBMS不想使用密码散列函数(例如，SHA-256)，因为我们不需要担心保护密钥的内容。这些散列函数主要由DBMS内部使用，因此信息不会泄漏到系统之外。对于本课，我们只关心散列函数的速度和冲突率。目前最先进的散列函数是Facebook XXHash3。</p>
-<blockquote>
-<p>Tips1:</p>
-<p>加密常见Hash:</p>
-<ul>
-<li>SHA-256</li>
-<li>MD5(2004年被山大王小云老师破解)</li>
-</ul>
-<p>数据库常见Hash：</p>
-<ul>
-<li>CRC-64(1975)</li>
-<li>MurmurHash(2008)</li>
-<li>Google CityHash(2011)</li>
-<li>Facebook XXHash(2012)</li>
-<li>Google FarmHash(2014)</li>
-</ul>
-</blockquote>
-<blockquote>
-<p>Tips2:</p>
-<p>不要自己写哈希，浪费时间，直接拿来用</p>
-</blockquote>
-<h2 id="4-静态（Static）哈希方案"><a href="#4-静态（Static）哈希方案" class="headerlink" title="4. 静态（Static）哈希方案"></a>4. 静态（Static）哈希方案</h2><p>静态哈希方案是其中哈希表的大小是固定的方案。这意味着如果DBMS耗尽了哈希表中的存储空间，则它必须使用更大的表从头开始重建它。通常，新哈希表的大小是原始哈希表的2倍。（我们已知哈希表的大小，且不动态增长。）</p>
-<p>为了减少浪费比较的次数，重要的是要避免碰撞×散列key。这需要具有两倍于预期元素数量的段数的哈希表。</p>
-<h3 id="4-1-Linear-Probe-Hashing"><a href="#4-1-Linear-Probe-Hashing" class="headerlink" title="4.1. Linear Probe Hashing"></a>4.1. Linear Probe Hashing</h3><p>线性探针哈希，这是最基本的 hashing 方案。它通常也是最快的。它使用单一的槽表。哈希函数允许DBMS快速跳转到 slots 并查找所需的 key 。（其实就是开放地址法）</p>
-<ul>
-<li>通过线性搜索表中的下一个空闲插槽来解决冲突；</li>
-<li>要查看值是否存在，请使用散列转到 slot ，并扫描 key 。如果找到所需的 key 或遇到空 slot ，扫描将停止。<blockquote>
-<p>删除时添加⼀个tombstone(墓碑)标记</p>
-</blockquote>
-</li>
-</ul>
-<h3 id="4-2-Robin-Hood-Hashing"><a href="#4-2-Robin-Hood-Hashing" class="headerlink" title="4.2. Robin Hood Hashing"></a>4.2. Robin Hood Hashing</h3><p>这是线性探测散列的扩展，它寻求减少每个 key 从它们在哈希表中的最佳位置的最大距离。允许线程从“rich”keys 中窃取slot，并将它们分配给“poor”keys。</p>
-<ul>
-<li>每个 key 跟踪它们在表中从其最佳位置开始的位置的数量。</li>
-<li>插入时，如果第一个 key 比第二个 key 离其最佳位置的距离更远，则一个 key 将占据另一个 key 的槽。然后，必须将删除的 key 重新插入到表中。</li>
-</ul>
-<h3 id="4-3-Cuckoo-Hashing"><a href="#4-3-Cuckoo-Hashing" class="headerlink" title="4.3. Cuckoo Hashing"></a>4.3. Cuckoo Hashing</h3><p>这种方法不是使用单个哈希表，而是使用不同的哈希函数维护多个哈希表。哈希函数是相同的算法(例如，XXHash、CityHash)；它们通过使用不同的 seeds 为相同的 key 生成不同的哈希。</p>
-<ul>
-<li>在插入时，检查每一张表，并挑选任何有空位的 slot 。</li>
-<li>如果没有表有空闲的 slot ，则从其中一个表中取出元素，并对其进行重新 hash 以找到新的位置。</li>
-<li>如果我们找到一个循环，那么我们可以用新的hash函数 seeds 重建所有hash表(不太常见)，或者使用更大的表重建hash表(更常见)。</li>
-</ul>
-<h2 id="5-动态（Dynamic）哈希方案"><a href="#5-动态（Dynamic）哈希方案" class="headerlink" title="5. 动态（Dynamic）哈希方案"></a>5. 动态（Dynamic）哈希方案</h2><p>静态散列方案要求DBMS知道它想要存储的元素的数量n。否则，如果需要增大&#x2F;缩小大小，它将重新构建该表。</p>
-<p>动态哈希方案能够按需调整哈希表的大小，而无需重新构建整个表。这些方案以不同的方式执行调整大小的操作，这些方式可以最大化读取或写入。</p>
-<h3 id="5-1-链式哈希-Chained-Hashing"><a href="#5-1-链式哈希-Chained-Hashing" class="headerlink" title="5.1. 链式哈希 Chained Hashing"></a>5.1. 链式哈希 Chained Hashing</h3><p>这是最常见的动态散列方案。DBMS为哈希表中的每个 slot 维护 桶buckets 的链接列表。</p>
-<ul>
-<li>通过将具有相同hash key 的元素放入同一 buckets 来解决冲突。</li>
-<li>如果 buckets 已满，则向链中添加另一个buckets 。哈希表可以无限增长，因为DBMS不断添加新的 buckets 。</li>
-</ul>
-<h3 id="5-2-可扩展哈希-Extendible-Hashing"><a href="#5-2-可扩展哈希-Extendible-Hashing" class="headerlink" title="5.2. 可扩展哈希 Extendible Hashing"></a>5.2. 可扩展哈希 Extendible Hashing</h3><p>链式散列的改进变体，它拆分 buckets ，而不是让链永远增长。该方法允许哈希表中的多个槽位置指向相同的桶链。</p>
-<p>重新平衡哈希表背后的核心思想是在拆分时移动 buckets 条目，并增加要检查以在哈希表中查找条目的 bits 数。这意味着DBMS只需在拆分链的 buckets 内移动数据；所有其他 buckets 保持不变。</p>
-<ul>
-<li>DBMS维护全局和局部深度 bit 计数，以确定在槽数组中查找桶所需的 bit 数。</li>
-<li>当 buckets 满时，DBMS拆分 buckets 并重新洗牌其元素。如果拆分 buckets 的局部深度小于全局深度，则新buckets 只是添加到现有槽数组中。否则，DBMS会将槽数组的大小增加一倍以容纳新的 buckets ，并递增全局深度计数器。</li>
-</ul>
-<h3 id="5-3-线性哈希-Linear-Hashing"><a href="#5-3-线性哈希-Linear-Hashing" class="headerlink" title="5.3. 线性哈希 Linear Hashing"></a>5.3. 线性哈希 Linear Hashing</h3><p>该方案不是在桶溢出时立即拆分桶，而是维护一个拆分指针来跟踪下一个要拆分的桶。无论该指针是否指向溢出的桶，DBMS总是拆分。溢出标准由实现决定。</p>
-<ul>
-<li>当任何桶溢出时，通过添加新的槽条目在指针位置拆分桶，并创建新的散列函数。</li>
-<li>如果散列函数映射到先前由指针指向的槽，则应用新的散列函数。</li>
-<li>当指针到达最后一个槽时，删除原有的散列函数，代之以新的散列函数。</li>
 </ul>
  
       <!-- reward -->
