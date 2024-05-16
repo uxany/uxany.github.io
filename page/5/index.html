@@ -149,6 +149,118 @@
     
     
     <article
+  id="post-Coding/LeetCode/【LeetCode】142. 接雨水"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/02/29/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91142.%20%E6%8E%A5%E9%9B%A8%E6%B0%B4/"
+    >【LeetCode】142. 接雨水</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/02/29/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91142.%20%E6%8E%A5%E9%9B%A8%E6%B0%B4/" class="article-date">
+  <time datetime="2024-02-29T09:30:00.000Z" itemprop="datePublished">2024-02-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Coding/">Coding</a> / <a class="article-category-link" href="/categories/Coding/LeetCode/">LeetCode</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="方法一：动态规划"><a href="#方法一：动态规划" class="headerlink" title="方法一：动态规划"></a>方法一：动态规划</h1><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">trap</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = height.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">leftMax</span><span class="params">(n)</span></span>;</span><br><span class="line">        leftMax[<span class="number">0</span>] = height[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            leftMax[i] = <span class="built_in">max</span>(leftMax[i - <span class="number">1</span>], height[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">rightMax</span><span class="params">(n)</span></span>;</span><br><span class="line">        rightMax[n - <span class="number">1</span>] = height[n - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">2</span>; i &gt;= <span class="number">0</span>; --i) &#123;</span><br><span class="line">            rightMax[i] = <span class="built_in">max</span>(rightMax[i + <span class="number">1</span>], height[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            ans += <span class="built_in">min</span>(leftMax[i], rightMax[i]) - height[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="方法二：单调栈"><a href="#方法二：单调栈" class="headerlink" title="方法二：单调栈"></a>方法二：单调栈</h1><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">trap</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        stack&lt;<span class="type">int</span>&gt; stk;</span><br><span class="line">        <span class="type">int</span> n = height.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">            <span class="keyword">while</span> (!stk.<span class="built_in">empty</span>() &amp;&amp; height[i] &gt; height[stk.<span class="built_in">top</span>()]) &#123;</span><br><span class="line">                <span class="type">int</span> top = stk.<span class="built_in">top</span>();</span><br><span class="line">                stk.<span class="built_in">pop</span>();</span><br><span class="line">                <span class="keyword">if</span> (stk.<span class="built_in">empty</span>()) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="type">int</span> left = stk.<span class="built_in">top</span>();</span><br><span class="line">                <span class="type">int</span> currWidth = i - left - <span class="number">1</span>;</span><br><span class="line">                <span class="type">int</span> currHeight = <span class="built_in">min</span>(height[left], height[i]) - height[top];</span><br><span class="line">                ans += currWidth * currHeight;</span><br><span class="line">            &#125;</span><br><span class="line">            stk.<span class="built_in">push</span>(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="方法三：双指针"><a href="#方法三：双指针" class="headerlink" title="方法三：双指针"></a>方法三：双指针</h1><h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">trap</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; height)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = height.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> left = <span class="number">0</span>, right = n - <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> leftMax = <span class="number">0</span>, rightMax = <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> ans = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="keyword">if</span> (height[left] &lt;= height[right]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (height[left] &gt; leftMax) &#123;</span><br><span class="line">                    leftMax = height[left];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    ans += leftMax - height[left];</span><br><span class="line">                &#125;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (height[right] &gt; rightMax) &#123;</span><br><span class="line">                    rightMax = height[right];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    ans += rightMax - height[right];</span><br><span class="line">                &#125;</span><br><span class="line">                right--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%8C%E6%8C%87%E9%92%88/" rel="tag">双指针</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%B0%E9%9A%BE/" rel="tag">困难</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A0%88/" rel="tag">栈</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Coding/LeetCode/【LeetCode】135. 分发糖果"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/02/29/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91135.%20%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/"
+    >【LeetCode】135. 分发糖果</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/02/29/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91135.%20%E5%88%86%E5%8F%91%E7%B3%96%E6%9E%9C/" class="article-date">
+  <time datetime="2024-02-29T09:00:00.000Z" itemprop="datePublished">2024-02-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Coding/">Coding</a> / <a class="article-category-link" href="/categories/Coding/LeetCode/">LeetCode</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>左右各遍历一次，每个人最终分得的糖果数量即为这两个数量的最大值。</p>
+<p>省内存与时间的技巧：计算出左规则 left 数组，在计算右规则的时候只需要用单个变量记录当前位置的右规则，同时计算答案即可。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">candy</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; ratings)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n = ratings.<span class="built_in">size</span>();</span><br><span class="line">        <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">left</span><span class="params">(n)</span></span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; ratings[i] &gt; ratings[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                left[i] = left[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                left[i] = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> right = <span class="number">0</span>, ret = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; n - <span class="number">1</span> &amp;&amp; ratings[i] &gt; ratings[i + <span class="number">1</span>]) &#123;</span><br><span class="line">                right++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                right = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ret += <span class="built_in">max</span>(left[i], right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%9B%B0%E9%9A%BE/" rel="tag">困难</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag">贪心</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-Coding/LeetCode/【LeetCode】134. 加油站"
   class="article article-type-post"
   itemscope
@@ -615,127 +727,6 @@
 </article>
 
     
-    <article
-  id="post-Course/CMU 15-445/【CMU 15-445】01 关系模型"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/01/10/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9101%20%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B/"
-    >【CMU 15-445】01 关系模型</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/01/10/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9101%20%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%9E%8B/" class="article-date">
-  <time datetime="2024-01-09T16:00:02.000Z" itemprop="datePublished">2024-01-10</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><img src="/../../../images/CMU%2015-445.png"></p>
-<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/01-introduction.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/01-introduction.pdf">Notes</a></p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-Course/CMU 15-445/【CMU 15-445】00 课程简介"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/01/10/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9100%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/"
-    >【CMU 15-445】00 课程简介</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/01/10/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9100%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="article-date">
-  <time datetime="2024-01-09T16:00:01.000Z" itemprop="datePublished">2024-01-10</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><img src="/../../../images/CMU%2015-445.png"></p>
-<h2 id="【COURSE-INFORMATION】"><a href="#【COURSE-INFORMATION】" class="headerlink" title="【COURSE INFORMATION】"></a>【COURSE INFORMATION】</h2><blockquote>
-<p>This course is on the design and implementation of database management systems. Topics include data models (relational, document, key&#x2F;value), storage models (n-ary, decomposition), query languages (SQL, stored procedures), storage architectures (heaps, log-structured), indexing (order preserving trees, hash tables), transaction processing (ACID, concurrency control), recovery (logging, checkpoints), query processing (joins, sorting, aggregation, optimization), and parallel architectures (multi-core, distributed). Case studies on open-source and commercial database systems are used to illustrate these techniques and trade-offs. The course is appropriate for students with lit systems programming skills.</p>
-</blockquote>
-<p>本课程是关于数据库管理系统的设计和实现。主题包括数据模型（关系、文档、键&#x2F;值）、存储模型（n元、分解）、查询语言（SQL、存储过程）、存储架构（堆、日志结构）、索引（保序树、哈希）表）、事务处理（ACID、并发控制）、恢复（日志记录、检查点）、查询处理（连接、排序、聚合、优化）和并行架构（多核、分布式）。开源和商业数据库系统的案例研究用于说明这些技术和权衡。该课程适合具有计算机系统编程技能的学生。</p>
-<h2 id="【INSTRUCTOR】"><a href="#【INSTRUCTOR】" class="headerlink" title="【INSTRUCTOR】"></a>【INSTRUCTOR】</h2><p><a target="_blank" rel="noopener" href="https://www.cs.cmu.edu/~pavlo/">Andy Pavlo</a></p>
-<h2 id="【HOME-PAGE】"><a href="#【HOME-PAGE】" class="headerlink" title="【HOME PAGE】"></a>【HOME PAGE】</h2><p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/">CMU 15-445&#x2F;645 (Fall 2019)</a></p>
-<h2 id="【REPOSITORY】"><a href="#【REPOSITORY】" class="headerlink" title="【REPOSITORY】"></a>【REPOSITORY】</h2><p><a target="_blank" rel="noopener" href="https://github.com/cmu-db/bustub">BusTub</a></p>
-<h2 id="【中文参考资料】"><a href="#【中文参考资料】" class="headerlink" title="【中文参考资料】"></a>【中文参考资料】</h2><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/570917775">BusTub 养成记：从课程项目到 SQL 数据库 by 迟策</a></p>
-<p><a target="_blank" rel="noopener" href="https://csdiy.wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F/15445/">课程介绍 by Yinmin Zhong</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.simtoco.com/#/albums?id=1000013">Fall 2019 Video 中文翻译 by simviso</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/chi-ru-gao-huang/posts">Fall 2019 Notes (Lecture 3-12) 中文翻译 by 痴入膏肓</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.inlighting.org/archives/cmu-15-445-notes">2021 CMU 15-445 实验笔记 by 沧海月明</a></p>
-<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/479038960/channel/collectiondetail?sid=888069">2021 CMU 15445 数据库系统 实验精讲 by 郭郭wg</a></p>
-<h2 id="【Tips】"><a href="#【Tips】" class="headerlink" title="【Tips】"></a>【Tips】</h2><p>课程已更新到Spring 2024，但由于Fall 2019有比较齐全的中文资源（人工校对视频+字幕文件）以及丰富的课程学习经验贴，仍选用Fall 2019的课程学习。不过19年的GradeScope已经关了，做Project需要选择最近两年的课程。</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
   </article>
   
 
@@ -1087,7 +1078,7 @@
     
     
     <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
-        src="//music.163.com/outchain/player?type=2&id=22707008&auto=1&height=32"></iframe>
+        src="//music.163.com/outchain/player?type=2&id=411259022&auto=1&height=32"></iframe>
 </div>
 
 <style>
