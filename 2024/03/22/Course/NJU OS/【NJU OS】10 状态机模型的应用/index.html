@@ -84,7 +84,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">0</span>
+            <span class="post-count">210</span>
         </span>
     </span>
 
@@ -100,13 +100,49 @@
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-   
+  <h3 id="状态机模型：理解编译器和现代-CPU"><a href="#状态机模型：理解编译器和现代-CPU" class="headerlink" title="状态机模型：理解编译器和现代 CPU"></a>状态机模型：理解编译器和现代 CPU</h3><p>编译器：源代码 S (状态机) → 二进制代码 C (状态机)</p>
+<p>C&#x3D;compile(S)</p>
+<p>编译 (优化) 的正确性 (Soundness):</p>
+<ul>
+<li>S 与 C 的可观测行为严格一致<ul>
+<li>system calls; volatile variable loads&#x2F;stores; termination</li>
+</ul>
+</li>
+</ul>
+<p>超标量 (superscalar)&#x2F;乱序执行处理器</p>
+<ul>
+<li>允许在状态机上 “跳跃”</li>
+<li>ilp-demo.c</li>
+</ul>
+<h2 id="查看状态机执行"><a href="#查看状态机执行" class="headerlink" title="查看状态机执行"></a>查看状态机执行</h2><h3 id="Trace-和调试器"><a href="#Trace-和调试器" class="headerlink" title="Trace 和调试器"></a>Trace 和调试器</h3><p>程序执行 &#x3D; 状态机执行</p>
+<ul>
+<li>我们能不能 “hack” 进这个状态机<ul>
+<li>观察状态机的执行<ul>
+<li>strace&#x2F;gdb</li>
+</ul>
+</li>
+<li>甚至记录和改变状态机的执行</li>
+</ul>
+</li>
+</ul>
+<h3 id="应用-1-Time-Travel-Debugging"><a href="#应用-1-Time-Travel-Debugging" class="headerlink" title="应用 (1): Time-Travel Debugging"></a>应用 (1): Time-Travel Debugging</h3><h3 id="应用-2-Record-Replay"><a href="#应用-2-Record-Replay" class="headerlink" title="应用 (2): Record &amp; Replay"></a>应用 (2): Record &amp; Replay</h3><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>编程 (状态机) 就是全世界</li>
+<li>状态机可以帮我们<ul>
+<li>建立物理世界的公理体系</li>
+<li>理解调试器、Trace, profiler</li>
+<li>自动分析程序的执行 (model checker)</li>
+</ul>
+</li>
+</ul>
+ 
       <!-- reward -->
       
     </div>

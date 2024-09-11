@@ -149,6 +149,66 @@
     
     
     <article
+  id="post-Coding/LeetCode/【LeetCode】289. 生命游戏"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/04/03/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91289.%20%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/"
+    >【LeetCode】289. 生命游戏</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/04/03/Coding/LeetCode/%E3%80%90LeetCode%E3%80%91289.%20%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F/" class="article-date">
+  <time datetime="2024-04-03T08:00:00.000Z" itemprop="datePublished">2024-04-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Coding/">Coding</a> / <a class="article-category-link" href="/categories/Coding/LeetCode/">LeetCode</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>使用额外的状态标识现在、以前的状态，才能达到O(1)的空间复杂度。</p>
+<p>【模板写法】遍历周围的格子：</p>
+<ul>
+<li>定义一个邻居数组</li>
+<li>遍历邻居数组，得到周围的格子</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">gameOfLife</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt;&amp; board)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> neighbors[<span class="number">3</span>] = &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">-1</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> rows = board.<span class="built_in">size</span>();</span><br><span class="line">        <span class="type">int</span> cols = board[<span class="number">0</span>].<span class="built_in">size</span>();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历面板每一个格子里的细胞</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> row = <span class="number">0</span>; row &lt; rows; row++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> col = <span class="number">0</span>; col &lt; cols; col++) &#123;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 对于每一个细胞统计其八个相邻位置里的活细胞数量</span></span><br><span class="line">                <span class="type">int</span> liveNeighbors = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">3</span>; j++) &#123;</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">if</span> (!(neighbors[i] == <span class="number">0</span> &amp;&amp; neighbors[j] == <span class="number">0</span>)) &#123;</span><br><span class="line">                            <span class="comment">// 相邻位置的坐标</span></span><br><span class="line">                            <span class="type">int</span> r = (row + neighbors[i]);</span><br><span class="line">                            <span class="type">int</span> c = (col + neighbors[j]);</span><br><span class="line"></span><br><span class="line">                            <span class="comment">// 查看相邻的细胞是否是活细胞</span></span><br><span class="line">                            <span class="keyword">if</span> ((r &lt; rows &amp;&amp; r &gt;= <span class="number">0</span>) &amp;&amp; (c &lt; cols &amp;&amp; c &gt;= <span class="number">0</span>) &amp;&amp; (<span class="built_in">abs</span>(board[r][c]) == <span class="number">1</span>)) &#123;</span><br><span class="line">                                liveNeighbors += <span class="number">1</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 规则 1 或规则 3 </span></span><br><span class="line">                <span class="keyword">if</span> ((board[row][col] == <span class="number">1</span>) &amp;&amp; (liveNeighbors &lt; <span class="number">2</span> || liveNeighbors &gt; <span class="number">3</span>)) &#123;</span><br><span class="line">                    <span class="comment">// -1 代表这个细胞过去是活的现在死了</span></span><br><span class="line">                    board[row][col] = <span class="number">-1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 规则 4</span></span><br><span class="line">                <span class="keyword">if</span> (board[row][col] == <span class="number">0</span> &amp;&amp; liveNeighbors == <span class="number">3</span>) &#123;</span><br><span class="line">                    <span class="comment">// 2 代表这个细胞过去是死的现在活了</span></span><br><span class="line">                    board[row][col] = <span class="number">2</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历 board 得到一次更新后的状态</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> row = <span class="number">0</span>; row &lt; rows; row++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> col = <span class="number">0</span>; col &lt; cols; col++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (board[row][col] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                    board[row][col] = <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    board[row][col] = <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag">中等</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%A8%A1%E6%8B%9F/" rel="tag">模拟</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%9F%A9%E9%98%B5/" rel="tag">矩阵</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
   id="post-Course/NJU OS/【NJU OS】10 状态机模型的应用"
   class="article article-type-post"
   itemscope
@@ -180,7 +240,41 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-   
+  <h3 id="状态机模型：理解编译器和现代-CPU"><a href="#状态机模型：理解编译器和现代-CPU" class="headerlink" title="状态机模型：理解编译器和现代 CPU"></a>状态机模型：理解编译器和现代 CPU</h3><p>编译器：源代码 S (状态机) → 二进制代码 C (状态机)</p>
+<p>C&#x3D;compile(S)</p>
+<p>编译 (优化) 的正确性 (Soundness):</p>
+<ul>
+<li>S 与 C 的可观测行为严格一致<ul>
+<li>system calls; volatile variable loads&#x2F;stores; termination</li>
+</ul>
+</li>
+</ul>
+<p>超标量 (superscalar)&#x2F;乱序执行处理器</p>
+<ul>
+<li>允许在状态机上 “跳跃”</li>
+<li>ilp-demo.c</li>
+</ul>
+<h2 id="查看状态机执行"><a href="#查看状态机执行" class="headerlink" title="查看状态机执行"></a>查看状态机执行</h2><h3 id="Trace-和调试器"><a href="#Trace-和调试器" class="headerlink" title="Trace 和调试器"></a>Trace 和调试器</h3><p>程序执行 &#x3D; 状态机执行</p>
+<ul>
+<li>我们能不能 “hack” 进这个状态机<ul>
+<li>观察状态机的执行<ul>
+<li>strace&#x2F;gdb</li>
+</ul>
+</li>
+<li>甚至记录和改变状态机的执行</li>
+</ul>
+</li>
+</ul>
+<h3 id="应用-1-Time-Travel-Debugging"><a href="#应用-1-Time-Travel-Debugging" class="headerlink" title="应用 (1): Time-Travel Debugging"></a>应用 (1): Time-Travel Debugging</h3><h3 id="应用-2-Record-Replay"><a href="#应用-2-Record-Replay" class="headerlink" title="应用 (2): Record &amp; Replay"></a>应用 (2): Record &amp; Replay</h3><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>编程 (状态机) 就是全世界</li>
+<li>状态机可以帮我们<ul>
+<li>建立物理世界的公理体系</li>
+<li>理解调试器、Trace, profiler</li>
+<li>自动分析程序的执行 (model checker)</li>
+</ul>
+</li>
+</ul>
+ 
       <!-- reward -->
       
     </div>
@@ -829,160 +923,6 @@
 <li>Job queue 可以实现几乎任何并行算法</li>
 </ul>
 </li>
-</ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
-
-    </footer>
-  </div>
-
-   
-    
-</article>
-
-    
-    <article
-  id="post-Course/NJU OS/【NJU OS】05 并发控制：互斥"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2024/03/15/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9105%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%EF%BC%9A%E4%BA%92%E6%96%A5/"
-    >【NJU OS】05 并发控制：互斥</a> 
-</h2>
- 
-
-      
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2024/03/15/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9105%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%EF%BC%9A%E4%BA%92%E6%96%A5/" class="article-date">
-  <time datetime="2024-03-15T03:30:00.000Z" itemprop="datePublished">2024-03-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="共享内存上的互斥"><a href="#共享内存上的互斥" class="headerlink" title="共享内存上的互斥"></a>共享内存上的互斥</h2><h3 id="在共享内存上实现互斥"><a href="#在共享内存上实现互斥" class="headerlink" title="在共享内存上实现互斥"></a>在共享内存上实现互斥</h3><p>实现互斥的根本困难：不能同时读&#x2F;写共享内存</p>
-<ul>
-<li>load (环顾四周) 的时候不能写，只能 “看一眼就把眼睛闭上”<ul>
-<li>看到的东西马上就过时了</li>
-</ul>
-</li>
-<li>store (改变物理世界状态) 的时候不能读，只能 “闭着眼睛动手”<ul>
-<li>也不知道把什么改成了什么</li>
-</ul>
-</li>
-</ul>
-<h2 id="自旋锁-Spin-Lock"><a href="#自旋锁-Spin-Lock" class="headerlink" title="自旋锁(Spin Lock)"></a>自旋锁(Spin Lock)</h2><h3 id="x86-原子操作：LOCK-指令前缀"><a href="#x86-原子操作：LOCK-指令前缀" class="headerlink" title="x86 原子操作：LOCK 指令前缀"></a>x86 原子操作：LOCK 指令前缀</h3><h3 id="用-xchg-实现互斥"><a href="#用-xchg-实现互斥" class="headerlink" title="用 xchg 实现互斥"></a>用 xchg 实现互斥</h3><h3 id="实现互斥：自旋锁"><a href="#实现互斥：自旋锁" class="headerlink" title="实现互斥：自旋锁"></a>实现互斥：自旋锁</h3><ul>
-<li>并发编程：千万小心<ul>
-<li>做详尽的测试 </li>
-<li>尽可能地证明 (model-checker.py 和 spinlock.py)</li>
-</ul>
-</li>
-<li>原子指令的模型<ul>
-<li>保证之前的 store 都写入内存</li>
-<li>保证 load&#x2F;store 不与原子指令乱序</li>
-</ul>
-</li>
-</ul>
-<h3 id="原子指令的诞生：Bus-Lock-80486"><a href="#原子指令的诞生：Bus-Lock-80486" class="headerlink" title="原子指令的诞生：Bus Lock (80486)"></a>原子指令的诞生：Bus Lock (80486)</h3><h3 id="Lock-指令的现代实现"><a href="#Lock-指令的现代实现" class="headerlink" title="Lock 指令的现代实现"></a>Lock 指令的现代实现</h3><p>在 L1 cache 层保持一致性 (ring&#x2F;mesh bus)</p>
-<ul>
-<li>相当于每个 cache line 有分别的锁</li>
-<li>store(x) 进入 L1 缓存即保证对其他处理器可见<ul>
-<li>但要小心 store buffer 和乱序执行</li>
-</ul>
-</li>
-</ul>
-<p>L1 cache line 根据状态进行协调</p>
-<ul>
-<li>M (Modified), 脏值</li>
-<li>E (Exclusive), 独占访问</li>
-<li>S (Shared), 只读共享</li>
-<li>I (Invalid), 不拥有 cache line</li>
-</ul>
-<h2 id="互斥锁-Mutex-Lock"><a href="#互斥锁-Mutex-Lock" class="headerlink" title="互斥锁 (Mutex Lock)"></a>互斥锁 (Mutex Lock)</h2><h3 id="自旋锁的缺陷"><a href="#自旋锁的缺陷" class="headerlink" title="自旋锁的缺陷"></a>自旋锁的缺陷</h3><p>性能问题 (0)</p>
-<ul>
-<li>自旋 (共享变量) 会触发处理器间的缓存同步，延迟增加</li>
-</ul>
-<p>性能问题 (1)</p>
-<ul>
-<li>除了进入临界区的线程，其他处理器上的线程都在空转</li>
-<li>争抢锁的处理器越多，利用率越低</li>
-</ul>
-<p>性能问题 (2)</p>
-<ul>
-<li>获得自旋锁的线程可能被操作系统切换出去<ul>
-<li>操作系统不 “感知” 线程在做什么</li>
-<li>(但为什么不能呢？)</li>
-</ul>
-</li>
-<li>实现 100% 的资源浪费</li>
-</ul>
-<h3 id="自旋锁的使用场景"><a href="#自旋锁的使用场景" class="headerlink" title="自旋锁的使用场景"></a>自旋锁的使用场景</h3><ul>
-<li>临界区几乎不 “拥堵”</li>
-<li>持有自旋锁时禁止执行流切换</li>
-</ul>
-<p>使用场景：操作系统内核的并发数据结构 (短临界区)</p>
-<ul>
-<li>操作系统可以关闭中断和抢占<ul>
-<li>保证锁的持有者在很短的时间内可以释放锁</li>
-</ul>
-</li>
-<li>(如果是虚拟机呢…😂)<ul>
-<li>PAUSE 指令会触发 VM Exit</li>
-</ul>
-</li>
-<li>但依旧很难做好</li>
-</ul>
-<h2 id="实现线程-长临界区的互斥"><a href="#实现线程-长临界区的互斥" class="headerlink" title="实现线程 + 长临界区的互斥"></a>实现线程 + 长临界区的互斥</h2><p>“让” 不是 C 语言代码可以做到的 (C 代码只能计算)</p>
-<p>把锁的实现放到操作系统里就好啦！</p>
-<ul>
-<li>syscall(SYSCALL_lock, &amp;lk);<ul>
-<li>试图获得 lk，但如果失败，就切换到其他线程</li>
-</ul>
-</li>
-<li>syscall(SYSCALL_unlock, &amp;lk);<ul>
-<li>释放 lk，如果有等待锁的线程就唤醒</li>
-</ul>
-</li>
-</ul>
-<h2 id="Futex-Spin-Mutex"><a href="#Futex-Spin-Mutex" class="headerlink" title="Futex &#x3D; Spin + Mutex"></a>Futex &#x3D; Spin + Mutex</h2><h3 id="Futex-Fast-Userspace-muTexes"><a href="#Futex-Fast-Userspace-muTexes" class="headerlink" title="Futex: Fast Userspace muTexes"></a>Futex: Fast Userspace muTexes</h3><ul>
-<li>Fast path: 一条原子指令，上锁成功立即返回</li>
-<li>Slow path: 上锁失败，执行系统调用睡眠<ul>
-<li>性能优化的最常见技巧<ul>
-<li>看 average (frequent) case 而不是 worst case</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>软件不够，硬件来凑 (自旋锁)</li>
-<li>用户不够，内核来凑 (互斥锁)<ul>
-<li>找到你依赖的假设，并大胆地打破它</li>
-</ul>
-</li>
-<li>Fast&#x2F;slow paths: 性能优化的重要途径</li>
 </ul>
  
       <!-- reward -->
