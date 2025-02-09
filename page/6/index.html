@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> Hxy&#39;s Ocean</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover4.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">Hxy&#39;s Ocean</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['Hxy&#39;s Ocean', 'Welcome to my blog.', ''],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  
+  
+  
+
+<div class="notice" style="margin-top:50px">
+    <i class="ri-heart-fill"></i>
+    <div class="notice-content" id="broad"></div>
+</div>
+<script type="text/javascript">
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("broad").innerHTML = data.hitokoto;
+        })
+        .catch(console.error)
+</script>
+
+<style>
+    .notice {
+        padding: 20px;
+        border: 1px dashed #e6e6e6;
+        color: #969696;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        background: #fbfbfb50;
+        border-radius: 10px;
+    }
+
+    .notice i {
+        float: left;
+        color: #999;
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    .notice-content {
+        display: initial;
+        vertical-align: middle;
+    }
+</style>
+  
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-Course/GAMES101/【GAMES101】04 变换（模型、视图、投影）"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9104%20%E5%8F%98%E6%8D%A2%EF%BC%88%E6%A8%A1%E5%9E%8B%E3%80%81%E8%A7%86%E5%9B%BE%E3%80%81%E6%8A%95%E5%BD%B1%EF%BC%89/"
+    >【GAMES101】04 变换（模型、视图、投影）</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9104%20%E5%8F%98%E6%8D%A2%EF%BC%88%E6%A8%A1%E5%9E%8B%E3%80%81%E8%A7%86%E5%9B%BE%E3%80%81%E6%8A%95%E5%BD%B1%EF%BC%89/" class="article-date">
+  <time datetime="2022-02-21T16:00:04.000Z" itemprop="datePublished">2022-02-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/GAMES101-%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/">GAMES101 现代计算机图形学入门</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="3D变换"><a href="#3D变换" class="headerlink" title="3D变换"></a>3D变换</h1><p>3D变换相对于2D变换来说只是多增加了一个维度，可由2D变换举一反三得来<br><img src="/../../../images/GAMES101/0401.png" alt="3D变换"></p>
+<h2 id="3D旋转"><a href="#3D旋转" class="headerlink" title="3D旋转"></a>3D旋转</h2><p>3D旋转在绕Y轴旋转时理解有些特殊，绕Y轴旋转的矩阵表现出来是转置的状态</p>
+<ul>
+<li>X x Y &#x3D; Z</li>
+<li>Y x Z &#x3D; X</li>
+<li>X x Z &#x3D; -Y</li>
+</ul>
+<p><img src="/../../../images/GAMES101/0402.png" alt="3D旋转"></p>
+<h2 id="罗德里格斯旋转公式-Rodrigues’-Rotation-Formula"><a href="#罗德里格斯旋转公式-Rodrigues’-Rotation-Formula" class="headerlink" title="罗德里格斯旋转公式 Rodrigues’ Rotation Formula"></a>罗德里格斯旋转公式 Rodrigues’ Rotation Formula</h2><p>我们说在三维空间内绕某一轴旋转，默认这个轴是过原点的，罗德里格斯旋转公式就是总结了绕任意过原点的轴旋转的公式</p>
+<p><img src="/../../../images/GAMES101/0403.png" alt="罗德里格斯旋转公式"></p>
+<h1 id="视图变换"><a href="#视图变换" class="headerlink" title="视图变换"></a>视图变换</h1><h2 id="视图-相机变换"><a href="#视图-相机变换" class="headerlink" title="视图&#x2F;相机变换"></a>视图&#x2F;相机变换</h2><p>首先定义相机</p>
+<ul>
+<li>相机位置</li>
+<li>相机方向</li>
+<li>相机朝上方向</li>
+</ul>
+<p>规定相机永远在原点，沿着-Z看，相机朝上方向为Y，变化的永远是其他物体</p>
+<p><img src="/../../../images/GAMES101/0404.png" alt="Mview"></p>
+<p>（这里建议看视频）</p>
+<h2 id="投影变换"><a href="#投影变换" class="headerlink" title="投影变换"></a>投影变换</h2><h3 id="正交投影"><a href="#正交投影" class="headerlink" title="正交投影"></a>正交投影</h3><p><img src="/../../../images/GAMES101/0405.png" alt="正交投影"></p>
+<h3 id="透视投影"><a href="#透视投影" class="headerlink" title="透视投影"></a>透视投影</h3><h4 id="如何透视投影？"><a href="#如何透视投影？" class="headerlink" title="如何透视投影？"></a>如何透视投影？</h4><p>先将Frustum远平面及远平面到近平面之间的所有平面挤压到近平面大小，变成Cuboid的样子，然后做一次正交投影<br><img src="/../../../images/GAMES101/0406.png" alt="透视投影"></p>
+<h4 id="如何做挤压？"><a href="#如何做挤压？" class="headerlink" title="如何做挤压？"></a>如何做挤压？</h4><p><img src="/../../../images/GAMES101/0407.png" alt="挤压"></p>
+<p>（同样建议看视频）</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAMES101/" rel="tag">GAMES101</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/GAMES101/【GAMES101】03 变换（二维与三维）"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9103%20%E5%8F%98%E6%8D%A2%EF%BC%88%E4%BA%8C%E7%BB%B4%E4%B8%8E%E4%B8%89%E7%BB%B4%EF%BC%89/"
+    >【GAMES101】03 变换（二维与三维）</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9103%20%E5%8F%98%E6%8D%A2%EF%BC%88%E4%BA%8C%E7%BB%B4%E4%B8%8E%E4%B8%89%E7%BB%B4%EF%BC%89/" class="article-date">
+  <time datetime="2022-02-21T16:00:03.000Z" itemprop="datePublished">2022-02-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/GAMES101-%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/">GAMES101 现代计算机图形学入门</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="2D线性变换"><a href="#2D线性变换" class="headerlink" title="2D线性变换"></a>2D线性变换</h1><p>我们将如下图所示的简单矩阵乘法定义为对向量的线性变换。<br><img src="/../../../images/GAMES101/0301.png" alt="2D线性变换"></p>
+<h2 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h2><p><img src="/../../../images/GAMES101/0302.png" alt="缩放"></p>
+<h2 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a>镜像</h2><p><img src="/../../../images/GAMES101/0303.png" alt="镜像"></p>
+<h2 id="错切"><a href="#错切" class="headerlink" title="错切"></a>错切</h2><p><img src="/../../../images/GAMES101/0304.png" alt="错切"></p>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><p><img src="/../../../images/GAMES101/0305.png" alt="旋转"></p>
+<h1 id="齐次坐标"><a href="#齐次坐标" class="headerlink" title="齐次坐标"></a>齐次坐标</h1><h2 id="平移无法写成线性变换"><a href="#平移无法写成线性变换" class="headerlink" title="平移无法写成线性变换"></a>平移无法写成线性变换</h2><p><img src="/../../../images/GAMES101/0306.png" alt="平移"></p>
+<h2 id="解决办法：齐次坐标"><a href="#解决办法：齐次坐标" class="headerlink" title="解决办法：齐次坐标"></a>解决办法：齐次坐标</h2><p><img src="/../../../images/GAMES101/0307.png" alt="解决办法：齐次坐标"></p>
+<h2 id="2D变换的齐次坐标形式"><a href="#2D变换的齐次坐标形式" class="headerlink" title="2D变换的齐次坐标形式"></a>2D变换的齐次坐标形式</h2><p><img src="/../../../images/GAMES101/0308.png" alt="2D变换的齐次坐标形式"></p>
+<h2 id="反向变换"><a href="#反向变换" class="headerlink" title="反向变换"></a>反向变换</h2><p><img src="/../../../images/GAMES101/0309.png" alt="反向变换"></p>
+<h2 id="复合变换"><a href="#复合变换" class="headerlink" title="复合变换"></a>复合变换</h2><p>注意：先旋转，再平移，写作 T·R·向量，从右往左写</p>
+<h1 id="3D变换"><a href="#3D变换" class="headerlink" title="3D变换"></a>3D变换</h1><p>增加一个维度，其他类似</p>
+<p><img src="/../../../images/GAMES101/0310.png" alt="3D变换"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAMES101/" rel="tag">GAMES101</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/GAMES101/【GAMES101】02 向量与线性代数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9102%20%E5%90%91%E9%87%8F%E4%B8%8E%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"
+    >【GAMES101】02 向量与线性代数</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9102%20%E5%90%91%E9%87%8F%E4%B8%8E%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" class="article-date">
+  <time datetime="2022-02-21T16:00:02.000Z" itemprop="datePublished">2022-02-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/GAMES101-%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/">GAMES101 现代计算机图形学入门</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="向量乘法"><a href="#向量乘法" class="headerlink" title="向量乘法"></a>向量乘法</h1><h2 id="点乘-Dot-scalar-Product"><a href="#点乘-Dot-scalar-Product" class="headerlink" title="点乘 Dot (scalar) Product"></a>点乘 Dot (scalar) Product</h2><p>得到的结果是一个数，表示a在b上的投影长度</p>
+<p><img src="/../../../images/GAMES101/0201.png" alt="点乘"></p>
+<h3 id="图形学应用："><a href="#图形学应用：" class="headerlink" title="图形学应用："></a>图形学应用：</h3><ul>
+<li>找到两个向量的夹角</li>
+<li>找到一个向量在另一个上的投影</li>
+<li>测量两个方向多近</li>
+<li>分解一个向量</li>
+<li>确定前后</li>
+</ul>
+<h2 id="叉乘-Cross-vector-Product"><a href="#叉乘-Cross-vector-Product" class="headerlink" title="叉乘 Cross (vector) Product"></a>叉乘 Cross (vector) Product</h2><p><img src="/../../../images/GAMES101/0202.png" alt="叉乘"></p>
+<ul>
+<li>与两个初始向量正交</li>
+<li>方向由右手法则确定</li>
+<li>在构建坐标系时很有用</li>
+</ul>
+<h3 id="图形学应用：-1"><a href="#图形学应用：-1" class="headerlink" title="图形学应用："></a>图形学应用：</h3><ul>
+<li>确定左右</li>
+<li>确定里外</li>
+</ul>
+<h2 id="正交规范基与坐标系-Orthonormal-Bases-Coordinate-Frames"><a href="#正交规范基与坐标系-Orthonormal-Bases-Coordinate-Frames" class="headerlink" title="正交规范基与坐标系 Orthonormal Bases &#x2F; Coordinate Frames"></a>正交规范基与坐标系 Orthonormal Bases &#x2F; Coordinate Frames</h2><ul>
+<li>在表示点、坐标、位置时非常重要。</li>
+<li>通常会有许多组坐标系统：全局坐标系统、局部坐标系统、世界坐标系统、模型坐标系统，以及模型的部分坐标系统</li>
+<li>转换这些系统&#x2F;基之间是一个非常重要的议题</li>
+</ul>
+<h1 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h1><p>(基本纯线代内容，不再赘述)</p>
+<h2 id="向量乘法的矩阵形式"><a href="#向量乘法的矩阵形式" class="headerlink" title="向量乘法的矩阵形式"></a>向量乘法的矩阵形式</h2><p><img src="/../../../images/GAMES101/0203.png" alt="向量乘法的矩阵形式"><br>（Lecture4的罗德里格斯旋转公式会用到这个性质）</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAMES101/" rel="tag">GAMES101</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/GAMES101/【GAMES101】01 计算机图形学概述"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9101%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%BF%B0/"
+    >【GAMES101】01 计算机图形学概述</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/02/22/Course/GAMES101/%E3%80%90GAMES101%E3%80%9101%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2022-02-21T16:00:01.000Z" itemprop="datePublished">2022-02-22</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/GAMES101-%E7%8E%B0%E4%BB%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%85%A5%E9%97%A8/">GAMES101 现代计算机图形学入门</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/GAMES101/0101.png" alt="现代计算机图形学的四大组成部分：光栅化成像，几何表示，光的传播理论，动画与模拟"></p>
+<p><a target="_blank" rel="noopener" href="https://sites.cs.ucsb.edu/~lingqi/teaching/games101.html">【课程主页】</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1X7411F744/">【课程视频】</a></p>
+<h2 id="什么是计算机图形学？"><a href="#什么是计算机图形学？" class="headerlink" title="什么是计算机图形学？"></a>什么是计算机图形学？</h2><p>（SFX特效、动作捕捉）；动画（毛发、光线、几何与渲染、模拟与碰撞）；设计（CAD、碰撞测试、工业设计、室内设计）；数据可视化；虚拟现实（AR与VR、；电子绘画（如ipad手绘）；模拟（物理模拟、仿真）；GUI（图形学用户接口）；字体（点阵与矢量）</p>
+<h2 id="为什么学习计算机图形学？"><a href="#为什么学习计算机图形学？" class="headerlink" title="为什么学习计算机图形学？"></a>为什么学习计算机图形学？</h2><ul>
+<li>思维挑战</li>
+<li>真实的东西在虚拟世界内如何作用</li>
+<li>需要对于真实世界的理解（输入）</li>
+<li>需要新的显示方法、设备与技术（输出）</li>
+<li>技术挑战</li>
+<li>数学（投影、曲线、表面）</li>
+<li>光线与阴影的物理</li>
+<li>体现3D物体并操作</li>
+<li>动画与模拟<br>（此节课不包括学习3D建模软件）</li>
+</ul>
+<h2 id="本门课程内容"><a href="#本门课程内容" class="headerlink" title="本门课程内容"></a>本门课程内容</h2><p>这门课程 <strong>包含</strong> 以下四个方面：</p>
+<p>光栅化、曲线与网格、光线追踪、动画与模拟</p>
+<ul>
+<li>光栅化：将三维空间的几何形体显示在屏幕上，是实时（30+fps）计算机图形学的主要应用</li>
+<li>曲线与网格：如何表示一条光滑的曲线、一个曲面，如何细分以得到更复杂的曲面，形变时如何保持拓扑结构</li>
+<li>光线追踪：动画和电影内使用，慢但能生成非常真实的画面（tradeoff，权衡）。本节课还介绍实时光线追踪</li>
+<li>动画与模拟：弹球（挤压与回弹），布料模拟</li>
+</ul>
+<p>这节课 <strong>不包含</strong> ：</p>
+<p>OpenGL等计算机图形学API、计算机视觉（Computer Vision，一切需要猜测的事情，识别）、硬件编程</p>
+<h1 id="（已修完，笔记待整理）"><a href="#（已修完，笔记待整理）" class="headerlink" title="（已修完，笔记待整理）"></a>（已修完，笔记待整理）</h1> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GAMES101/" rel="tag">GAMES101</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-随笔/摘要/【摘要】关于建筑意识形态的书单"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/06/%E9%9A%8F%E7%AC%94/%E6%91%98%E8%A6%81/%E3%80%90%E6%91%98%E8%A6%81%E3%80%91%E5%85%B3%E4%BA%8E%E5%BB%BA%E7%AD%91%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81%E7%9A%84%E4%B9%A6%E5%8D%95/"
+    >【摘要】关于建筑意识形态的书单</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/02/06/%E9%9A%8F%E7%AC%94/%E6%91%98%E8%A6%81/%E3%80%90%E6%91%98%E8%A6%81%E3%80%91%E5%85%B3%E4%BA%8E%E5%BB%BA%E7%AD%91%E6%84%8F%E8%AF%86%E5%BD%A2%E6%80%81%E7%9A%84%E4%B9%A6%E5%8D%95/" class="article-date">
+  <time datetime="2022-02-06T05:52:00.000Z" itemprop="datePublished">2022-02-06</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>推荐一个建筑书籍阅读的网站：<a target="_blank" rel="noopener" href="https://www.awhouse.art/readings">AWHouse</a></p>
+<p>书单摘自该视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Xm411Q7Pv">建筑的理论与现实的阅读学习路径，一套切入城市建筑与社会现实的学习方法论</a></p>
+<h3 id="对现代建筑史的整体了解"><a href="#对现代建筑史的整体了解" class="headerlink" title="对现代建筑史的整体了解"></a>对现代建筑史的整体了解</h3><ul>
+<li>肯尼斯·弗兰姆普敦：<a target="_blank" rel="noopener" href="https://www.awhouse.art/%e7%8e%b0%e4%bb%a3%e5%bb%ba%e7%ad%91%e4%b8%80%e9%83%a8%e6%89%b9%e5%88%a4%e7%9a%84%e5%8e%86%e5%8f%b2">《现代建筑：一部批判的历史》</a></li>
+<li>曼弗雷多·塔夫里:《现代建筑》 (有能力的话，也可以和上本一起看)</li>
+</ul>
+<h3 id="了解一些重要建筑师的理论"><a href="#了解一些重要建筑师的理论" class="headerlink" title="了解一些重要建筑师的理论"></a>了解一些重要建筑师的理论</h3><ul>
+<li><p>柯布西耶：《走向新建筑》、作品集 </p>
+</li>
+<li><p>密斯凡德罗：《缺少艺术性的文字》 </p>
+</li>
+<li><p>《包豪斯》</p>
+</li>
+<li><p>罗西：《城市建筑学》</p>
+</li>
+<li><p>文丘里（凑合看看就行）：《建筑的复杂性与矛盾性》、《向拉斯维加斯学习》</p>
+</li>
+<li><p>彼得埃森曼：<a target="_blank" rel="noopener" href="https://www.awhouse.art/diagram-diaries">《图解日记》</a>《现代建筑的形式基础》</p>
+</li>
+<li><p>《建筑经典:1950-2000》《虚拟的帕拉第奥》</p>
+</li>
+</ul>
+<h3 id="荷兰结构主义建筑"><a href="#荷兰结构主义建筑" class="headerlink" title="荷兰结构主义建筑"></a>荷兰结构主义建筑</h3><ul>
+<li><p>赫兹伯格：《建筑学教程》两本</p>
+</li>
+<li><p>库哈斯：《癫狂的纽约》</p>
+</li>
+</ul>
+<h3 id="现代建筑之前"><a href="#现代建筑之前" class="headerlink" title="现代建筑之前"></a>现代建筑之前</h3><ul>
+<li><p>黑格尔：《美学》建筑篇章</p>
+</li>
+<li><p>塔夫里：《建筑学的理论和历史》（塔夫里所有书都很推荐）</p>
+</li>
+<li><p>《走向建筑的意识形态的批判》</p>
+</li>
+<li><p>马西莫 卡齐亚里：《建筑与虚无主义》</p>
+</li>
+</ul>
+<h3 id="延展现代主义建筑"><a href="#延展现代主义建筑" class="headerlink" title="延展现代主义建筑"></a>延展现代主义建筑</h3><ul>
+<li><p>本雅明：《机械府治时代的艺术作品》《单向街》《经验与贫乏》</p>
+</li>
+<li><p>齐美尔：《大城市与精神生活》</p>
+</li>
+<li><p>鲍德里亚：《独异之物》</p>
+</li>
+<li><p>列斐伏尔：《空间与政治》《都市革命》《空间的生产》《日常生活批判》</p>
+</li>
+<li><p>《建筑、空间与哲学》</p>
+</li>
+<li><p>《建筑与现代性》</p>
+</li>
+</ul>
+<h3 id="现象学"><a href="#现象学" class="headerlink" title="现象学"></a>现象学</h3><ul>
+<li><p>诺伯舒兹：《场所精神》</p>
+</li>
+<li><p>帕拉斯马：《肌肤之日》</p>
+</li>
+<li><p>海德格尔：《筑·居·思》《艺术作品的本源》</p>
+</li>
+<li><p>梅洛庞蒂：《知觉现象学》《行为的结构》</p>
+</li>
+</ul>
+<h3 id="符号学"><a href="#符号学" class="headerlink" title="符号学"></a>符号学</h3><ul>
+<li><p>《符号、象征与建筑》</p>
+</li>
+<li><p>王澍：<a target="_blank" rel="noopener" href="https://www.awhouse.art/fictionalizing-city">《虚构城市》</a></p>
+</li>
+</ul>
+<h3 id="拉康派精神分析"><a href="#拉康派精神分析" class="headerlink" title="拉康派精神分析"></a>拉康派精神分析</h3><ul>
+<li>迈克尔·海丝：《建筑的欲望》</li>
+</ul>
+<h3 id="中国建筑"><a href="#中国建筑" class="headerlink" title="中国建筑"></a>中国建筑</h3><ul>
+<li><p>李允鉌：《华夏意匠》</p>
+</li>
+<li><p>董豫赣：《玖章造园》</p>
+</li>
+<li><p>汉宝德：《中国建筑文化讲座》《明清建筑二论 斗拱的起源与发展》</p>
+</li>
+<li><p>雷德侯：《万物》</p>
+</li>
+</ul>
+<h3 id="现代建筑建造"><a href="#现代建筑建造" class="headerlink" title="现代建筑建造"></a>现代建筑建造</h3><ul>
+<li><p>《图解建筑构造》</p>
+</li>
+<li><p>弗兰姆普敦：《建构文化研究》</p>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BB%BA%E7%AD%91/" rel="tag">建筑</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%91%98%E8%A6%81/" rel="tag">摘要</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-随笔/杂想/【杂想】浪费的浪漫"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/05/02/%E9%9A%8F%E7%AC%94/%E6%9D%82%E6%83%B3/%E3%80%90%E6%9D%82%E6%83%B3%E3%80%91%E6%B5%AA%E8%B4%B9%E7%9A%84%E6%B5%AA%E6%BC%AB/"
+    >【杂想】浪费的浪漫</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/05/02/%E9%9A%8F%E7%AC%94/%E6%9D%82%E6%83%B3/%E3%80%90%E6%9D%82%E6%83%B3%E3%80%91%E6%B5%AA%E8%B4%B9%E7%9A%84%E6%B5%AA%E6%BC%AB/" class="article-date">
+  <time datetime="2021-05-01T16:00:00.000Z" itemprop="datePublished">2021-05-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>男生很少会收到鲜花，第一次收到鲜花是对象送的。</p>
+<p>我其实一直对鲜花并不感冒，原因是总觉得不实用，如果她提前告诉我要送我花，我肯定会拒绝让她别花钱，但在真的收到后还是很开心。</p>
+<p>那是一捧向日葵，上面明信片写着暧昧的话语，我知道卡片不是她写的，但字迹与语气都让我觉得，她就在身边，淡淡的香气与明黄的色彩是真的有让这个无聊的假期不一样，赋予了挣脱平凡生活的神力。</p>
+<p>我开始反思，可能不实用才是花最大的意义，因为实用哲学导向的就是平凡，而能赋予不凡的，正是许多“无用”之事。</p>
+<p>同时，在恋爱中，它隐含了，我愿意为你浪费，我也可以被你浪费，这才是爱情浪漫之所在吧。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%82%E6%83%B3/" rel="tag">杂想</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-随笔/摘要/【摘要】哲学与建筑学"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/03/29/%E9%9A%8F%E7%AC%94/%E6%91%98%E8%A6%81/%E3%80%90%E6%91%98%E8%A6%81%E3%80%91%E5%93%B2%E5%AD%A6%E4%B8%8E%E5%BB%BA%E7%AD%91%E5%AD%A6/"
+    >【摘要】哲学与建筑学</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/03/29/%E9%9A%8F%E7%AC%94/%E6%91%98%E8%A6%81/%E3%80%90%E6%91%98%E8%A6%81%E3%80%91%E5%93%B2%E5%AD%A6%E4%B8%8E%E5%BB%BA%E7%AD%91%E5%AD%A6/" class="article-date">
+  <time datetime="2021-03-28T16:00:00.000Z" itemprop="datePublished">2021-03-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a href="">UDS哲学与建筑学讲座</a></p>
+<h1 id="Part1-哲学与建筑学的三次交汇"><a href="#Part1-哲学与建筑学的三次交汇" class="headerlink" title="Part1. 哲学与建筑学的三次交汇"></a>Part1. 哲学与建筑学的三次交汇</h1><h3 id="1-现象学"><a href="#1-现象学" class="headerlink" title="1. 现象学"></a>1. 现象学</h3><ul>
+<li>马丁海德格尔</li>
+<li>诺伯格舒尔茨</li>
+</ul>
+<h3 id="2-解构主义"><a href="#2-解构主义" class="headerlink" title="2. 解构主义"></a>2. 解构主义</h3><ul>
+<li>雅克德利达</li>
+<li>杰夫基普尼斯</li>
+<li>彼得埃森曼</li>
+</ul>
+<h3 id="3-参数化主义"><a href="#3-参数化主义" class="headerlink" title="3. 参数化主义"></a>3. 参数化主义</h3><ul>
+<li>吉尔德勒兹</li>
+<li>桑福昆特</li>
+<li>格雷林恩、杰西瑞瑟</li>
+<li>帕特里克舒马赫</li>
+</ul>
+<h1 id="Part2-思辨实在论与以物为导向的本体论的兴起"><a href="#Part2-思辨实在论与以物为导向的本体论的兴起" class="headerlink" title="Part2. 思辨实在论与以物为导向的本体论的兴起"></a>Part2. 思辨实在论与以物为导向的本体论的兴起</h1><ul>
+<li>Object- Oriented- Ontology</li>
+<li>世界以物的形式存在，并构成意识之外的真实</li>
+<li>重视物的自身属性，而非与其他物的关系</li>
+</ul>
+<h1 id="Part3-哲学家与建筑师"><a href="#Part3-哲学家与建筑师" class="headerlink" title="Part3. 哲学家与建筑师"></a>Part3. 哲学家与建筑师</h1><ul>
+<li>格雷厄姆哈曼</li>
+<li>大卫鲁伊</li>
+</ul>
+<h1 id="Part4-回归真实"><a href="#Part4-回归真实" class="headerlink" title="Part4. 回归真实"></a>Part4. 回归真实</h1><ul>
+<li>形式主义与隐喻</li>
+<li>第三张桌子</li>
+<li>工艺与身份</li>
+<li>超物与合成</li>
+<li>美学复兴</li>
+</ul>
+<h2 id="【个人看法】"><a href="#【个人看法】" class="headerlink" title="【个人看法】"></a>【个人看法】</h2><ul>
+<li>非常先锋的一次讲座，OOO的概念是第一次了解</li>
+<li>image至关重要，并且在建筑学和设计传媒领域越来越重要，可以延申到网感等概念。</li>
+<li>哲学的影子，存在于任何专业背后。</li>
+<li>不管怎么说，类型学的断代限制了任何某种主义话语权的独大，从而也限制了向更深维度探索的可能性。行业与大众的注意力是最宝贵的资源。</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%BB%BA%E7%AD%91/" rel="tag">建筑</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%91%98%E8%A6%81/" rel="tag">摘要</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-随笔/杂想/【杂想】优越感"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/10/09/%E9%9A%8F%E7%AC%94/%E6%9D%82%E6%83%B3/%E3%80%90%E6%9D%82%E6%83%B3%E3%80%91%E4%BC%98%E8%B6%8A%E6%84%9F/"
+    >【杂想】优越感</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/10/09/%E9%9A%8F%E7%AC%94/%E6%9D%82%E6%83%B3/%E3%80%90%E6%9D%82%E6%83%B3%E3%80%91%E4%BC%98%E8%B6%8A%E6%84%9F/" class="article-date">
+  <time datetime="2019-10-08T16:00:00.000Z" itemprop="datePublished">2019-10-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>人最好不要有优越感，尽管有时候这种感觉是无意生出的，并且会带给你慰籍和快感，以此给你一种凌驾局面的幻觉。</p>
+<p>要是不幸有了优越感，最好也别是来自信息不对称的优越感。金钱、技能和身份的优越，短期尚可维持。而信息上，大家都是随机漫步的傻瓜，却总是让运气成分居多的事情支配自己的傲慢。况且如今的网络并不存在严密的信息堡垒，你能知道，无非是圈子偶然得知，而不是你的身份让你可以得知。既然如此，有什么时间成本和金钱成本的呢？</p>
+<p>而信息本身，是廉价的，可复制的，易传播的，当你显摆这种优越感时，它就已经失去了让你获得优越感的秘密属性。</p>
+<p>对已知保持怀疑和侥幸，对未知表现渴望和敬畏，望己此后如是。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%82%E6%83%B3/" rel="tag">杂想</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2025
+        <i class="ri-heart-fill heart_icon"></i> Hxy
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/logo.png" alt="Hxy&#39;s Ocean"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=411259022&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>

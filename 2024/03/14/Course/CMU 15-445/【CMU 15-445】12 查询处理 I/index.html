@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title>【CMU 15-445】12 查询处理 I |  Hxy&#39;s Ocean</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-Course/CMU 15-445/【CMU 15-445】12 查询处理 I"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  【CMU 15-445】12 查询处理 I
+</h1>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/14/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9112%20%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%20I/" class="article-date">
+  <time datetime="2024-03-13T16:00:00.000Z" itemprop="datePublished">2024-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">5 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/12-queryexecution1.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/12-queryexecution1.pdf">Notes</a></p>
+<h2 id="1-查询计划-Query-Plan"><a href="#1-查询计划-Query-Plan" class="headerlink" title="1. 查询计划 Query Plan"></a>1. 查询计划 Query Plan</h2><p>DBMS将SQL语句转换为查询计划。operators 排列成一棵树。数据从树叶流向根部。树中根节点的输出是查询的结果。通常，operators 是二元的(1-2个子运算符)。可以以多种方式执行相同的查询计划。大多数DBMS都希望尽可能多地使用索引扫描(一种数据访问方式)。</p>
+<h2 id="2-处理模型-Processing-Models"><a href="#2-处理模型-Processing-Models" class="headerlink" title="2. 处理模型 Processing Models"></a>2. 处理模型 Processing Models</h2><p>DBMS处理模型 定义系统如何执行查询计划。对于不同的工作负载，不同的模型具有不同的权衡。</p>
+<p>还可以实现这些模型以自上而下 top-to-bottom (最常见)或自下而上 bottom-to-top 地调用运算符。</p>
+<h3 id="Iterator-Model（迭代模型）"><a href="#Iterator-Model（迭代模型）" class="headerlink" title="Iterator Model（迭代模型）"></a>Iterator Model（迭代模型）</h3><p>这是最常见的处理模型，几乎每个(基于行的)DBMS都使用它。允许流水线操作，其中DBMS可以在检索下一个元组之前通过尽可能多的运算符处理元组。</p>
+<p>每个查询计划操作符都实现 next 函数：</p>
+<p>每次调用next时，操作符要么返回单个元组，要么返回空标记(如果没有更多的元组)。<br>运算符实现了一个循环，该循环在其子级上调用next以检索其元组，然后处理它们(即，在父级上调用next，在其子级上调用next)。<br>一些操作符会一直阻塞，直到子级发出它们的所有元组(联接、子查询、排序依据)。这些被称为管道断路器pipeline breakers。</p>
+<p>输出控制很容易使用这种方法(LIMIT)，因为一旦拥有了所需的所有元组，操作符就可以停止对其子运算符调用next。</p>
+<h3 id="Materialization-Model（物化模型）"><a href="#Materialization-Model（物化模型）" class="headerlink" title="Materialization Model（物化模型）"></a>Materialization Model（物化模型）</h3><p>每个 operator 一次处理其所有输入，然后一次发出其所有输出。operator 将其输出“物化”为单个结果。</p>
+<p>每个查询计划操作符都实现一个Output 函数：</p>
+<p>操作符一次处理其子代的所有元组。<br>此函数的返回结果是运算符将发出的所有元组。当操作符完成执行时，DBMS再也不需要返回到它来检索更多数据。<br>这种方法更适合于OLTP工作负载，因为查询一次通常只访问少量的元组。因此，检索元组的函数调用较少。不适合具有大型中间结果的OLAP查询，因为DBMS可能不得不在操作符之间将这些结果溢出到磁盘。</p>
+<h3 id="Vectorization-Model"><a href="#Vectorization-Model" class="headerlink" title="Vectorization Model"></a>Vectorization Model</h3><p>就像迭代模型，其中每个操作符实现一个next函数。但每个运算符都会发出大量数据(即向量)，而不是单个元组：</p>
+<p>运算符实现可以针对处理批数据进行优化，而不是一次只处理一个项目。<br>此方法非常适合必须扫描大量元组的OLAP查询，因为调用next函数的次数较少。</p>
+<h2 id="3-访问方法-Access-Methods"><a href="#3-访问方法-Access-Methods" class="headerlink" title="3. 访问方法 Access Methods"></a>3. 访问方法 Access Methods</h2><p>访问方法是DBMS访问 表中存储的数据 的方式。这些将是查询计划中的底部操作符，它们将数据“feed”到树中它上面的操作符中。关系代数中没有相应的运算符。</p>
+<p>顺序扫描 Sequential Scan<br>对于表中的每一页，迭代每一页并从缓冲池中检索它。对于每个页面，迭代所有元组并计算谓词以决定是否包含元组。</p>
+<p>优化：</p>
+<ul>
+<li>预取 Prefetching：提前获取下几个页面，以便DBMS在访问每个页面时不必阻塞。</li>
+<li>并行化 Parallelization：使用多个线程&#x2F;进程并行执行扫描。</li>
+<li>缓冲池绕过 Buffer Pool Bypass：扫描操作符将其从磁盘获取的页面存储在其本地内存中，而不是缓冲池中。这避免了顺序洪泛问题。</li>
+<li>区域映射 Zone Map：预计算页面中每个元组属性的聚合。然后，DBMS可以通过首先检查其区域映射来检查它是否需要访问页面。每个页面的区域映射存储在单独的页面中，并且每个区域映射页面中通常有多个条目。因此，可以减少在顺序扫描中检查的总页数。</li>
+<li>延迟物化 Late Materialization：每个操作符传递给下一个操作符所需的最少量信息(例如，记录ID)。这仅在列存储系统(即DSM)中有用。</li>
+<li>堆聚簇 Heap Clustering：元组按照聚簇索引指定的顺序存储在堆页面中。</li>
+</ul>
+<h3 id="索引扫描-Index-Scan"><a href="#索引扫描-Index-Scan" class="headerlink" title="索引扫描 Index Scan"></a>索引扫描 Index Scan</h3><p>DBMS选择一个(或多个)索引来查找查询所需的元组。</p>
+<p>当使用多个索引时，DBMS对每个索引执行搜索并生成一组匹配的记录ID。可以使用位图、哈希表或Bloom过滤器来实现此记录ID。DBMS根据查询的谓词(UNION和INTERSECT)组合这些集合。然后，它检索记录并应用任何剩余的术语。更高级的DBMS支持多索引扫描。</p>
+<p>按元组在非聚簇索引中出现的顺序检索元组效率较低。DBMS可以首先找出它需要的所有元组，然后根据它们的页面ID对它们进行排序。</p>
+<h2 id="4-表达评估-Expression-Evaluation"><a href="#4-表达评估-Expression-Evaluation" class="headerlink" title="4. 表达评估 Expression Evaluation"></a>4. 表达评估 Expression Evaluation</h2><p>DBMS将查询计划表示为树。运算符内部将是一个表达式树。例如，filter 操作符的 WHERE 子句。</p>
+<p>树中的节点代表不同的表达式类型：</p>
+<ul>
+<li>比较(&#x3D;、&lt;、&gt;、！&#x3D;)</li>
+<li>交集(AND)、并集(OR)</li>
+<li>算术运算符(+、-、*、&#x2F;、%)</li>
+<li>常量和参数V值</li>
+<li>元组属性引用</li>
+</ul>
+<p>为了在运行时计算表达式树，DBMS维护一个上下文句柄，该句柄包含执行的元数据，如当前元组、参数和表架构。然后，DBMS遍历树以计算其操作符并生成结果。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://uxany.github.io/2024/03/14/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9112%20%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%20I/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2024/03/14/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9103%20%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8%E7%BC%96%E7%A8%8B/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            【NJU OS】03 多处理器编程
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2024/03/13/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9111%20Joins%20%E7%AE%97%E6%B3%95/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">【CMU 15-445】11 Joins 算法</div>
+      </a>
+    
+  </nav>
+
+  
+   
+    
+    <script src="https://cdn.staticfile.org/twikoo/1.4.18/twikoo.all.min.js"></script>
+    <div id="twikoo" class="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: ""
+        })
+    </script>
+ 
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2025
+        <i class="ri-heart-fill heart_icon"></i> Hxy
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/logo.png" alt="Hxy&#39;s Ocean"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+ 
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: ".tocbot",
+    contentSelector: ".article-entry",
+    headingSelector: "h1, h2, h3, h4, h5, h6",
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: "main",
+    positionFixedSelector: ".tocbot",
+    positionFixedClass: "is-position-fixed",
+    fixedSidebarOffset: "auto",
+  });
+</script>
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=411259022&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>

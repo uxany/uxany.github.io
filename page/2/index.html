@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> Hxy&#39;s Ocean</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover4.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">Hxy&#39;s Ocean</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['Hxy&#39;s Ocean', 'Welcome to my blog.', ''],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  
+  
+  
+
+<div class="notice" style="margin-top:50px">
+    <i class="ri-heart-fill"></i>
+    <div class="notice-content" id="broad"></div>
+</div>
+<script type="text/javascript">
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("broad").innerHTML = data.hitokoto;
+        })
+        .catch(console.error)
+</script>
+
+<style>
+    .notice {
+        padding: 20px;
+        border: 1px dashed #e6e6e6;
+        color: #969696;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        background: #fbfbfb50;
+        border-radius: 10px;
+    }
+
+    .notice i {
+        float: left;
+        color: #999;
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    .notice-content {
+        display: initial;
+        vertical-align: middle;
+    }
+</style>
+  
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-Course/NJU OS/【NJU OS】07 真实世界的并发编程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/17/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9107%20%E7%9C%9F%E5%AE%9E%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"
+    >【NJU OS】07 真实世界的并发编程</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/17/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9107%20%E7%9C%9F%E5%AE%9E%E4%B8%96%E7%95%8C%E7%9A%84%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" class="article-date">
+  <time datetime="2024-03-17T09:00:00.000Z" itemprop="datePublished">2024-03-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="高性能计算中的并发编程"><a href="#高性能计算中的并发编程" class="headerlink" title="高性能计算中的并发编程"></a>高性能计算中的并发编程</h2><h3 id="高性能计算程序：特点"><a href="#高性能计算程序：特点" class="headerlink" title="高性能计算程序：特点"></a>高性能计算程序：特点</h3><ul>
+<li>系统模拟：天气预报、能源、分子生物学</li>
+<li>人工智能：神经网络训练</li>
+<li>矿厂：纯粹的 hash 计算</li>
+<li>HPC-China 100</li>
+</ul>
+<h3 id="高性能计算：主要挑战"><a href="#高性能计算：主要挑战" class="headerlink" title="高性能计算：主要挑战"></a>高性能计算：主要挑战</h3><p>计算任务如何分解？</p>
+<ul>
+<li>计算图需要容易并行化<ul>
+<li>机器-线程两级任务分解</li>
+</ul>
+</li>
+<li>生产者-消费者解决一切<ul>
+<li>MPI - “a specification for the developers and users of message passing libraries”, OpenMP - “multi-platform shared-memory parallel programming in C&#x2F;C++ and Fortran”</li>
+</ul>
+</li>
+<li>Parallel and Distributed Computation: Numerical Methods</li>
+</ul>
+<p>线程间如何通信</p>
+<ul>
+<li>通信不仅发生在节点&#x2F;线程之间，还发生在任何共享内存访问</li>
+<li>还记得被 mem-ordering.c 支配的恐惧吗？</li>
+</ul>
+<hr>
+<h2 id="数据中心里的并发编程"><a href="#数据中心里的并发编程" class="headerlink" title="数据中心里的并发编程"></a>数据中心里的并发编程</h2><h3 id="数据中心程序：特点"><a href="#数据中心程序：特点" class="headerlink" title="数据中心程序：特点"></a>数据中心程序：特点</h3><p>以数据 (存储) 为中心</p>
+<ul>
+<li>从互联网搜索 (Google)、社交网络 (Facebook&#x2F;Twitter) 起家</li>
+<li>支撑各类互联网应用：微信&#x2F;QQ&#x2F;支付宝&#x2F;游戏&#x2F;网盘&#x2F;……</li>
+</ul>
+<p>算法&#x2F;系统对 HPC 和数据中心的意义</p>
+<ul>
+<li>你有 1,000,000 台服务器</li>
+<li>如果一个算法&#x2F;实现能快 1%，就能省 10,000 台服务器 一套房 ≈ 50 台服务器(不计运维成本)</li>
+</ul>
+<h3 id="数据中心：主要挑战"><a href="#数据中心：主要挑战" class="headerlink" title="数据中心：主要挑战"></a>数据中心：主要挑战</h3><p>多副本情况下的高可靠、低延迟数据访问</p>
+<ul>
+<li>在服务海量地理分布请求的前提下<ul>
+<li>数据要保持一致 (Consistency)</li>
+<li>服务时刻保持可用 (Availability)</li>
+<li>容忍机器离线 (Partition tolerance)</li>
+</ul>
+</li>
+</ul>
+<h3 id="如何用一台-可靠的-计算机尽可能多地服务并行的请求"><a href="#如何用一台-可靠的-计算机尽可能多地服务并行的请求" class="headerlink" title="如何用一台 (可靠的) 计算机尽可能多地服务并行的请求"></a>如何用一台 (可靠的) 计算机尽可能多地服务并行的请求</h3><ul>
+<li>关键指标：QPS, tail latency, …</li>
+</ul>
+<p>我们有的工具</p>
+<ul>
+<li>线程 (threads)</li>
+<li>协程 (coroutines)<ul>
+<li>多个可以保存&#x2F;恢复的执行流 (M2 - libco)</li>
+<li>比线程更轻量 (完全没有系统调用，也就没有操作系统状态)</li>
+</ul>
+</li>
+</ul>
+<h3 id="数据中心：协程和线程"><a href="#数据中心：协程和线程" class="headerlink" title="数据中心：协程和线程"></a>数据中心：协程和线程</h3><p>数据中心</p>
+<ul>
+<li>同一时间有数千&#x2F;数万个请求到达服务器</li>
+<li>计算部分<ul>
+<li>需要利用好多处理器<ul>
+<li>线程 → 这就是我擅长的 (Mandelbrot Set)</li>
+<li>协程 → 一人出力，他人摸鱼</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>I&#x2F;O 部分<ul>
+<li>会在系统调用上 block (例如请求另一个服务或读磁盘)<ul>
+<li>协程 → 一人干等，他人围观</li>
+<li>线程 → 每个线程都占用可观的操作系统资源</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Go-和-Goroutine"><a href="#Go-和-Goroutine" class="headerlink" title="Go 和 Goroutine"></a>Go 和 Goroutine</h3><h3 id="现代编程语言上的系统编程"><a href="#现代编程语言上的系统编程" class="headerlink" title="现代编程语言上的系统编程"></a>现代编程语言上的系统编程</h3><hr>
+<h2 id="我们身边的并发编程"><a href="#我们身边的并发编程" class="headerlink" title="我们身边的并发编程"></a>我们身边的并发编程</h2><hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>并发编程的真实应用场景<ul>
+<li>高性能计算 (注重任务分解): 生产者-消费者 (MPI&#x2F;OpenMP)</li>
+<li>数据中心 (注重系统调用): 线程-协程 (Goroutine)</li>
+<li>人机交互 (注重易用性): 事件-流图 (Promise)</li>
+</ul>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/NJU OS/【NJU OS】06 并发控制：同步"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/15/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9106%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%EF%BC%9A%E5%90%8C%E6%AD%A5/"
+    >【NJU OS】06 并发控制：同步</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/15/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9106%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%EF%BC%9A%E5%90%8C%E6%AD%A5/" class="article-date">
+  <time datetime="2024-03-15T05:00:00.000Z" itemprop="datePublished">2024-03-15</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h2><h2 id="生产者-消费者问题"><a href="#生产者-消费者问题" class="headerlink" title="生产者-消费者问题"></a>生产者-消费者问题</h2><p>99% 的实际并发问题都可以用生产者-消费者解决。</p>
+<h2 id="条件变量：万能同步方法"><a href="#条件变量：万能同步方法" class="headerlink" title="条件变量：万能同步方法"></a>条件变量：万能同步方法</h2><h3 id="同步问题：分析"><a href="#同步问题：分析" class="headerlink" title="同步问题：分析"></a>同步问题：分析</h3><blockquote>
+<p>任何同步问题都有先来先等待的条件。</p>
+</blockquote>
+<p>线程 join (thread.h, sum.c)</p>
+<ul>
+<li>等所有线程结束后继续执行，否则等待</li>
+</ul>
+<h3 id="条件变量：实现生产者-消费者"><a href="#条件变量：实现生产者-消费者" class="headerlink" title="条件变量：实现生产者-消费者"></a>条件变量：实现生产者-消费者</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Tproduce</span><span class="params">()</span> &#123;</span><br><span class="line">  mutex_lock(&amp;lk);</span><br><span class="line">  <span class="keyword">if</span> (count == n) cond_wait(&amp;cv, &amp;lk);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;(&quot;</span>); count++; cond_signal(&amp;cv);</span><br><span class="line">  mutex_unlock(&amp;lk);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Tconsume</span><span class="params">()</span> &#123;</span><br><span class="line">  mutex_lock(&amp;lk);</span><br><span class="line">  <span class="keyword">if</span> (count == <span class="number">0</span>) cond_wait(&amp;cv, &amp;lk);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;)&quot;</span>); count--; cond_signal(&amp;cv);</span><br><span class="line">  mutex_unlock(&amp;lk);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="条件变量：实现并行计算"><a href="#条件变量：实现并行计算" class="headerlink" title="条件变量：实现并行计算"></a>条件变量：实现并行计算</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">producer</span><span class="params">()</span> &#123;</span><br><span class="line">  P(&amp;empty);   <span class="comment">// P()返回 -&gt; 得到手环</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;(&quot;</span>); <span class="comment">// 假设线程安全</span></span><br><span class="line">  V(&amp;fill);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">consumer</span><span class="params">()</span> &#123;</span><br><span class="line">  P(&amp;fill);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;)&quot;</span>);</span><br><span class="line">  V(&amp;empty);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><h2 id="哲学家进餐问题"><a href="#哲学家进餐问题" class="headerlink" title="哲学家进餐问题"></a>哲学家进餐问题</h2><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>实现同步的方法<ul>
+<li>条件变量、信号量；生产者-消费者问题</li>
+<li>Job queue 可以实现几乎任何并行算法</li>
+</ul>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/NJU OS/【NJU OS】05 并发控制：互斥"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/15/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9105%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%EF%BC%9A%E4%BA%92%E6%96%A5/"
+    >【NJU OS】05 并发控制：互斥</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/15/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9105%20%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6%EF%BC%9A%E4%BA%92%E6%96%A5/" class="article-date">
+  <time datetime="2024-03-15T03:30:00.000Z" itemprop="datePublished">2024-03-15</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="共享内存上的互斥"><a href="#共享内存上的互斥" class="headerlink" title="共享内存上的互斥"></a>共享内存上的互斥</h2><h3 id="在共享内存上实现互斥"><a href="#在共享内存上实现互斥" class="headerlink" title="在共享内存上实现互斥"></a>在共享内存上实现互斥</h3><p>实现互斥的根本困难：不能同时读&#x2F;写共享内存</p>
+<ul>
+<li>load (环顾四周) 的时候不能写，只能 “看一眼就把眼睛闭上”<ul>
+<li>看到的东西马上就过时了</li>
+</ul>
+</li>
+<li>store (改变物理世界状态) 的时候不能读，只能 “闭着眼睛动手”<ul>
+<li>也不知道把什么改成了什么</li>
+</ul>
+</li>
+</ul>
+<h2 id="自旋锁-Spin-Lock"><a href="#自旋锁-Spin-Lock" class="headerlink" title="自旋锁(Spin Lock)"></a>自旋锁(Spin Lock)</h2><h3 id="x86-原子操作：LOCK-指令前缀"><a href="#x86-原子操作：LOCK-指令前缀" class="headerlink" title="x86 原子操作：LOCK 指令前缀"></a>x86 原子操作：LOCK 指令前缀</h3><h3 id="用-xchg-实现互斥"><a href="#用-xchg-实现互斥" class="headerlink" title="用 xchg 实现互斥"></a>用 xchg 实现互斥</h3><h3 id="实现互斥：自旋锁"><a href="#实现互斥：自旋锁" class="headerlink" title="实现互斥：自旋锁"></a>实现互斥：自旋锁</h3><ul>
+<li>并发编程：千万小心<ul>
+<li>做详尽的测试 </li>
+<li>尽可能地证明 (model-checker.py 和 spinlock.py)</li>
+</ul>
+</li>
+<li>原子指令的模型<ul>
+<li>保证之前的 store 都写入内存</li>
+<li>保证 load&#x2F;store 不与原子指令乱序</li>
+</ul>
+</li>
+</ul>
+<h3 id="原子指令的诞生：Bus-Lock-80486"><a href="#原子指令的诞生：Bus-Lock-80486" class="headerlink" title="原子指令的诞生：Bus Lock (80486)"></a>原子指令的诞生：Bus Lock (80486)</h3><h3 id="Lock-指令的现代实现"><a href="#Lock-指令的现代实现" class="headerlink" title="Lock 指令的现代实现"></a>Lock 指令的现代实现</h3><p>在 L1 cache 层保持一致性 (ring&#x2F;mesh bus)</p>
+<ul>
+<li>相当于每个 cache line 有分别的锁</li>
+<li>store(x) 进入 L1 缓存即保证对其他处理器可见<ul>
+<li>但要小心 store buffer 和乱序执行</li>
+</ul>
+</li>
+</ul>
+<p>L1 cache line 根据状态进行协调</p>
+<ul>
+<li>M (Modified), 脏值</li>
+<li>E (Exclusive), 独占访问</li>
+<li>S (Shared), 只读共享</li>
+<li>I (Invalid), 不拥有 cache line</li>
+</ul>
+<h2 id="互斥锁-Mutex-Lock"><a href="#互斥锁-Mutex-Lock" class="headerlink" title="互斥锁 (Mutex Lock)"></a>互斥锁 (Mutex Lock)</h2><h3 id="自旋锁的缺陷"><a href="#自旋锁的缺陷" class="headerlink" title="自旋锁的缺陷"></a>自旋锁的缺陷</h3><p>性能问题 (0)</p>
+<ul>
+<li>自旋 (共享变量) 会触发处理器间的缓存同步，延迟增加</li>
+</ul>
+<p>性能问题 (1)</p>
+<ul>
+<li>除了进入临界区的线程，其他处理器上的线程都在空转</li>
+<li>争抢锁的处理器越多，利用率越低</li>
+</ul>
+<p>性能问题 (2)</p>
+<ul>
+<li>获得自旋锁的线程可能被操作系统切换出去<ul>
+<li>操作系统不 “感知” 线程在做什么</li>
+<li>(但为什么不能呢？)</li>
+</ul>
+</li>
+<li>实现 100% 的资源浪费</li>
+</ul>
+<h3 id="自旋锁的使用场景"><a href="#自旋锁的使用场景" class="headerlink" title="自旋锁的使用场景"></a>自旋锁的使用场景</h3><ul>
+<li>临界区几乎不 “拥堵”</li>
+<li>持有自旋锁时禁止执行流切换</li>
+</ul>
+<p>使用场景：操作系统内核的并发数据结构 (短临界区)</p>
+<ul>
+<li>操作系统可以关闭中断和抢占<ul>
+<li>保证锁的持有者在很短的时间内可以释放锁</li>
+</ul>
+</li>
+<li>(如果是虚拟机呢…😂)<ul>
+<li>PAUSE 指令会触发 VM Exit</li>
+</ul>
+</li>
+<li>但依旧很难做好</li>
+</ul>
+<h2 id="实现线程-长临界区的互斥"><a href="#实现线程-长临界区的互斥" class="headerlink" title="实现线程 + 长临界区的互斥"></a>实现线程 + 长临界区的互斥</h2><p>“让” 不是 C 语言代码可以做到的 (C 代码只能计算)</p>
+<p>把锁的实现放到操作系统里就好啦！</p>
+<ul>
+<li>syscall(SYSCALL_lock, &amp;lk);<ul>
+<li>试图获得 lk，但如果失败，就切换到其他线程</li>
+</ul>
+</li>
+<li>syscall(SYSCALL_unlock, &amp;lk);<ul>
+<li>释放 lk，如果有等待锁的线程就唤醒</li>
+</ul>
+</li>
+</ul>
+<h2 id="Futex-Spin-Mutex"><a href="#Futex-Spin-Mutex" class="headerlink" title="Futex &#x3D; Spin + Mutex"></a>Futex &#x3D; Spin + Mutex</h2><h3 id="Futex-Fast-Userspace-muTexes"><a href="#Futex-Fast-Userspace-muTexes" class="headerlink" title="Futex: Fast Userspace muTexes"></a>Futex: Fast Userspace muTexes</h3><ul>
+<li>Fast path: 一条原子指令，上锁成功立即返回</li>
+<li>Slow path: 上锁失败，执行系统调用睡眠<ul>
+<li>性能优化的最常见技巧<ul>
+<li>看 average (frequent) case 而不是 worst case</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>软件不够，硬件来凑 (自旋锁)</li>
+<li>用户不够，内核来凑 (互斥锁)<ul>
+<li>找到你依赖的假设，并大胆地打破它</li>
+</ul>
+</li>
+<li>Fast&#x2F;slow paths: 性能优化的重要途径</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/NJU OS/【NJU OS】04 理解并发程序执行"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/14/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9104%20%E7%90%86%E8%A7%A3%E5%B9%B6%E5%8F%91%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/"
+    >【NJU OS】04 理解并发程序执行</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/14/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9104%20%E7%90%86%E8%A7%A3%E5%B9%B6%E5%8F%91%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C/" class="article-date">
+  <time datetime="2024-03-14T05:00:00.000Z" itemprop="datePublished">2024-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="Peterson-算法"><a href="#Peterson-算法" class="headerlink" title="Peterson 算法"></a>Peterson 算法</h2><p>A 和 B 争用厕所的包厢</p>
+<p>想进入包厢之前，A&#x2F;B 都要先举起自己的旗子</p>
+<ul>
+<li>A 确认旗子举好以后，往厕所门上贴上 “B 正在使用” 的标签</li>
+<li>B 确认旗子举好以后，往厕所门上贴上 “A 正在使用” 的标签</li>
+<li>然后，如果对方的旗子举起来，且门上的名字不是自己，等待<ul>
+<li>否则可以进入包厢</li>
+</ul>
+</li>
+<li>出包厢后，放下自己的旗子</li>
+</ul>
+<h3 id="证明"><a href="#证明" class="headerlink" title="证明"></a>证明</h3><ul>
+<li>枚举状态机<ul>
+<li>可以忽略对称状态（类似剪枝）</li>
+</ul>
+</li>
+</ul>
+<h2 id="自动-画状态机理解并发程序"><a href="#自动-画状态机理解并发程序" class="headerlink" title="(自动) 画状态机理解并发程序"></a>(自动) 画状态机理解并发程序</h2><ul>
+<li>Python<ul>
+<li>容易 hack 的动态语言</li>
+<li>丰富的库函数</li>
+</ul>
+</li>
+<li>死循环也能返回？<ul>
+<li>yeild</li>
+</ul>
+</li>
+<li>Generator: 也是状态机</li>
+</ul>
+<h2 id="Model-Checker"><a href="#Model-Checker" class="headerlink" title="Model Checker"></a>Model Checker</h2><p>Model checker 的一切就是状态机！</p>
+<ul>
+<li>Safety: 红色的状态不可到达<ul>
+<li>G(V,E) 上的可达性问题</li>
+</ul>
+</li>
+<li>(Strong) Liveness: 从任意状态出发，都能到达绿&#x2F;蓝色状态<ul>
+<li>G(V,E) 上的什么问题？</li>
+</ul>
+</li>
+<li>如何展示这个状态机？</li>
+<li>如何能避免无效的探索？</li>
+</ul>
+<h2 id="工具的故事"><a href="#工具的故事" class="headerlink" title="工具的故事"></a>工具的故事</h2><blockquote>
+<p>没有人能阻止程序员写 bug，但工具可以。</p>
+</blockquote>
+<p>至今为止我们用过的自动化工具 (他们拯救了你无数次)</p>
+<p>Type safety check</p>
+<ul>
+<li>-Wall -Werror</li>
+<li>Differential testing</li>
+<li>Model checker</li>
+<li>……</li>
+</ul>
+<p>这门课的另一个 take-away</p>
+<ul>
+<li>操作系统是一个巨大的工程</li>
+<li>没有工具 (编程、测试、调试……)，不做系统</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/NJU OS/【NJU OS】03 多处理器编程"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/14/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9103%20%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8%E7%BC%96%E7%A8%8B/"
+    >【NJU OS】03 多处理器编程</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/14/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9103%20%E5%A4%9A%E5%A4%84%E7%90%86%E5%99%A8%E7%BC%96%E7%A8%8B/" class="article-date">
+  <time datetime="2024-03-14T03:30:00.000Z" itemprop="datePublished">2024-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="并发的基本单位：线程"><a href="#并发的基本单位：线程" class="headerlink" title="并发的基本单位：线程"></a>并发的基本单位：线程</h2><p>共享内存的多个执行流</p>
+<p>执行流拥有独立的堆栈&#x2F;寄存器<br>共享全部的内存 (指针可以互相引用)<br>用状态机的视角就很容易理解了！</p>
+<ul>
+<li>放弃 (1)：原子性</li>
+<li>放弃 (2)：顺序</li>
+<li>放弃 (3)：可见性</li>
+</ul>
+<h2 id="并发编程：思考"><a href="#并发编程：思考" class="headerlink" title="并发编程：思考"></a>并发编程：思考</h2><p>并发超出了一般人类对这个世界的基础认识。我们即便假设所有的内存访问都是原子的 (被 __sync_synchronize() 包围)，根据每个线程读&#x2F;写的数值恢复出一个全局的内存访问顺序也是 NP-Complete 的 (这个基本是课后习题难度)：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://dl.acm.org/doi/abs/10.1109/SPDP.1992.242728">The complexity of sequential consistency (SPDP’92)</a></li>
+</ul>
+<p>这也意味着，并发程序的复杂性从根本上来说对人类是 “失控” 的。但从另一个角度，人类有在另外一个维度解决这个问题的 (工程) 办法：</p>
+<blockquote>
+<p>作出合适的抽象，并且只写自己能控制得了的代码。</p>
+</blockquote>
+<p>某种程度上说，这是我们和现实世界复杂性的妥协。例如，在并发编程时总是使用线程池、队列、Map-Reduce 等容易理解的并发编程工具。此外，人类还发明了很多工具来帮助我们理解并发程序，model checker 就是其中之一。OSTEP 推荐了 helgrind: <a target="_blank" rel="noopener" href="https://valgrind.org/docs/manual/hg-manual.html">基于 Valgrind 实现的并发错误检测工具</a>；与它类似的有 ThreadSanitizer。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】12 查询处理 I"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/14/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9112%20%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%20I/"
+    >【CMU 15-445】12 查询处理 I</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/14/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9112%20%E6%9F%A5%E8%AF%A2%E5%A4%84%E7%90%86%20I/" class="article-date">
+  <time datetime="2024-03-13T16:00:00.000Z" itemprop="datePublished">2024-03-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/12-queryexecution1.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/12-queryexecution1.pdf">Notes</a></p>
+<h2 id="1-查询计划-Query-Plan"><a href="#1-查询计划-Query-Plan" class="headerlink" title="1. 查询计划 Query Plan"></a>1. 查询计划 Query Plan</h2><p>DBMS将SQL语句转换为查询计划。operators 排列成一棵树。数据从树叶流向根部。树中根节点的输出是查询的结果。通常，operators 是二元的(1-2个子运算符)。可以以多种方式执行相同的查询计划。大多数DBMS都希望尽可能多地使用索引扫描(一种数据访问方式)。</p>
+<h2 id="2-处理模型-Processing-Models"><a href="#2-处理模型-Processing-Models" class="headerlink" title="2. 处理模型 Processing Models"></a>2. 处理模型 Processing Models</h2><p>DBMS处理模型 定义系统如何执行查询计划。对于不同的工作负载，不同的模型具有不同的权衡。</p>
+<p>还可以实现这些模型以自上而下 top-to-bottom (最常见)或自下而上 bottom-to-top 地调用运算符。</p>
+<h3 id="Iterator-Model（迭代模型）"><a href="#Iterator-Model（迭代模型）" class="headerlink" title="Iterator Model（迭代模型）"></a>Iterator Model（迭代模型）</h3><p>这是最常见的处理模型，几乎每个(基于行的)DBMS都使用它。允许流水线操作，其中DBMS可以在检索下一个元组之前通过尽可能多的运算符处理元组。</p>
+<p>每个查询计划操作符都实现 next 函数：</p>
+<p>每次调用next时，操作符要么返回单个元组，要么返回空标记(如果没有更多的元组)。<br>运算符实现了一个循环，该循环在其子级上调用next以检索其元组，然后处理它们(即，在父级上调用next，在其子级上调用next)。<br>一些操作符会一直阻塞，直到子级发出它们的所有元组(联接、子查询、排序依据)。这些被称为管道断路器pipeline breakers。</p>
+<p>输出控制很容易使用这种方法(LIMIT)，因为一旦拥有了所需的所有元组，操作符就可以停止对其子运算符调用next。</p>
+<h3 id="Materialization-Model（物化模型）"><a href="#Materialization-Model（物化模型）" class="headerlink" title="Materialization Model（物化模型）"></a>Materialization Model（物化模型）</h3><p>每个 operator 一次处理其所有输入，然后一次发出其所有输出。operator 将其输出“物化”为单个结果。</p>
+<p>每个查询计划操作符都实现一个Output 函数：</p>
+<p>操作符一次处理其子代的所有元组。<br>此函数的返回结果是运算符将发出的所有元组。当操作符完成执行时，DBMS再也不需要返回到它来检索更多数据。<br>这种方法更适合于OLTP工作负载，因为查询一次通常只访问少量的元组。因此，检索元组的函数调用较少。不适合具有大型中间结果的OLAP查询，因为DBMS可能不得不在操作符之间将这些结果溢出到磁盘。</p>
+<h3 id="Vectorization-Model"><a href="#Vectorization-Model" class="headerlink" title="Vectorization Model"></a>Vectorization Model</h3><p>就像迭代模型，其中每个操作符实现一个next函数。但每个运算符都会发出大量数据(即向量)，而不是单个元组：</p>
+<p>运算符实现可以针对处理批数据进行优化，而不是一次只处理一个项目。<br>此方法非常适合必须扫描大量元组的OLAP查询，因为调用next函数的次数较少。</p>
+<h2 id="3-访问方法-Access-Methods"><a href="#3-访问方法-Access-Methods" class="headerlink" title="3. 访问方法 Access Methods"></a>3. 访问方法 Access Methods</h2><p>访问方法是DBMS访问 表中存储的数据 的方式。这些将是查询计划中的底部操作符，它们将数据“feed”到树中它上面的操作符中。关系代数中没有相应的运算符。</p>
+<p>顺序扫描 Sequential Scan<br>对于表中的每一页，迭代每一页并从缓冲池中检索它。对于每个页面，迭代所有元组并计算谓词以决定是否包含元组。</p>
+<p>优化：</p>
+<ul>
+<li>预取 Prefetching：提前获取下几个页面，以便DBMS在访问每个页面时不必阻塞。</li>
+<li>并行化 Parallelization：使用多个线程&#x2F;进程并行执行扫描。</li>
+<li>缓冲池绕过 Buffer Pool Bypass：扫描操作符将其从磁盘获取的页面存储在其本地内存中，而不是缓冲池中。这避免了顺序洪泛问题。</li>
+<li>区域映射 Zone Map：预计算页面中每个元组属性的聚合。然后，DBMS可以通过首先检查其区域映射来检查它是否需要访问页面。每个页面的区域映射存储在单独的页面中，并且每个区域映射页面中通常有多个条目。因此，可以减少在顺序扫描中检查的总页数。</li>
+<li>延迟物化 Late Materialization：每个操作符传递给下一个操作符所需的最少量信息(例如，记录ID)。这仅在列存储系统(即DSM)中有用。</li>
+<li>堆聚簇 Heap Clustering：元组按照聚簇索引指定的顺序存储在堆页面中。</li>
+</ul>
+<h3 id="索引扫描-Index-Scan"><a href="#索引扫描-Index-Scan" class="headerlink" title="索引扫描 Index Scan"></a>索引扫描 Index Scan</h3><p>DBMS选择一个(或多个)索引来查找查询所需的元组。</p>
+<p>当使用多个索引时，DBMS对每个索引执行搜索并生成一组匹配的记录ID。可以使用位图、哈希表或Bloom过滤器来实现此记录ID。DBMS根据查询的谓词(UNION和INTERSECT)组合这些集合。然后，它检索记录并应用任何剩余的术语。更高级的DBMS支持多索引扫描。</p>
+<p>按元组在非聚簇索引中出现的顺序检索元组效率较低。DBMS可以首先找出它需要的所有元组，然后根据它们的页面ID对它们进行排序。</p>
+<h2 id="4-表达评估-Expression-Evaluation"><a href="#4-表达评估-Expression-Evaluation" class="headerlink" title="4. 表达评估 Expression Evaluation"></a>4. 表达评估 Expression Evaluation</h2><p>DBMS将查询计划表示为树。运算符内部将是一个表达式树。例如，filter 操作符的 WHERE 子句。</p>
+<p>树中的节点代表不同的表达式类型：</p>
+<ul>
+<li>比较(&#x3D;、&lt;、&gt;、！&#x3D;)</li>
+<li>交集(AND)、并集(OR)</li>
+<li>算术运算符(+、-、*、&#x2F;、%)</li>
+<li>常量和参数V值</li>
+<li>元组属性引用</li>
+</ul>
+<p>为了在运行时计算表达式树，DBMS维护一个上下文句柄，该句柄包含执行的元数据，如当前元组、参数和表架构。然后，DBMS遍历树以计算其操作符并生成结果。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】11 Joins 算法"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/13/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9111%20Joins%20%E7%AE%97%E6%B3%95/"
+    >【CMU 15-445】11 Joins 算法</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/13/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9111%20Joins%20%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2024-03-13T07:30:00.000Z" itemprop="datePublished">2024-03-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/11-joins.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/11-joins.pdf">Notes</a></p>
+<h2 id="1-Joins-连接"><a href="#1-Joins-连接" class="headerlink" title="1. Joins 连接"></a>1. Joins 连接</h2><p>好的数据库设计的目标是将信息重复量降至最低。这就是我们基于规范化理论编写表的原因。因此，重建原始表需要连接。</p>
+<h3 id="Operator-Output"><a href="#Operator-Output" class="headerlink" title="Operator Output"></a>Operator Output</h3><p>对于在联接属性上匹配的元组 r∈R 和元组 s∈S ，联接运算符会将 r 和 s 连接到一个新的输出元组中。</p>
+<p>实际上，连接操作符生成的输出元组的内容各不相同。它取决于DBMS的处理模型、存储模型和查询本身：</p>
+<ul>
+<li>数据：将外部表和内部表中属性的值复制到元组中，并将其放入仅用于该操作符的中间结果表中。这种方法的优点是，查询计划中的未来运算符永远不需要返回到基表来获取更多数据。缺点是这需要更多的内存来物化整个元组。</li>
+<li>记录ID：DBMS只复制连接 key 和匹配元组的记录ID。这种方法非常适合列存储，因为DBMS不会复制查询不需要的数据。这就是所谓的后期物化。</li>
+</ul>
+<h3 id="Cost-分析"><a href="#Cost-分析" class="headerlink" title="Cost 分析"></a>Cost 分析</h3><p>我们将用来分析不同联接算法的 cost 指标将是用于计算 joins 的磁盘I&#x2F;O数量。这包括从磁盘读取数据以及将中间数据写出磁盘所引起的I&#x2F;O。</p>
+<p>本课程使用的变量：表 R 中有 M 个页面，M 个元组；表 S 中 N 个页面，N 个元组。</p>
+<h2 id="2-Nested-Loop-Join-嵌套循环连接"><a href="#2-Nested-Loop-Join-嵌套循环连接" class="headerlink" title="2. Nested Loop Join 嵌套循环连接"></a>2. Nested Loop Join 嵌套循环连接</h2><p>在high-level 上，这种类型的联接算法由两个嵌套的for循环组成，这两个循环迭代两个表中的元组并比较每个唯一的元组。如果元组与连接谓词匹配，则输出它们。外部for循环中的表称为外部表，而内部for循环中的表称为内表。</p>
+<p>DBMS总是希望使用“较小”的表作为外部表。较小的可以是元组的数量或页面的数量。DBMS还希望在内存中缓冲尽可能多的外部表。如果可能，利用索引在内部表中查找匹配项。</p>
+<h3 id="Simple-Nested-Loop-Join"><a href="#Simple-Nested-Loop-Join" class="headerlink" title="Simple Nested Loop Join"></a>Simple Nested Loop Join</h3><p>对于外部表中的每个元组，将其与内表中的每个元组进行比较。这是最糟糕的情况，假设每个元组都有一个磁盘I&#x2F;O要读取(即没有缓存或访问局部性)。Cost：M+(m×N)</p>
+<h3 id="Block-Nested-Loop-Join"><a href="#Block-Nested-Loop-Join" class="headerlink" title="Block Nested Loop Join"></a>Block Nested Loop Join</h3><p>对于外部表中的每个块，从内表中获取每个块，并比较这两个块中的所有元组。该算法执行的磁盘访问较少，因为我们针对每个外部表块而不是每个元组扫描内部表。Cost：M+(M×N)</p>
+<p>如果DBMS具有可用于计算联接的B个缓冲区，则它可以使用B−2个缓冲区来扫描外部表。它将使用1个缓冲区来保存来自内部表的一个块，并使用1个缓冲区来存储连接的输出。</p>
+<h3 id="Index-Nested-Loop-Join"><a href="#Index-Nested-Loop-Join" class="headerlink" title="Index Nested Loop Join"></a>Index Nested Loop Join</h3><p>以前的嵌套循环连接算法执行得很差，因为DBMS必须执行顺序扫描来检查内表中的匹配。但是，如果数据库已经为连接键上的一个表建立了索引，则可以使用该索引来加快比较速度。外层的表将是没有索引的表。内表将是带有索引的表。</p>
+<p>假设每个索引探测器的成本是每个元组的某个常量值C。成本：M+(m×C)</p>
+<h2 id="3-Sort-Merge-Join"><a href="#3-Sort-Merge-Join" class="headerlink" title="3. Sort-Merge Join"></a>3. Sort-Merge Join</h2><p>High-level是根据这两个表的 join key 对它们进行排序。然后对已排序的表执行顺序扫描，以计算联接。如果一个或两个表已按联接属性排序，则此算法非常有用。</p>
+<p>此算法的最坏情况是两个表中所有元组的联接属性包含相同的值。这在真实的数据库中不太可能发生。</p>
+<ul>
+<li>阶段1-排序：首先根据连接属性对两个输入表进行排序。</li>
+<li>阶段2-合并：并行扫描两个已排序的表，并发出匹配的元组。</li>
+</ul>
+<p>假设DBMS有B个缓冲区可用于该算法：</p>
+<h2 id="4-Hash-Join"><a href="#4-Hash-Join" class="headerlink" title="4. Hash Join"></a>4. Hash Join</h2><p>哈希联接算法的high-level思想是使用哈希表根据它们的联接属性将元组分割成更小的块。这减少了DBMS计算联接时每个元组需要执行的比较次数。哈希联接只能用于完整联接键上的等联接 equi-joins。</p>
+<p>如果元组 r∈R 和元组 s∈S 满足联接条件，则它们的联接属性值相同。如果该值被hash为某个值i，则R元组必须在桶 ri 中，而S元组必须在桶 si 中。因此，只需要将桶 ri 中的R个元组与桶 si 中的S个元组进行比较。</p>
+<h3 id="Basic-Hash-Join"><a href="#Basic-Hash-Join" class="headerlink" title="Basic Hash Join"></a>Basic Hash Join</h3><ul>
+<li>阶段1-Build：扫描外部关系并使用连接属性上的hash函数 h1 填充hash表。哈希表中的key 是联接属性。该值取决于实施情况。</li>
+<li>阶段2-Probe：扫描内部关系，对每个元组使用哈希函数 h1，跳到哈希表中的某个位置，找到匹配的元组。由于哈希表中可能存在冲突，因此DBMS将需要检查联接属性的原始值，以确定元组是否真正匹配。<br>如果DBMS知道外部表的大小，则联接可以使用静态哈希表。如果它不知道大小，则联接必须使用动态哈希表或允许溢出页面。</li>
+</ul>
+<h3 id="Grace-Hash-Join-Hybrid-Hash-Join-Grace哈希连接-混合哈希连接"><a href="#Grace-Hash-Join-Hybrid-Hash-Join-Grace哈希连接-混合哈希连接" class="headerlink" title="Grace Hash Join &#x2F; Hybrid Hash Join (Grace哈希连接&#x2F;混合哈希连接)"></a>Grace Hash Join &#x2F; Hybrid Hash Join (Grace哈希连接&#x2F;混合哈希连接)</h3><p>当表不能放入主内存时，您不希望缓冲池管理器不断地调入和调出表。Grace Hash Join是基本Hash Join的扩展，它还将内部表 hash 到写到磁盘的分区中。Grace 这个名字来自20世纪80年代在日本开发的格蕾丝数据库机器。</p>
+<ul>
+<li>阶段＃1-构建：扫描外部表和内部表，并使用连接属性上的哈希函数 h1 填充哈希表。散列表的桶根据需要写入磁盘。如果单个桶不适合内存，则用户使用第二个散列函数h2（其中h1！&#x3D;h2）进行分区以进一步划分该桶。</li>
+<li>阶段＃2-探测：对于每个桶级，检索外部和内部表的相应页面。然后在这两页中对元组执行嵌套循环连接。页面将适合内存，因此此加入操作将很快。<br>分区阶段Cost：2×(M+N) —— 两次：从磁盘中读数据 和将数据写出到磁盘</li>
+</ul>
+<p>探测阶段Cost：(M+N)</p>
+<p>总Cost：3×(M+N)</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/NJU OS/【NJU OS】02 操作系统上的程序"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/13/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9102%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%9A%84%E7%A8%8B%E5%BA%8F/"
+    >【NJU OS】02 操作系统上的程序</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/13/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9102%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8A%E7%9A%84%E7%A8%8B%E5%BA%8F/" class="article-date">
+  <time datetime="2024-03-13T04:30:00.000Z" itemprop="datePublished">2024-03-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="什么是程序？（源代码视角）"><a href="#什么是程序？（源代码视角）" class="headerlink" title="什么是程序？（源代码视角）"></a>什么是程序？（源代码视角）</h2><p>程序就是状态机</p>
+<h3 id="状态机"><a href="#状态机" class="headerlink" title="状态机"></a>状态机</h3><ul>
+<li>状态机 &#x3D; 状态 + 迁移</li>
+</ul>
+<h3 id="C语言的语义"><a href="#C语言的语义" class="headerlink" title="C语言的语义"></a>C语言的语义</h3><p>C 程序的状态机模型 (语义，semantics)</p>
+<ul>
+<li>状态 &#x3D; stack frame 的列表 (每个 frame 有 PC) + 全局变量</li>
+<li>初始状态 &#x3D; main(argc, argv), 全局变量初始化</li>
+<li>迁移 &#x3D; 执行 top stack frame PC 的语句; PC++<ul>
+<li>函数调用 &#x3D; push frame (frame.PC &#x3D; 入口)</li>
+<li>函数返回 &#x3D; pop frame</li>
+</ul>
+</li>
+</ul>
+<p>应用：将任何递归程序就地变为非递归</p>
+<h2 id="什么是程序？（二进制视角）"><a href="#什么是程序？（二进制视角）" class="headerlink" title="什么是程序？（二进制视角）"></a>什么是程序？（二进制视角）</h2><p>还是状态机</p>
+<ul>
+<li>状态 &#x3D; 内存M + 寄存器R</li>
+<li>初始状态 &#x3D; (稍后回答)</li>
+<li>迁移 &#x3D; 执行一条指令<ul>
+<li>我们花了一整个《计算机系统基础》解释这件事</li>
+<li>gdb 同样可以观察状态和执行</li>
+</ul>
+</li>
+</ul>
+<h2 id="一条特殊的指令"><a href="#一条特殊的指令" class="headerlink" title="一条特殊的指令"></a>一条特殊的指令</h2><p>调用操作系统 syscall</p>
+<ul>
+<li>把 (M,R) 完全交给操作系统，任其修改<ul>
+<li>一个有趣的问题：如果程序不打算完全信任操作系统？</li>
+</ul>
+</li>
+<li>实现与操作系统中的其他对象交互<ul>
+<li>读写文件&#x2F;操作系统状态 (例如把文件内容写入M)</li>
+<li>改变进程 (运行中状态机) 的状态，例如创建进程&#x2F;销毁自己</li>
+</ul>
+</li>
+</ul>
+<p>程序 &#x3D; 计算 + syscall</p>
+<h2 id="计算机系统不存在玄学"><a href="#计算机系统不存在玄学" class="headerlink" title="计算机系统不存在玄学"></a>计算机系统不存在玄学</h2><ul>
+<li>一切都建立在确定的机制上</li>
+<li>理解操作系统的重要工具：gcc, binutils, gdb, strace</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/NJU OS/【NJU OS】01 操作系统概述"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/13/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9101%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/"
+    >【NJU OS】01 操作系统概述</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/13/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9101%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" class="article-date">
+  <time datetime="2024-03-13T02:30:00.000Z" itemprop="datePublished">2024-03-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="什么是操作系统？"><a href="#什么是操作系统？" class="headerlink" title="什么是操作系统？"></a>什么是操作系统？</h2><ul>
+<li>管理软件硬资源，为程序提供服务</li>
+<li>边界是模糊的，精确的定义无意义</li>
+</ul>
+<h3 id="今天的操作系统"><a href="#今天的操作系统" class="headerlink" title="今天的操作系统"></a>今天的操作系统</h3><p>空前复杂的系统之一</p>
+<ul>
+<li>更复杂的处理器和内存<ul>
+<li>非对称多处理器 (ARM big.LITTLE; Intel P&#x2F;E-cores)</li>
+<li>Non-uniform Memory Access (NUMA)</li>
+<li>更多的硬件机制 Intel-VT&#x2F;AMD-V, TrustZone&#x2F;SGX, TSX, …</li>
+</ul>
+</li>
+<li>更多的设备和资源<ul>
+<li>网卡、SSD、GPU、FPGA…</li>
+</ul>
+</li>
+<li>复杂的应用需求和应用环境<ul>
+<li>服务器、个人电脑、智能手机、手表、手环、IoT&#x2F;微控制器……</li>
+</ul>
+</li>
+</ul>
+<h2 id="理解操作系统：三个根本问题"><a href="#理解操作系统：三个根本问题" class="headerlink" title="理解操作系统：三个根本问题"></a>理解操作系统：三个根本问题</h2><p>操作系统服务谁？</p>
+<ul>
+<li>程序 &#x3D; 状态机</li>
+<li>课程涉及：多线程 Linux 应用程序</li>
+</ul>
+<p>(设计&#x2F;应用视角) 操作系统为程序提供什么服务？</p>
+<ul>
+<li>操作系统 &#x3D; 对象 + API</li>
+<li>课程涉及：POSIX + 部分 Linux 特性</li>
+</ul>
+<p>(实现&#x2F;硬件视角) 如何实现操作系统提供的服务？</p>
+<ul>
+<li>操作系统 &#x3D; C 程序<ul>
+<li>完成初始化后就成为 interrupt&#x2F;trap&#x2F;fault handler</li>
+</ul>
+</li>
+<li>课程涉及：xv6, 自制迷你操作系统</li>
+</ul>
+<h2 id="怎么学操作系统？"><a href="#怎么学操作系统？" class="headerlink" title="怎么学操作系统？"></a>怎么学操作系统？</h2><p>是一个合格的操作系统用户</p>
+<ul>
+<li>会 STFW&#x2F;RTFM 自己动手解决问题</li>
+<li>不怕使用任何命令行工具<ul>
+<li>vim, tmux, grep, gcc, binutils, …<br>不惧怕写代码</li>
+</ul>
+</li>
+<li>能管理一定规模 (数千行) 的代码</li>
+<li>能在出 bug 时默念 “机器永远是对的、我肯定能调出来的”<ul>
+<li>然后开始用正确的工具&#x2F;方法调试</li>
+</ul>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/NJU OS/【NJU OS】00 课程简介"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/12/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9100%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/"
+    >【NJU OS】00 课程简介</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/12/Course/NJU%20OS/%E3%80%90NJU%20OS%E3%80%9100%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" class="article-date">
+  <time datetime="2024-03-12T12:00:00.000Z" itemprop="datePublished">2024-03-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/NJU-OS-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9A%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/">NJU OS 操作系统：设计与实现</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="【课程简介】"><a href="#【课程简介】" class="headerlink" title="【课程简介】"></a>【课程简介】</h2><h3 id="什么是操作系统？"><a href="#什么是操作系统？" class="headerlink" title="什么是操作系统？"></a>什么是操作系统？</h3><p>操作系统是一个典型的 “system”——它完成对计算机硬件系统的抽象，提供应用程序的运行环境：</p>
+<ul>
+<li>从应用程序的视角看，操作系统定义了一系列的对象 (进程&#x2F;线程、地址空间、文件、设备……) 和操纵它们的 API (系统调用)。这组强大的 API 把计算机的硬件资源有序地管理起来，它不仅能实现应用程序 (浏览器、游戏……)，还支持着各类神奇的系统程序 (容器、虚拟机、调试器、游戏外挂……)</li>
+</ul>
+<p>我们会使用操作系统 API 实现一系列 “黑科技”，包括在 Linux 中复刻三类经典游戏外挂：金山游侠、按键精灵、变速齿轮，并用它们修改真正的游戏</p>
+<ul>
+<li>从硬件的视角看，操作系统是一个拥有访问全部硬件功能的程序 (操作系统就是个 C 程序，不用怕)。硬件会帮助操作系统完成最初的初始化和加载，之后，操作系统加载完第一个程序后，从此作为 “中断处理程序” 在后台管理整个计算机系统</li>
+</ul>
+<p>我们会在课堂上调试 xv6 和 Linux 内核，理解真实操作系统的执行</p>
+<h3 id="课程组织"><a href="#课程组织" class="headerlink" title="课程组织"></a>课程组织</h3><p>操作系统使用正确的抽象使构造庞大的计算机软件&#x2F;硬件生态从不可能变为可能。这门课围绕操作系统是如何设计 (应用程序视角)、怎样实现 (硬件视角) 两个角度展开，分为两个主要部分：</p>
+<ul>
+<li><p>原理课 (并发&#x2F;虚拟化&#x2F;持久化):</p>
+<ul>
+<li>以教科书内容为主，介绍操作系统的原理性内容。课程同时注重讲解操作系统相关的代码实现和编程技巧，包括操作系统中常用的命令行&#x2F;代码工具、教学操作系统 xv6 的代码讲解等</li>
+</ul>
+</li>
+<li><p>理解操作系统最重要的实验部分：</p>
+<ul>
+<li>Mini labs (应用程序视角；设计)：通过实现一系列有趣的 (黑科技) 代码理解操作系统中对象存在的意义和操作系统 API 的使用方法、设计理念</li>
+<li>OS labs (计算机硬件视角；实现)：基于一个简化的硬件抽象层实现多处理器操作系统内核，向应用程序提供一些基础操作系统 API</li>
+</ul>
+</li>
+</ul>
+<h2 id="【授课老师】"><a href="#【授课老师】" class="headerlink" title="【授课老师】"></a>【授课老师】</h2><p><a target="_blank" rel="noopener" href="https://ics.nju.edu.cn/~jyy/">蒋炎岩</a></p>
+<h2 id="【课程主页】"><a href="#【课程主页】" class="headerlink" title="【课程主页】"></a>【课程主页】</h2><p><a target="_blank" rel="noopener" href="https://jyywiki.cn/OS/2022/index.html">操作系统：设计与实现 (2022 春季学期)</a></p>
+<h2 id="【Tips】"><a href="#【Tips】" class="headerlink" title="【Tips】"></a>【Tips】</h2><p>课程已更新到2024，但2023、2024的课程视频是线下实录的，2022的课程视频是线上录的，观感更好。</p>
+<p>引用<a target="_blank" rel="noopener" href="https://survivesjtu.gitbook.io/survivesjtumanual/li-zhi-pianhuan-ying-lai-dao-shang-hai-jiao-tong-da-xue">《上海交通大学生存手册》</a>的一段话：<em>“国内绝大部分大学的本科教学，不是濒临崩溃，而是早已崩溃。”</em> 那么蒋老师就是在这样的环境下，少有的对本科CS教学怀有使命感的好老师，这门OS课的质量也绝对可以对标到世界顶尖高校。</p>
+<hr>
+<p><img src="/../../../images/NJUOS/%E4%BD%BF%E5%91%BD.png" alt="摘自Slides"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NJU-OS/" rel="tag">NJU OS</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2025
+        <i class="ri-heart-fill heart_icon"></i> Hxy
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/logo.png" alt="Hxy&#39;s Ocean"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=411259022&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>

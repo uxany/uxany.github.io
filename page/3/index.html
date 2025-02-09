@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+  
+
+    <head>
+      <meta charset="utf-8" />
+        
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+      />
+      <title> Hxy&#39;s Ocean</title>
+  <meta name="generator" content="hexo-theme-ayer">
+      
+      <link rel="shortcut icon" href="/favicon.ico" />
+       
+<link rel="stylesheet" href="/dist/main.css">
+
+      
+<link rel="stylesheet" href="/css/fonts/remixicon.css">
+
+      
+<link rel="stylesheet" href="/css/custom.css">
+ 
+      <script src="https://cdn.staticfile.org/pace/1.2.4/pace.min.js"></script>
+       
+ 
+
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5.0.1/bulma.min.css"
+      />
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+
+      <!-- mermaid -->
+      
+      <style>
+        .swal2-styled.swal2-confirm {
+          font-size: 1.6rem;
+        }
+      </style>
+    </head>
+  </html>
+</html>
+
+
+<body>
+  <div id="app">
+    
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/cover4.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">Hxy&#39;s Ocean</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['Hxy&#39;s Ocean', 'Welcome to my blog.', ''],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  
+  
+  
+
+<div class="notice" style="margin-top:50px">
+    <i class="ri-heart-fill"></i>
+    <div class="notice-content" id="broad"></div>
+</div>
+<script type="text/javascript">
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("broad").innerHTML = data.hitokoto;
+        })
+        .catch(console.error)
+</script>
+
+<style>
+    .notice {
+        padding: 20px;
+        border: 1px dashed #e6e6e6;
+        color: #969696;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        background: #fbfbfb50;
+        border-radius: 10px;
+    }
+
+    .notice i {
+        float: left;
+        color: #999;
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    .notice-content {
+        display: initial;
+        vertical-align: middle;
+    }
+</style>
+  
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】10 排序和聚合算法"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/12/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9110%20%E6%8E%92%E5%BA%8F%E5%92%8C%E8%81%9A%E5%90%88%E7%AE%97%E6%B3%95/"
+    >【CMU 15-445】10 排序和聚合算法</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/12/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9110%20%E6%8E%92%E5%BA%8F%E5%92%8C%E8%81%9A%E5%90%88%E7%AE%97%E6%B3%95/" class="article-date">
+  <time datetime="2024-03-11T16:00:00.000Z" itemprop="datePublished">2024-03-12</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/10-sorting.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/10-sorting.pdf">Notes</a></p>
+<h2 id="1-排序-Sorting"><a href="#1-排序-Sorting" class="headerlink" title="1. 排序 Sorting"></a>1. 排序 Sorting</h2><p>我们需要排序，因为在关系模型中，表中的元组没有特定的顺序排序(可能)用于 ORDER BY、GROUP BY、JOIN和 DISTINCT 操作符。</p>
+<p>我们可以通过从左到右扫描叶节点来使用聚集B+树来加速排序。然而，如果我们使用非聚集B+树进行排序，这不是一个好主意，因为它会导致大量I&#x2F;O读取(通过指针跟踪进行随机访问)。</p>
+<p>如果我们需要排序的数据适合在内存中，则DBMS可以使用标准排序算法(例如，快速排序)。如果数据不适合，则DBMS需要使用能够根据需要溢出到磁盘的外部排序，并且更喜欢顺序I&#x2F;O而不是随机I&#x2F;O。</p>
+<h2 id="2-外部归并排序"><a href="#2-外部归并排序" class="headerlink" title="2. 外部归并排序"></a>2. 外部归并排序</h2><p>分而治之的排序算法，将数据集分成多个独立的 runs，然后分别对它们进行排序。它可以根据需要将 runs 溢出到磁盘，然后一次读回一个。</p>
+<p>阶段1-排序：对可放入主内存的小块数据进行排序，然后写回磁盘。</p>
+<p>阶段2-合并：将已排序的子文件合并为更大的单个文件。</p>
+<h3 id="2-路归并排序"><a href="#2-路归并排序" class="headerlink" title="2-路归并排序"></a>2-路归并排序</h3><ul>
+<li>过程#0：将表的每 B 页读入内存。对它们进行排序，并将它们写回磁盘。每一组已排序的页面都称为 run。</li>
+<li>过程#1，2，3…：递归地将多对 runs 合并为两倍长的 runs。</li>
+</ul>
+<h3 id="通用归并排序（K-路）"><a href="#通用归并排序（K-路）" class="headerlink" title="通用归并排序（K-路）"></a>通用归并排序（K-路）</h3><ul>
+<li>过程#0：使用 B 缓冲区页，生成大小为 B 的 N &#x2F; B 个排好序的 runs。</li>
+<li>过程#1、2、3…：递归合并 B−1 个 runs。（因为至少要留 1 个作为整合的页）</li>
+</ul>
+<h3 id="双缓冲优化"><a href="#双缓冲优化" class="headerlink" title="双缓冲优化"></a>双缓冲优化</h3><p>在后台预取下一次 run，并在系统处理当前 run 时将其存储在第二个缓冲区中。这通过持续利用磁盘，减少了每个步骤的I&#x2F;O请求等待时间。</p>
+<h2 id="3-聚合"><a href="#3-聚合" class="headerlink" title="3. 聚合"></a>3. 聚合</h2><p>查询计划中的聚合 operators 将一个或多个元组的值折叠为单个标量值。</p>
+<p>首先聚合函数有5个，分别为：</p>
+<ul>
+<li>count：统计记录数</li>
+<li>sum：求和，多个记录求和</li>
+<li>avg：平均数</li>
+<li>Max：最大值</li>
+<li>min：最小值</li>
+</ul>
+<p>分组是经常跟聚合函数一起使用的，分组关键字为：group by</p>
+<p>使用聚合函数删除重复值（关键字DISTINCT）</p>
+<p>实现聚合有两种方法：(1)排序；(2)hashing。</p>
+<h3 id="Sorting"><a href="#Sorting" class="headerlink" title="Sorting"></a>Sorting</h3><p>DBMS首先在 GROUP BY 的 key(s) 上对元组进行排序。如果所有内容都适合缓冲池，则可以使用内存内排序算法（例如快速排序），如果数据大小超过内存，则可以使用外部合并排序算法。</p>
+<p>然后，DBMS对排序后的数据执行顺序扫描，以计算聚合。operators 的输出将按 key 进行排序。</p>
+<h3 id="Hashing"><a href="#Hashing" class="headerlink" title="Hashing"></a>Hashing</h3><p>对于计算聚合，hashing 可能比排序的计算成本更低。DBMS在扫描表时填充临时哈希表。对于每条记录，检查哈希表中是否已有条目并执行适当的修改。</p>
+<p>如果哈希表太大，内存无法容纳，则DBMS必须将其溢出到磁盘：</p>
+<ul>
+<li>阶段1-分区 Partation：使用 hash 函数 h1 根据目标 hash key 将元组分割为磁盘上的分区。这将把所有匹配的元组放到同一个分区中。DBMS通过输出缓冲区将分区溢出到磁盘。</li>
+<li>阶段2-重新散列 Rehash：对于磁盘上的每个分区，将其页面读入内存，并基于第二个散列函数 h2 (其中h1 !&#x3D; h2)构建内存中的hash 表。然后遍历这个哈希表的每个桶，将匹配的元组集合在一起来计算聚合。请注意，这假设每个分区都可以放入内存。</li>
+</ul>
+<p>在重新散列阶段，DBMS可以存储以下形式的对( GroupByKey→RunningValue)来计算聚合。RunningValue 的内容取决于聚合函数。要将新的元组插入哈希表，请执行以下操作：</p>
+<ul>
+<li>如果找到匹配的GroupByKey，则相应地更新RunningValue。</li>
+<li>否则插入新的(GroupByKey→RunningValue)对。</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】09 索引并发控制"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/11/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9109%20%E7%B4%A2%E5%BC%95%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/"
+    >【CMU 15-445】09 索引并发控制</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/11/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9109%20%E7%B4%A2%E5%BC%95%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6/" class="article-date">
+  <time datetime="2024-03-10T16:00:00.000Z" itemprop="datePublished">2024-03-11</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/09-indexconcurrency.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/09-indexconcurrency.pdf">Notes</a></p>
+<h2 id="1-索引并发控制"><a href="#1-索引并发控制" class="headerlink" title="1. 索引并发控制"></a>1. 索引并发控制</h2><p>并发控制协议是DBM用来确保对共享对象进行并发操作的“正确”结果的方法。协议的正确性标准可以有所不同：</p>
+<ul>
+<li>逻辑正确性：我可以看到我应该看到的数据吗？这意味着线程能够读取它应该被允许读取的值。</li>
+<li>物理正确性：物体的内部表示是否正确？这意味着我们的数据结构中没有会导致线程读取无效内存位置的指针。</li>
+</ul>
+<p>索引的逻辑内容是我们在这堂课中唯一关心的事情。它们与其他数据库元素不太一样，因此我们可以区别对待它们。</p>
+<h2 id="2-Locks-vs-Latches"><a href="#2-Locks-vs-Latches" class="headerlink" title="2. Locks vs. Latches"></a>2. Locks vs. Latches</h2><p>Locks ：</p>
+<ul>
+<li>保护索引的逻辑内容不受其他事务的影响。</li>
+<li>在交易的整个持续时间内(主要)持有。</li>
+<li>DBMS需要能够回滚更改。</li>
+</ul>
+<p>Latches：</p>
+<ul>
+<li>保护索引内部数据结构的临界区不受其他线程的影响。</li>
+<li>持有操作持续时间。</li>
+<li>DBMS不需要能够回滚更改。</li>
+</ul>
+<p>两种模式：</p>
+<ul>
+<li>READ：允许多个线程同时读同一项目。如果另一个线程处于读取模式，则线程可以获取读取latch</li>
+<li>WRITE：只允许访问一个线程。如果另一个线程以任何模式保持latch，线程就无法获得写latch。</li>
+</ul>
+<h2 id="3-Latch-实现"><a href="#3-Latch-实现" class="headerlink" title="3. Latch 实现"></a>3. Latch 实现</h2><p>我们可以用来实现latch的底层原语是通过现代CPU提供的原子比较和交换(CAS)指令。这样，线程就可以检查内存位置的内容，以确定它是否具有某个值。如果是，则CPU将用新值交换旧值。否则，内存位置保持不变。</p>
+<p>在DBMS中实现latch有几种方法。每种方法在工程复杂性和运行时性能方面都有不同的权衡。这些测试和设置( test-and-set，TAS)步骤是自动执行的(即，在一个线程检查它之后，但在它更新它之前，没有其他线程可以更新值)。</p>
+<h3 id="Blocking-OS-Mutex"><a href="#Blocking-OS-Mutex" class="headerlink" title="Blocking OS Mutex"></a>Blocking OS Mutex</h3><p>使用操作系统内置的互斥基础设施作为 latch。Futex(快速用户空间互斥锁)由(1)用户空间中的自旋锁和(2)操作系统级互斥锁组成。如果DBMS可以获取用户空间锁，则设置锁。它显示为DBMS的单个latch，即使它包含两个内部 latch。如果DBMS无法获取用户空间latch，则它会进入内核并尝试获取更昂贵的 Mutex 。如果DBMS无法获取第二个Mutex，则线程通知OS它在锁上被阻止，然后取消调度。</p>
+<p>在DBMS中，OS Mutex 通常不是一个好主意，因为它由操作系统管理，并且开销很大。</p>
+<ul>
+<li>Example：std::mutex</li>
+<li>优点：使用简单，不需要在DBMS中额外编码。</li>
+<li>缺点：由于操作系统调度，价格昂贵且不可伸缩(每次锁定&#x2F;解锁调用约25 ns)。</li>
+</ul>
+<h3 id="测试和设置自旋锁存器-TAS"><a href="#测试和设置自旋锁存器-TAS" class="headerlink" title="测试和设置自旋锁存器(TAS)"></a>测试和设置自旋锁存器(TAS)</h3><p>自旋锁是操作系统互斥锁的更有效的替代方案，因为它由DBMS控制。自旋锁实质上是线程试图更新的内存中的位置(例如，将布尔值设置为真)。线程执行CAS以尝试更新内存位置。如果它不能，那么它会不停地在 while 循环中旋转，试图更新它。</p>
+<ul>
+<li>Example：std::atomic<T></li>
+<li>优点：锁&#x2F;解锁操作高效(单条指令锁定&#x2F;解锁)。</li>
+<li>缺点：伸缩性差，缓存也不友好，因为有多个线程，CAS指令会在不同的线程中多次执行。这些浪费的指令将堆积在竞争激烈的环境中；这些线程在操作系统看来很忙，即使它们没有做有用的工作。这会导致缓存一致性问题，因为线程正在轮询其他CPU上的缓存线。</li>
+</ul>
+<h3 id="读-写-锁"><a href="#读-写-锁" class="headerlink" title="读-写 锁"></a>读-写 锁</h3><p>Mutex和自旋锁存不区分读&#x2F;写(即，它们不支持不同的模式)。我们需要一种允许并发读取的方法，因此如果应用程序具有繁重的读取，它将具有更好的性能，因为读取器可以共享资源而不是等待。</p>
+<p>读-写 锁允许在读或写模式下保持锁。它跟踪在每种模式下有多少线程持有锁并等待获取锁。</p>
+<p>示例：这是在自旋锁上实现的。<br>优点：支持并发读取器。<br>缺点：DBMS必须管理读&#x2F;写队列以避免饥饿。由于额外的元数据，存储开销比自旋锁更大。</p>
+<h2 id="4-哈希表-latching"><a href="#4-哈希表-latching" class="headerlink" title="4. 哈希表 latching"></a>4. 哈希表 latching</h2><p>由于线程访问数据结构的方式有限，因此很容易在静态哈希表中支持并发访问。例如，当从一个槽移动到下一个槽(即，自上而下)时，所有线程都以相同的方向移动。线程一次也只能访问一个页面&#x2F;槽。因此，死锁在这种情况下是不可能的，因为没有两个线程可以竞争对方持有的锁。要调整表的大小，需要对整个表(即header 页中的表)进行全局锁。</p>
+<p>动态哈希方案(例如，可扩展的)中的锁稍微复杂一些，因为有更多的共享状态要更新，但一般方法是相同的。</p>
+<ul>
+<li>Page Latches：每个页面都有自己的读写器 latches，以保护其整个内容。线程在访问页面之前获取读取latch或写入latch。这降低了并行度，因为一次可能只有一个线程可以访问一个页面，但访问页面中的多个槽将会很快，因为一个线程只需要获取一个latch。</li>
+<li>Slot Latches：每个插槽都有自己的latches。这提高了并行度，因为两个线程可以访问同一页中的不同槽。但是它增加了访问表的存储和计算开销，因为线程必须为它们访问的每个槽获取一个latch。DBMS可以使用单latch(即，自旋锁)来减少元数据和计算开销。</li>
+</ul>
+<h2 id="5-B-Tree-latching"><a href="#5-B-Tree-latching" class="headerlink" title="5. B+ Tree latching"></a>5. B+ Tree latching</h2><h3 id="Lock-crabbing-coupling-是一种允许多个线程同时访问-修改B-树的协议："><a href="#Lock-crabbing-coupling-是一种允许多个线程同时访问-修改B-树的协议：" class="headerlink" title="Lock crabbing &#x2F; coupling 是一种允许多个线程同时访问&#x2F;修改B+树的协议："></a>Lock crabbing &#x2F; coupling 是一种允许多个线程同时访问&#x2F;修改B+树的协议：</h3><p>Get latch for parent.<br>Get latch for child.<br>Release latch for parent if it is deemed safe. A safe node is one that will not split or merge when updated (not full on insertion or more than half full on deletion).</p>
+<h3 id="基本的Latch-Crabbing-协议"><a href="#基本的Latch-Crabbing-协议" class="headerlink" title="基本的Latch Crabbing 协议:"></a>基本的Latch Crabbing 协议:</h3><p>查找：从根目录开始向下搜索，反复获取子级上的锁，然后解锁父级。<br>插入&#x2F;删除：从根开始向下，根据需要获取 X 锁（write 锁）。一旦孩子锁上，检查它是否安全。如果孩子是安全的，就解开所有祖先上的锁。</p>
+<h3 id="改进的-Lock-Crabbing-协议："><a href="#改进的-Lock-Crabbing-协议：" class="headerlink" title="改进的 Lock Crabbing 协议："></a>改进的 Lock Crabbing 协议：</h3><p>基本锁抓取算法的问题在于，对于每个插入&#x2F;删除操作，事务始终获取根上的独占锁。这限制了并发性。</p>
+<p>相反，我们可以假设很少需要调整大小(即拆分&#x2F;合并节点)，因此事务可以获取向下到叶节点的共享锁。每个事务将假定到目标叶节点的路径是安全的，并使用读锁和爬行来到达它，并进行验证。如果路径中的任何节点不安全，则执行先前的算法(即获取写锁)。</p>
+<ul>
+<li>查找：与之前的算法相同。</li>
+<li>插入&#x2F;删除：设置读锁，就像查找一样，转到叶节点，在叶节点上设置写锁。如果叶节点不安全，则释放所有先前的锁，并使用先前的插入&#x2F;删除协议重新启动事务。</li>
+</ul>
+<h2 id="6-叶子结点扫描"><a href="#6-叶子结点扫描" class="headerlink" title="6. 叶子结点扫描"></a>6. 叶子结点扫描</h2><p>这些协议中的线程以“自上而下”的方式获取锁。这意味着线程只能从低于其当前节点的节点获取锁。如果所需的锁不可用，则线程必须等待，直到它变为可用。有鉴于此，不可能出现死锁。</p>
+<p>叶节点扫描容易发生死锁，因为现在我们有多个线程试图同时获取两个不同方向的锁(即从左到右和从右到左)。索引锁不支持死锁检测或避免。</p>
+<p>因此，我们处理这个问题的唯一方法是通过编码规程（coding discipline）。叶节点同级锁获取协议必须支持“无等待”模式。也就是说，B+树码必须处理失败的锁获取。这意味着，如果线程试图获取叶节点上的锁，但该锁不可用，则它将立即中止其操作(释放它持有的所有锁)，然后重新启动该操作。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】08 树索引-II"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/09/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9108%20%E6%A0%91%E7%B4%A2%E5%BC%95-II/"
+    >【CMU 15-445】08 树索引-II</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/09/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9108%20%E6%A0%91%E7%B4%A2%E5%BC%95-II/" class="article-date">
+  <time datetime="2024-03-08T16:00:01.000Z" itemprop="datePublished">2024-03-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/08-trees2.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/08-trees2.pdf">Notes</a></p>
+<h2 id="1-其他索引用法"><a href="#1-其他索引用法" class="headerlink" title="1. 其他索引用法"></a>1. 其他索引用法</h2><ul>
+<li><p>隐式索引（Implicit Indexes）：大多数DBMS会自动创建索引来实施完整性约束(例如，主键、唯一约束)。</p>
+</li>
+<li><p>部分索引（Partial Indexes）：在整个表的子集上创建索引，（where语句形成子集）。这可能会减少大小和维护开销。</p>
+</li>
+<li><p>覆盖索引（Covering Indexes）：处理查询所需的所有属性都在索引中可用，则DBMS不需要检索元组。DBMS只需根据索引中可用的数据即可完成整个查询。（即，索引的数据中就能满足本次查找，不需要再去检索元组了，无需回表操作）</p>
+</li>
+<li><p>索引包含列（Index Include Columns）：在索引中嵌入其他列以支持仅索引查询。</p>
+</li>
+<li><p>函数&#x2F;表达式索引（Function&#x2F;Expression Indexes）：将函数或表达式的输出存储为键，而不是原始值。DBMS的工作是识别哪些查询可以使用该索引。</p>
+</li>
+</ul>
+<h2 id="2-Radix-Tree-基数树"><a href="#2-Radix-Tree-基数树" class="headerlink" title="2. Radix Tree 基数树"></a>2. Radix Tree 基数树</h2><p>一个 radix tree 是 Trie数据结构的变体。它使用 key 的 digital 表示来逐个检查前缀，而不是比较整个 key 。它与trie的不同之处在于，key 中的每个元素都没有一个节点，在key不同之前，节点被合并以表示最大的前缀。</p>
+<p>Radix tree 的高度取决于 key 的长度，而不是像B+树那样取决于 key 的数量。指向叶节点的路径表示叶的关键字。并非所有属性类型都可以分解为基数树的二进制可比数字。</p>
+<p>对于长整型数据的映射，如何解决Hash冲突和Hash表大小的设计是一个很头疼的问题。</p>
+<p>radix树就是针对这种稀疏的长整型数据查找，能快速且节省空间地完成映射。借助于Radix树，我们可以实现对于长整型数据类型的路由。利用radix树可以根据一个长整型（比如一个长ID）快速查找到其对应的对象指针。这比用hash映射来的简单，也更节省空间，使用hash映射hash函数难以设计，不恰当的hash函数可能增大冲突，或浪费空间。</p>
+<p>Radix tree是一种多叉搜索树，树的叶子结点是实际的数据条目。每个结点有一个固定的、2^n指针指向子结点（每个指针称为槽slot，n为划分的基的大小）</p>
+<p>Trie树一般用于字符串到对象的映射，Radix树一般用于长整数到对象的映射。</p>
+<h2 id="3-Inverted-Indexes-倒排索引"><a href="#3-Inverted-Indexes-倒排索引" class="headerlink" title="3. Inverted Indexes 倒排索引"></a>3. Inverted Indexes 倒排索引</h2><p>倒排索引存储单词到目标属性中包含这些单词的记录的映射。在DBMS中，这些索引有时称为全文搜索索引。</p>
+<p>大多数主要的DBMS本身都支持倒排索引，但也有专门的DBMS，其中这是唯一可用的表索引数据结构。</p>
+<p>（君如理解：倒排索引，它可以进行关键字搜索，因为hash索引和B+树索引对这个的性能都不太好。关键字搜索，主要是怕key的容量非常大。因此可以通过将关键词单词映射到包含单词的一些记录中。）</p>
+<p>查询类型：</p>
+<ul>
+<li><p>短语搜索：查找按给定顺序包含单词列表的记录。</p>
+</li>
+<li><p>邻近搜索：查找两个单词在彼此的单词内出现的记录。</p>
+</li>
+<li><p>通配符搜索：查找包含匹配某种模式(例如，正则表达式，like)的单词的记录。<br>设计决策：</p>
+</li>
+<li><p>存储什么：索引需要至少存储每个记录中包含的单词(由标点符号分隔)。它还可以包括其他信息，例如词频、位置和其他元数据。</p>
+</li>
+<li><p>何时更新每次修改表时更新倒排索引既昂贵又慢。因此，大多数DBMS将维护辅助数据结构以“暂存”更新，然后批量更新索引。</p>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】07 树索引-I"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/09/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9107%20%E6%A0%91%E7%B4%A2%E5%BC%95-I/"
+    >【CMU 15-445】07 树索引-I</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/09/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9107%20%E6%A0%91%E7%B4%A2%E5%BC%95-I/" class="article-date">
+  <time datetime="2024-03-08T16:00:00.000Z" itemprop="datePublished">2024-03-09</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/07-trees1.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/07-trees1.pdf">Notes</a></p>
+<h2 id="1-索引-Indexes"><a href="#1-索引-Indexes" class="headerlink" title="1. 索引 Indexes"></a>1. 索引 Indexes</h2><p>我们将重点介绍数据库中的数据结构——表索引。</p>
+<p>表索引是表中列的子集的副本，其组织方式使DBMS能够比执行顺序扫描更快地找到元组。DBMS确保表和索引的内容始终同步。</p>
+<p>DBMS的工作是找出用于执行查询的最佳索引。在每个数据库要创建的索引数量上存在权衡(索引使用存储并且需要维护)。</p>
+<h2 id="2-B-树"><a href="#2-B-树" class="headerlink" title="2. B+树"></a>2. B+树</h2><p>（计算机基础的经典数据结构，多路查找树）</p>
+<p>B+树是一种自平衡的树数据结构，它保持数据的排序，并允许在O(log(N))中进行查找、顺序访问、插入和删除。它针对读&#x2F;写大数据块的面向磁盘的DBMS进行了优化。</p>
+<p>几乎每个支持顺序保持索引的现代DBMS都使用B+树。有一种特定的数据结构称为B-Tree，但人们也使用这个术语来泛指一类数据结构。现代B+树实现结合了其他B-Tree变体的功能，例如B^link-Tree中使用的同级指针。</p>
+<p>形式上，B+树是具有以下属性的 M-Way 查找树：</p>
+<ul>
+<li>它是完全平衡的(即，每个叶节点都在相同的深度)；</li>
+<li>除根节点外的每个内部节点至少半满( M&#x2F;2−1&lt;&#x3D; key 的个数 &lt;&#x3D; M−1)；</li>
+<li>每个有 k 个 key 的内部节点都有 k+1 个非空子节点。</li>
+</ul>
+<p>B+树中的每个节点都包含一个 key&#x2F;value 对的数组：</p>
+<ul>
+<li>每个节点的数组(几乎)都是按 key 排序的。</li>
+<li>内部节点的 value 数组将包含指向其他节点的指针。</li>
+<li>叶子节点 value 的两种方法：1）record IDs：指向 tuple 位置的指针；2）tuple 数据：存储在叶节点中的元组的实际内容。</li>
+</ul>
+<h3 id="2-1-插入-Insertion"><a href="#2-1-插入-Insertion" class="headerlink" title="2.1. 插入 Insertion"></a>2.1. 插入 Insertion</h3><p>找到正确的叶子节点 L<br>按排序将新条目添加到 L 中：如果 L 有足够的空间，则操作完成；否则，将 L 分成两个节点 L 和 L2。重新均匀分配条目并复制 中间 keys。将指向 L2 的索引项插入 L 的父节点。<br>要拆分内部节点，请均匀重新分配条目，但 push up 中间 keys。</p>
+<h3 id="2-2-删除-Deletion"><a href="#2-2-删除-Deletion" class="headerlink" title="2.2. 删除 Deletion"></a>2.2. 删除 Deletion</h3><p>找到正确的叶L<br>移除条目：如果 L 至少已半满，则操作完成。否则，你可以尝试重新分配，从兄弟姐妹那里借。如果重新分配失败，则合并同级。<br>如果发生合并，则必须删除父项中指向 L 的条目。</p>
+<h2 id="3-B-树设计策略"><a href="#3-B-树设计策略" class="headerlink" title="3. B+树设计策略"></a>3. B+树设计策略</h2><p>节点大小：</p>
+<ul>
+<li>B+树的最佳节点大小取决于磁盘速度。其想法是通过尽可能多的键&#x2F;值对来分摊将节点从磁盘读入内存的成本。</li>
+<li>磁盘越慢，理想的节点应越大（目的是减少磁盘I&#x2F;O）。</li>
+<li>与拥有更多单 key 查找相比，某些工作负载的扫描负担可能更重。</li>
+</ul>
+<p>合并阈值：</p>
+<ul>
+<li>某些DBMS在半满时并不总是合并。</li>
+<li>延迟合并操作可能会减少重组的数量。</li>
+<li>对于DBMS来说，让 underflows 发生，然后定期重建整个树以重新平衡它可能会更好。</li>
+</ul>
+<p>可变长度键：</p>
+<ul>
+<li>指针 Pointers：将键存储为指向元组属性的指针(很少使用)。</li>
+<li>可变长度节点：B+树中每个节点的大小可能不同，但需要仔细的内存管理。这种做法也很少见。</li>
+<li>键映射 Key Map：在节点中嵌入映射到key+value 列表的指针数组。这类似于前面讨论的slotted 页面。这是最常见的方法。</li>
+</ul>
+<p>非唯一索引：</p>
+<ul>
+<li><p>重复键：使用相同的叶子节点布局，但多次存储重复键。</p>
+</li>
+<li><p>值列表：每个键只存储一次，并维护唯一值的链接列表。<br>节点内查找：</p>
+</li>
+<li><p>线性：从头到尾扫描节点中的 键&#x2F;值 条目。当你找到你要找的 key 时，停下来。这不需要对键&#x2F;值条目进行预排序。</p>
+</li>
+<li><p>二分：跳到中间 key，然后根据中间关键字小于还是大于搜索关键字向左&#x2F;向右旋转。这需要对键&#x2F;值条目进行预排序。</p>
+</li>
+<li><p>插值 Interpolation：根据节点中已知的 低&#x2F;高 关键字值，近似计算搜索关键字的起始位置。然后从该位置执行线性扫描。这需要对键&#x2F;值条目进行预排序。</p>
+</li>
+</ul>
+<h2 id="4-B-树优化"><a href="#4-B-树优化" class="headerlink" title="4. B+树优化"></a>4. B+树优化</h2><p>前缀压缩 Prefix Compression:</p>
+<ul>
+<li>同一叶节点中的排序关键字可能具有相同的前缀。</li>
+<li>不是每次都存储整个key，而是提取公共前缀，只存储每个key的唯一后缀。</li>
+</ul>
+<p>后缀截断 Suffix Truncation：</p>
+<ul>
+<li>内部节点的 Key 只用于流量导向( direct traffic )，我们并不需要整个Key。</li>
+<li>存储将探测正确路由到索引所需的最小前缀。</li>
+</ul>
+<p>批量插入 Bulk Inserts:<br>提前拥有这批数据的所有 keys。</p>
+<ul>
+<li>从头开始构建B+树的最快方法是首先对 key 进行排序，然后自下而上构建索引。</li>
+<li>这比逐个插入要快，因为没有拆分或合并。</li>
+</ul>
+<p>pointer swizzling：</p>
+<ul>
+<li>遍历时需要去buffer pool管理器，让其将page id转换为指针，这样的开销太大</li>
+<li>保存page id时⽤page指针来替换，写出到磁盘时再将page指针换成page id</li>
+<li>指针重排是将基于名称或位置的引用转换为直接指针引用（内存地址）</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】Project 01 Buffer Pool Manager"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/08/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%91Project%2001%20Buffer%20Pool%20Manager/"
+    >【CMU 15-445】Project 01 Buffer Pool Manager</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/08/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%91Project%2001%20Buffer%20Pool%20Manager/" class="article-date">
+  <time datetime="2024-03-07T16:00:00.000Z" itemprop="datePublished">2024-03-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p>虽然看的课是Fall 2019的课，但由于Fall 2019的GradeScope打分已停止，这里做的是<a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2023/assignments.html"> Fall 2023 </a>的项目。</p>
+<p>由于迟先生的加入，从Fall 2022开始，CMU 15-445的Project有了较大的改版，难度也提升了。</p>
+<h2 id="1-环境搭建"><a href="#1-环境搭建" class="headerlink" title="1. 环境搭建"></a>1. 环境搭建</h2><ul>
+<li>Windows11+WSL2+Ubantu 22.04</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/cmu-db/bustub.git">bustub</a> (2023 Fall)</li>
+<li>VScode + Clang + CMake</li>
+</ul>
+<h2 id="2-实现"><a href="#2-实现" class="headerlink" title="2. 实现"></a>2. 实现</h2> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Project/" rel="tag">Project</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】06 哈希表"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/07/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9106%20%E5%93%88%E5%B8%8C%E8%A1%A8/"
+    >【CMU 15-445】06 哈希表</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/07/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9106%20%E5%93%88%E5%B8%8C%E8%A1%A8/" class="article-date">
+  <time datetime="2024-03-06T16:00:00.000Z" itemprop="datePublished">2024-03-07</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/06-hashtables.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/06-hashtables.pdf">Notes</a></p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>大部分内容就是数据结构中哈希表的内容，结合数据结构和数据库的实现好理解很多。</p>
+<h2 id="1-数据结构"><a href="#1-数据结构" class="headerlink" title="1. 数据结构"></a>1. 数据结构</h2><p>DBMS对系统内部的许多不同部分使用各种数据结构：</p>
+<ul>
+<li>Internal Meta-Data（内部元数据）：跟踪有关数据库和系统状态的信息。</li>
+<li>Core Data Storage （核心数据存储）：可用作数据库中元组的基本存储。</li>
+<li>Temporary Data Structures（临时数据结构）：DBMS可以在处理查询时动态构建数据结构，以加快执行速度(例如，用于 joins 的哈希表)。</li>
+<li>Table Indexes（表索引）：辅助数据结构，使查找特定元组更容易。</li>
+</ul>
+<p>设计决策：</p>
+<ul>
+<li>数据组织：我们如何布局内存以及在数据结构中存储哪些信息。</li>
+<li>并发性：如何让多线程不出问题地访问数据结构。</li>
+</ul>
+<h2 id="2-哈希表"><a href="#2-哈希表" class="headerlink" title="2. 哈希表"></a>2. 哈希表</h2><p>哈希表实现了将 key 映射到 value 的关联数组抽象数据类型。它提供了平均O(1)的计算复杂度（时间）和O(n)的存储复杂度（空间）。</p>
+<p>哈希表实现由两部分组成：</p>
+<ul>
+<li>哈希函数：如何将大的密钥空间映射到较小的域中。它用于计算存储桶或槽数组的索引。需要考虑快速执行和冲突率之间的权衡。</li>
+<li>哈希方案：如何处理散列后的密钥冲突。需要考虑分配大型哈希表以减少冲突与执行额外指令以查找&#x2F;插入键之间的权衡。</li>
+</ul>
+<h2 id="3-哈希函数"><a href="#3-哈希函数" class="headerlink" title="3. 哈希函数"></a>3. 哈希函数</h2><p>哈希函数接受任何 key 作为其输入。然后，它返回该 key 的整数表示(即,“hash”)。函数的输出是确定性的(即，相同的键应该始终生成相同的散列输出)。</p>
+<p>DBMS不想使用密码散列函数(例如，SHA-256)，因为我们不需要担心保护密钥的内容。这些散列函数主要由DBMS内部使用，因此信息不会泄漏到系统之外。对于本课，我们只关心散列函数的速度和冲突率。目前最先进的散列函数是Facebook XXHash3。</p>
+<blockquote>
+<p>Tips1:</p>
+<p>加密常见Hash:</p>
+<ul>
+<li>SHA-256</li>
+<li>MD5(2004年被山大王小云老师破解)</li>
+</ul>
+<p>数据库常见Hash：</p>
+<ul>
+<li>CRC-64(1975)</li>
+<li>MurmurHash(2008)</li>
+<li>Google CityHash(2011)</li>
+<li>Facebook XXHash(2012)</li>
+<li>Google FarmHash(2014)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Tips2:</p>
+<p>不要自己写哈希，浪费时间，直接拿来用</p>
+</blockquote>
+<h2 id="4-静态（Static）哈希方案"><a href="#4-静态（Static）哈希方案" class="headerlink" title="4. 静态（Static）哈希方案"></a>4. 静态（Static）哈希方案</h2><p>静态哈希方案是其中哈希表的大小是固定的方案。这意味着如果DBMS耗尽了哈希表中的存储空间，则它必须使用更大的表从头开始重建它。通常，新哈希表的大小是原始哈希表的2倍。（我们已知哈希表的大小，且不动态增长。）</p>
+<p>为了减少浪费比较的次数，重要的是要避免碰撞×散列key。这需要具有两倍于预期元素数量的段数的哈希表。</p>
+<h3 id="4-1-Linear-Probe-Hashing"><a href="#4-1-Linear-Probe-Hashing" class="headerlink" title="4.1. Linear Probe Hashing"></a>4.1. Linear Probe Hashing</h3><p>线性探针哈希，这是最基本的 hashing 方案。它通常也是最快的。它使用单一的槽表。哈希函数允许DBMS快速跳转到 slots 并查找所需的 key 。（其实就是开放地址法）</p>
+<ul>
+<li>通过线性搜索表中的下一个空闲插槽来解决冲突；</li>
+<li>要查看值是否存在，请使用散列转到 slot ，并扫描 key 。如果找到所需的 key 或遇到空 slot ，扫描将停止。<blockquote>
+<p>删除时添加⼀个tombstone(墓碑)标记</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="4-2-Robin-Hood-Hashing"><a href="#4-2-Robin-Hood-Hashing" class="headerlink" title="4.2. Robin Hood Hashing"></a>4.2. Robin Hood Hashing</h3><p>这是线性探测散列的扩展，它寻求减少每个 key 从它们在哈希表中的最佳位置的最大距离。允许线程从“rich”keys 中窃取slot，并将它们分配给“poor”keys。</p>
+<ul>
+<li>每个 key 跟踪它们在表中从其最佳位置开始的位置的数量。</li>
+<li>插入时，如果第一个 key 比第二个 key 离其最佳位置的距离更远，则一个 key 将占据另一个 key 的槽。然后，必须将删除的 key 重新插入到表中。</li>
+</ul>
+<h3 id="4-3-Cuckoo-Hashing"><a href="#4-3-Cuckoo-Hashing" class="headerlink" title="4.3. Cuckoo Hashing"></a>4.3. Cuckoo Hashing</h3><p>这种方法不是使用单个哈希表，而是使用不同的哈希函数维护多个哈希表。哈希函数是相同的算法(例如，XXHash、CityHash)；它们通过使用不同的 seeds 为相同的 key 生成不同的哈希。</p>
+<ul>
+<li>在插入时，检查每一张表，并挑选任何有空位的 slot 。</li>
+<li>如果没有表有空闲的 slot ，则从其中一个表中取出元素，并对其进行重新 hash 以找到新的位置。</li>
+<li>如果我们找到一个循环，那么我们可以用新的hash函数 seeds 重建所有hash表(不太常见)，或者使用更大的表重建hash表(更常见)。</li>
+</ul>
+<h2 id="5-动态（Dynamic）哈希方案"><a href="#5-动态（Dynamic）哈希方案" class="headerlink" title="5. 动态（Dynamic）哈希方案"></a>5. 动态（Dynamic）哈希方案</h2><p>静态散列方案要求DBMS知道它想要存储的元素的数量n。否则，如果需要增大&#x2F;缩小大小，它将重新构建该表。</p>
+<p>动态哈希方案能够按需调整哈希表的大小，而无需重新构建整个表。这些方案以不同的方式执行调整大小的操作，这些方式可以最大化读取或写入。</p>
+<h3 id="5-1-链式哈希-Chained-Hashing"><a href="#5-1-链式哈希-Chained-Hashing" class="headerlink" title="5.1. 链式哈希 Chained Hashing"></a>5.1. 链式哈希 Chained Hashing</h3><p>这是最常见的动态散列方案。DBMS为哈希表中的每个 slot 维护 桶buckets 的链接列表。</p>
+<ul>
+<li>通过将具有相同hash key 的元素放入同一 buckets 来解决冲突。</li>
+<li>如果 buckets 已满，则向链中添加另一个buckets 。哈希表可以无限增长，因为DBMS不断添加新的 buckets 。</li>
+</ul>
+<h3 id="5-2-可扩展哈希-Extendible-Hashing"><a href="#5-2-可扩展哈希-Extendible-Hashing" class="headerlink" title="5.2. 可扩展哈希 Extendible Hashing"></a>5.2. 可扩展哈希 Extendible Hashing</h3><p>链式散列的改进变体，它拆分 buckets ，而不是让链永远增长。该方法允许哈希表中的多个槽位置指向相同的桶链。</p>
+<p>重新平衡哈希表背后的核心思想是在拆分时移动 buckets 条目，并增加要检查以在哈希表中查找条目的 bits 数。这意味着DBMS只需在拆分链的 buckets 内移动数据；所有其他 buckets 保持不变。</p>
+<ul>
+<li>DBMS维护全局和局部深度 bit 计数，以确定在槽数组中查找桶所需的 bit 数。</li>
+<li>当 buckets 满时，DBMS拆分 buckets 并重新洗牌其元素。如果拆分 buckets 的局部深度小于全局深度，则新buckets 只是添加到现有槽数组中。否则，DBMS会将槽数组的大小增加一倍以容纳新的 buckets ，并递增全局深度计数器。</li>
+</ul>
+<h3 id="5-3-线性哈希-Linear-Hashing"><a href="#5-3-线性哈希-Linear-Hashing" class="headerlink" title="5.3. 线性哈希 Linear Hashing"></a>5.3. 线性哈希 Linear Hashing</h3><p>该方案不是在桶溢出时立即拆分桶，而是维护一个拆分指针来跟踪下一个要拆分的桶。无论该指针是否指向溢出的桶，DBMS总是拆分。溢出标准由实现决定。</p>
+<ul>
+<li>当任何桶溢出时，通过添加新的槽条目在指针位置拆分桶，并创建新的散列函数。</li>
+<li>如果散列函数映射到先前由指针指向的槽，则应用新的散列函数。</li>
+<li>当指针到达最后一个槽时，删除原有的散列函数，代之以新的散列函数。</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】05 缓冲池"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/05/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9105%20%E7%BC%93%E5%86%B2%E6%B1%A0/"
+    >【CMU 15-445】05 缓冲池</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/05/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9105%20%E7%BC%93%E5%86%B2%E6%B1%A0/" class="article-date">
+  <time datetime="2024-03-04T16:00:00.000Z" itemprop="datePublished">2024-03-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/05-bufferpool.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/05-bufferpool.pdf">Notes</a></p>
+<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>这部分与操作系统和计组内容有共通之处，结合会更好理解。</p>
+<h2 id="1-两种锁定义-Locks-vs-Latches"><a href="#1-两种锁定义-Locks-vs-Latches" class="headerlink" title="1. 两种锁定义 - Locks vs. Latches"></a>1. 两种锁定义 - Locks vs. Latches</h2><p>在讨论DBMS如何保护其内部元素时，我们需要区分锁 Locks 和latches。</p>
+<h3 id="Locks"><a href="#Locks" class="headerlink" title="Locks"></a>Locks</h3><ul>
+<li>保护数据库逻辑内容(例如，元组、表、数据库)不受其他事务的影响。</li>
+<li>在事务持续时间内执行。</li>
+<li>需要能够回滚更改。<br>（笔者把它理解为逻辑的、抽象的、high-level的概念）</li>
+</ul>
+<h3 id="Latches"><a href="#Latches" class="headerlink" title="Latches"></a>Latches</h3><ul>
+<li>保护DBMS的内部数据结构的临界区不受其他线程的影响。</li>
+<li>在操作持续时间内执行。</li>
+<li>无需能够回滚更改。<br>（笔者把他理解为具体的、low-level的概念，真正对资源进行加锁。类似 Mutex ）</li>
+</ul>
+<h2 id="2-缓冲池-Buffer-Pool"><a href="#2-缓冲池-Buffer-Pool" class="headerlink" title="2. 缓冲池 Buffer Pool"></a>2. 缓冲池 Buffer Pool</h2><p>缓冲池 是(从磁盘读取的) pages 的内存缓存。DBMS总是想知道得更清楚，所以我们希望自己管理内存和分页，而不是交给操作系统OS。</p>
+<p>它是组织为固定大小 pages 数组的内存区域。里面的每个数组条目称为一个 frame。当DBMS请求页时，会将一个完全相同的副本放入其中一个框架中。（frame，对于磁盘的 page来说：slot array；对于缓冲池来说：page）</p>
+<p>由缓冲池维护的元数据：</p>
+<ul>
+<li>页表 Page Table：内存中的hash表，跟踪当前内存中的页面。它将 page ids 映射到缓冲池中的 frame 位置。</li>
+<li>脏标志 Dirty-flag：线程在修改 page 时设置此标志。这向存储管理器指示必须将该页写回磁盘。</li>
+<li>引用计数 Pin Counter：跟踪当前正在访问该页面(读取或修改该页面)的线程数量。线程在访问页面之前必须递增计数器。如果页面的计数大于0，则不允许存储管理器将该页面从内存中踢出，否则页面可以被踢出内存。</li>
+</ul>
+<p>优化方法：</p>
+<ul>
+<li>多缓冲池 Multiple Buffer Pools：DBMS还可以有多个用于不同目的的缓冲池。这有助于减少 latch 争用并改进局部性；</li>
+<li>预取 Pre-Fetching：DBMS还可以通过基于查询计划预取页面来进行优化。在按顺序访问页面时通常这样做；</li>
+<li>扫描共享 Scan Sharing：查询游标可以连接到其他游标并一起扫描页面。</li>
+</ul>
+<p>分配策略：</p>
+<ul>
+<li>全局策略：DBM应如何为所有活动 txns 做出决策。</li>
+<li>局部策略：将 frame 分配给特定的txns，而不考虑并发 txns 的行为。</li>
+</ul>
+<h2 id="3-替换策略-Replacement-Policies"><a href="#3-替换策略-Replacement-Policies" class="headerlink" title="3. 替换策略 Replacement Policies"></a>3. 替换策略 Replacement Policies</h2><p>替换策略是DBMS实现的一种算法，它决定在缓冲池需要空间时从缓冲池中换出哪些pages。</p>
+<p>实现目标：</p>
+<ul>
+<li>正确性 Correctness</li>
+<li>准确度 Accuracy</li>
+<li>速度</li>
+<li>元数据开销</li>
+</ul>
+<h3 id="LRU-最近最少使用算法"><a href="#LRU-最近最少使用算法" class="headerlink" title="LRU 最近最少使用算法"></a>LRU 最近最少使用算法</h3><p>学过 OS 的一定非常熟悉，没错就是那一套OS页面置换算法。只需要注意下面两点：</p>
+<p>维护上次访问每个页面的时间戳。<br>DBMS选择踢出具有最旧时间戳的页面。</p>
+<h3 id="CLOCK-时钟算法"><a href="#CLOCK-时钟算法" class="headerlink" title="CLOCK 时钟算法"></a>CLOCK 时钟算法</h3><p>也是 OS 的算法，对LRU算法进行改进，属于LRU的近似算法，每页不需要单独的时间戳。</p>
+<ul>
+<li>每个页面都有一个引用位 reference bit</li>
+<li>当页面被访问时，设置为1</li>
+</ul>
+<p>用“时钟指针”在环形缓冲区中组织页面：</p>
+<ul>
+<li>扫描时检查 pages bit 是否设置为1</li>
+<li>如果是，则设置为0，如果否，则踢出内存</li>
+<li>时钟指针踢出之间的位置</li>
+</ul>
+<h3 id="额外一提："><a href="#额外一提：" class="headerlink" title="额外一提："></a>额外一提：</h3><p>LRU 和 clock 更换策略存在问题：</p>
+<ul>
+<li>LRU 和 clock 容易受到顺序泛洪 sequential flooding 的影响，在这种情况下，缓冲池的内容会因顺序扫描而被丢弃。</li>
+<li>LRU 页面 实际上可能很重要，因为它不跟踪 页面使用情况的元数据。</li>
+</ul>
+<p>更好的解决方法：</p>
+<ul>
+<li>LRU-K：考虑最近K次引用的历史。（LRU是考虑最近的一次）</li>
+<li>优先级提示 Priority hints：允许txns告诉缓冲池页面是否重要</li>
+<li>Localization：根据每个txn&#x2F;查询 选择要逐出的页面。</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】04 数据库存储-2"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/04/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9104%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8-2/"
+    >【CMU 15-445】04 数据库存储-2</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/04/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9104%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8-2/" class="article-date">
+  <time datetime="2024-03-03T16:00:00.000Z" itemprop="datePublished">2024-03-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/04-storage2.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/04-storage2.pdf">Notes</a></p>
+<h2 id="1-数据表示"><a href="#1-数据表示" class="headerlink" title="1. 数据表示"></a>1. 数据表示</h2><p>​ 元组的数据本质上只是字节数组。这取决于DBMS知道如何解释这些字节来派生属性值。数据表示模式是DBMS存储值的字节的方式。</p>
+<p>​ 可以存储在元组中的主要类型有四种：整数(integers)、可变精度数字(variable precision numbers)、定点精度数字(fixed point precision numbers)、可变长度值(variable length values)和日期&#x2F;时间(dates&#x2F;times)。</p>
+<h3 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h3><ul>
+<li>大多数DBMS使用IEEE-754标准指定的“原生”C&#x2F;C++类型存储整数。这些值是固定长度。</li>
+<li>示例：INTEGER、BIGINT、SMALLINT、TINYINT。</li>
+</ul>
+<h3 id="可变精度数字"><a href="#可变精度数字" class="headerlink" title="可变精度数字"></a>可变精度数字</h3><ul>
+<li>使用IEEE-754标准指定的“本机”C&#x2F;C++类型的不精确、变精度的数值类型。这些值也是固定长度。</li>
+<li>可变精度数字比arbitrary精度数字计算速度更快，因为CPU可以直接对其执行指令。·例子：FLOAT, REAL。</li>
+</ul>
+<h3 id="定点精度数字"><a href="#定点精度数字" class="headerlink" title="定点精度数字"></a>定点精度数字</h3><ul>
+<li>这些是具有arbitrary精度和小数位数的数值数据类型。它们通常存储在精确的、可变长度的二进制表示中，并带有附加的元数据，这些元数据将告诉系统小数应该在哪里等信息。</li>
+<li>在舍入误差不可接受的情况下使用这些数据类型，但DBMS会为获得这种精度而付出性能代价。·示例：NUMERIC, DECIMAL。</li>
+</ul>
+<h3 id="可变长度数据："><a href="#可变长度数据：" class="headerlink" title="可变长度数据："></a>可变长度数据：</h3><ul>
+<li>任意长度的字节数组</li>
+<li>有一个header，可以跟踪字符串的长度，以便轻松跳到下一个值。</li>
+<li>大多数DBMS不允许元组超过单个页面的大小，因此它们通过在溢出页面上写入值并让元组包含对该页面的引用来解决这个问题。</li>
+<li>有些系统允许您将这些大值存储在外部文件中，然后元组将包含指向该文件的指针。例如，如果我们的数据库存储照片信息，我们可以将照片存储在外部文件中，而不是让它们在DBMS中占用大量空间。这样做的一个缺点是DBMS不能操作该文件的内容。PostgreSQL: TOAST表</li>
+<li>示例：VARCHAR、VARBINARY、TEXT、BLOB。</li>
+</ul>
+<h3 id="日期与时间："><a href="#日期与时间：" class="headerlink" title="日期与时间："></a>日期与时间：</h3><ul>
+<li><p>通常，这些数字表示为自Unix时代以来的(微&#x2F;毫秒)秒数。</p>
+</li>
+<li><p>示例：TIME, DATE, TIMESTAMP。</p>
+</li>
+</ul>
+<h3 id="系统目录—System-Catalogs："><a href="#系统目录—System-Catalogs：" class="headerlink" title="系统目录—System Catalogs："></a>系统目录—System Catalogs：</h3><p>​ 为了使DBMS能够读取这些值，它维护一个内部目录来告诉它有关数据库的元数据。元数据将包含数据库有哪些表和列，以及它们的类型和值的排序。</p>
+<p>​ 大多数DBMS以用于其表的格式将其目录存储在其内部。</p>
+<h2 id="2-Workloads"><a href="#2-Workloads" class="headerlink" title="2. Workloads"></a>2. Workloads</h2><h3 id="OLTP-On-line-Transaction-Processing-联机事务处理"><a href="#OLTP-On-line-Transaction-Processing-联机事务处理" class="headerlink" title="OLTP: On-line Transaction Processing 联机事务处理"></a>OLTP: On-line Transaction Processing 联机事务处理</h3><ul>
+<li>快速、运行时间短的操作</li>
+<li>一次对单个实体执行查询</li>
+<li>Write操作多于read操作</li>
+<li>重复操作</li>
+<li>通常是人们首先构建的应用程序</li>
+<li>示例：用户调用Amazon。他们可以向购物车添加东西，也可以购物，但这些操作只会影响他们的账户。</li>
+<li>倾向考虑行存储模型</li>
+</ul>
+<h3 id="OLAP-On-line-Analyitical-Processing-联机分析处理"><a href="#OLAP-On-line-Analyitical-Processing-联机分析处理" class="headerlink" title="OLAP: On-line Analyitical Processing 联机分析处理"></a>OLAP: On-line Analyitical Processing 联机分析处理</h3><ul>
+<li>长时间运行的更复杂的查询</li>
+<li>Reads 数据库的大部分</li>
+<li>探索性查询</li>
+<li>从OLTP端收集的数据派生新数据</li>
+<li>示例：计算这些地理位置在一个月内购买最多的五项商品。</li>
+<li>倾向考虑列存储模型</li>
+</ul>
+<h2 id="3-存储模型-Storge-Models"><a href="#3-存储模型-Storge-Models" class="headerlink" title="3. 存储模型(Storge Models)"></a>3. 存储模型(Storge Models)</h2><p>​ 在页面中存储元组有不同的方法。到目前为止，我们假设了 n-ary storage model。</p>
+<h3 id="N-Ary-Storage-Model-NSM"><a href="#N-Ary-Storage-Model-NSM" class="headerlink" title="N-Ary Storage Model (NSM)"></a>N-Ary Storage Model (NSM)</h3><p>​ DBMS连续存储单个元组的所有属性，因此NSM也称为“行存储”。这种方法非常适合于事务往往只操作单个实体并插入繁重 workloads（我可以理解为：高并发 吗？）的 OLTP Workloads。它是理想的，因为它只需一次提取即可获得单个元组的所有属性。</p>
+<p>优点：</p>
+<ul>
+<li>快速插入、更新和删除 操作。</li>
+<li>适用于需要整个元组的查询。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>不适用于扫描表的大部分和&#x2F;或属性子集。这是因为它会获取处理查询不需要的数据，从而污染了缓冲池。</li>
+</ul>
+<p>组织NSM数据库有两种不同的方法：</p>
+<ul>
+<li>堆组织的表 Heap-Organized Tables：元组存储在称为堆的块中，堆不一定定义顺序。</li>
+<li>按索引组织的表Index-Organized Tables：元组存储在主键索引本身中，但不同于聚类索引。</li>
+</ul>
+<h3 id="分解存储模型-Decomposition-Storage-Model-DSM"><a href="#分解存储模型-Decomposition-Storage-Model-DSM" class="headerlink" title="分解存储模型 Decomposition Storage Model (DSM)"></a>分解存储模型 Decomposition Storage Model (DSM)</h3><p>​ DBMS将所有元组的单个属性(列)连续存储在数据块中。也称为“列存储”。此模型非常适合OLAP工作负载workloads，其中只读查询对表属性的子集执行大型扫描。</p>
+<p>  优点：</p>
+<ul>
+<li><p>减少查询执行过程中浪费的工作量，因为DBMS只读取该查询所需的数据。</p>
+</li>
+<li><p>启用更好的压缩，因为同一属性的所有值都是连续存储的。</p>
+<p>缺点：</p>
+</li>
+<li><p>由于元组拆分&#x2F;缝合，点查询、插入、更新和删除的速度较慢。</p>
+</li>
+</ul>
+<p>要在使用列存储时将元组重新组合在一起，我们可以使用：</p>
+<ul>
+<li>定长偏移量 Fixed-length offsets：首先假设属性都是定长的。然后，当系统需要特定元组的属性时，它知道如何跳到文件中的那个位置。为了适应可变长度的字段，系统可以填充它们，使它们都具有相同的长度，或者您可以使用一个字典，该字典接受固定大小的整数并将该整数映射到该值。</li>
+<li>嵌入的元组ID Embedded Tuple Ids：对于列中的每个属性，将元组ID与其一起存储。系统还需要额外的信息来告诉它如何跳到具有该ID的每个属性。总之，这个几乎没啥用了，因为太耗费资源了。</li>
+</ul>
+<p>大多数DBMS使用定长偏移量 Fixed-length offsets。</p>
+<p>行存储通常更适合于OLTP，而列存储通常更适合于OLAP。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Course/CMU 15-445/【CMU 15-445】03 数据库存储-1"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/03/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9103%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8-1/"
+    >【CMU 15-445】03 数据库存储-1</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/03/Course/CMU%2015-445/%E3%80%90CMU%2015-445%E3%80%9103%20%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AD%98%E5%82%A8-1/" class="article-date">
+  <time datetime="2024-03-02T16:00:00.000Z" itemprop="datePublished">2024-03-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Course/">Course</a> / <a class="article-category-link" href="/categories/Course/CMU-15-445-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86/">CMU 15-445 数据库系统原理</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><img src="/../../../images/CMU%2015-445.png"></p>
+<p><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/slides/03-storage1.pdf">Slides</a><br><a target="_blank" rel="noopener" href="https://15445.courses.cs.cmu.edu/fall2019/notes/03-storage1.pdf">Notes</a></p>
+<p>Notes已经很详细，仅整理大纲和要点。</p>
+<h2 id="1-存储-Storage"><a href="#1-存储-Storage" class="headerlink" title="1. 存储(Storage)"></a>1. 存储(Storage)</h2><p>重点关注“面向磁盘”的 DBMS 架构，该架构假设数据库的主要存储位置位于非易失性磁盘上。</p>
+<h3 id="易失性设备（Volatile-Devices）："><a href="#易失性设备（Volatile-Devices）：" class="headerlink" title="易失性设备（Volatile Devices）："></a>易失性设备（Volatile Devices）：</h3><ul>
+<li>字节寻址随机访问。</li>
+<li>称为“内存”。</li>
+</ul>
+<h3 id="非易失性设备（Non-Volatile-Devices）："><a href="#非易失性设备（Non-Volatile-Devices）：" class="headerlink" title="非易失性设备（Non-Volatile Devices）："></a>非易失性设备（Non-Volatile Devices）：</h3><ul>
+<li><p>块&#x2F;页可寻址的。这意味着，为了读取特定偏移处的值，程序首先必须将 4 KB 页加载到保存程序想要读取的值的内存中。 </p>
+</li>
+<li><p>传统上更适合顺序访问（同时读取多个数据块）。 </p>
+</li>
+<li><p>称为“磁盘”。不区分SSD或HDD。</p>
+</li>
+</ul>
+<h2 id="2-面向磁盘的DBMS概括-Disk-Oriented-DBMS-Overview"><a href="#2-面向磁盘的DBMS概括-Disk-Oriented-DBMS-Overview" class="headerlink" title="2. 面向磁盘的DBMS概括(Disk-Oriented DBMS Overview)"></a>2. 面向磁盘的DBMS概括(Disk-Oriented DBMS Overview)</h2><p>数据库都在磁盘上，数据库文件中的数据被组织成页，第一页是目录页。为了对数据进行操作，DBMS需要将数据放入内存。它通过使用一个缓冲池来管理磁盘和内存之间的来回移动来实现这一点。DBMS还具有执行查询的执行引擎。执行引擎将向缓冲池请求特定页面，而缓冲池将负责将该页面放入内存，并为执行引擎提供指向内存中该页面的指针。当执行引擎在该内存上操作时，缓冲池管理器将确保页面在那里。</p>
+<h2 id="3-DBMS-vs-OS"><a href="#3-DBMS-vs-OS" class="headerlink" title="3. DBMS vs. OS"></a>3. DBMS vs. OS</h2><h2 id="4-文件存储-File-Storage"><a href="#4-文件存储-File-Storage" class="headerlink" title="4. 文件存储(File Storage)"></a>4. 文件存储(File Storage)</h2><p>在其最基本的形式中，DBMS将数据库存储为磁盘上的文件。一些可能使用文件层次结构，其他可能使用单个文件(例如，SQLite)。</p>
+<p>​ 操作系统对这些文件的内容一无所知。只有DBMS知道如何解密它们的内容，因为它是以特定于DBMS的方式编码的。</p>
+<p>​ DBMS存储管理器负责管理数据库的文件。它将文件表示为页面集合。它还跟踪哪些数据已被读取和写入页面，以及页面中有多少可用空间。</p>
+<h2 id="5-数据库页-Database-Pages"><a href="#5-数据库页-Database-Pages" class="headerlink" title="5. 数据库页(Database Pages)"></a>5. 数据库页(Database Pages)</h2><p>DBMS将数据库组织成固定大小的数据块(称为页面)中的一个或多个文件。页面可以包含不同类型的数据(元组、索引等)。大多数系统不会在页面中混合使用这些类型。一些系统将要求它是自包含(self-contained)的，这意味着 read 每个页面所需的所有信息都在页面本身上。</p>
+<h2 id="6-数据库堆-Database-Heap"><a href="#6-数据库堆-Database-Heap" class="headerlink" title="6. 数据库堆(Database Heap)"></a>6. 数据库堆(Database Heap)</h2><p>有几种方法可以找到DBMS想要的页面在磁盘上的位置，堆文件组织就是其中之一。堆文件是以随机顺序存储元组的无序页面集合。</p>
+<h2 id="7-页面布局（Page-Layout）"><a href="#7-页面布局（Page-Layout）" class="headerlink" title="7. 页面布局（Page Layout）"></a>7. 页面布局（Page Layout）</h2><p>每个页面都包含一个header，记录有关页面内容的元数据，即描述数据的数据（data about data），主要是描述数据属性（property）的信息，用来支持如指示存储位置、历史数据、资源查找、文件记录等功能）</p>
+<h2 id="8-元组布局-Tuple-Layout"><a href="#8-元组布局-Tuple-Layout" class="headerlink" title="8. 元组布局(Tuple Layout)"></a>8. 元组布局(Tuple Layout)</h2><p>​ 元组本质上是一个字节序列。DBMS的工作是将这些字节解释为属性类型和值。</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CMU-15-445/" rel="tag">CMU 15-445</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+    <article
+  id="post-Coding/其他/【技术】设计模式笔记"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2024/03/02/Coding/%E5%85%B6%E4%BB%96/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0/"
+    >【技术】设计模式笔记</a> 
+</h2>
+ 
+
+      
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2024/03/02/Coding/%E5%85%B6%E4%BB%96/%E3%80%90%E6%8A%80%E6%9C%AF%E3%80%91%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time datetime="2024-03-02T06:00:00.000Z" itemprop="datePublished">2024-03-02</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Coding/">Coding</a> / <a class="article-category-link" href="/categories/Coding/%E5%85%B6%E4%BB%96/">其他</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://space.bilibili.com/59546029/channel/collectiondetail?sid=266320">【bilibili】五分钟学设计模式</a></p>
+<h2 id="什么是设计模式？"><a href="#什么是设计模式？" class="headerlink" title="什么是设计模式？"></a>什么是设计模式？</h2><p>设计模式（Design pattern）是软件开发人员在软件开发过程中面临的一般问题的解决方案。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。</p>
+<h2 id="设计模式的类型"><a href="#设计模式的类型" class="headerlink" title="设计模式的类型"></a>设计模式的类型</h2><p>一般意义上，共有 23 种设计模式。这些模式可以分为三大类</p>
+<ul>
+<li>创建型模式（Creational Patterns）提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用 new 运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。</li>
+<li>结构型模式（Structural Patterns）关注对象之间的组合和关系，旨在解决如何构建灵活且可复用的类和对象结构。</li>
+<li>行为型模式（Behavioral Patterns）关注对象之间的通信和交互，旨在解决对象之间的责任分配和算法的封装。</li>
+</ul>
+<p>当然，我们还会讨论另一类设计模式：J2EE 设计模式。</p>
+<h3 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h3><ol>
+<li>单例模式（Singleton Pattern） </li>
+<li>工厂模式（Factory Pattern）</li>
+<li>抽象工厂模式（Abstract Factory Pattern）</li>
+<li>生成器模式&#x2F;建造者模式（Builder Pattern）</li>
+<li>原型模式（Prototype Pattern）</li>
+</ol>
+<h3 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h3><ol>
+<li>装饰器模式（Decorator Pattern）</li>
+<li>适配器模式（Adapter Pattern）</li>
+<li>外观模式（Facade Pattern）</li>
+<li>状态模式（State Pattern）</li>
+<li>代理模式（Proxy Pattern）</li>
+<li>享元模式（Flyweight Pattern）</li>
+<li>组合模式（Composite Pattern）</li>
+<li>桥接模式（Bridge Pattern）</li>
+</ol>
+<h3 id="行为型模式"><a href="#行为型模式" class="headerlink" title="行为型模式"></a>行为型模式</h3><ol>
+<li>观察者模式（Observer Pattern）</li>
+<li>策略模式（Strategy Pattern）</li>
+<li>责任链模式（Chain of Responsibility Pattern）</li>
+<li>模板模式（Template Pattern）</li>
+<li>命令模式（Command Pattern）</li>
+<li>备忘录模式（Memento Pattern）</li>
+<li>迭代器模式（Iterator Pattern）</li>
+<li>中介者模式（Mediator Pattern）</li>
+<li>访问者模式（Visitor Pattern）</li>
+<li>解释器模式（Interpreter Pattern）</li>
+</ol>
+<h2 id="设计模式的原则"><a href="#设计模式的原则" class="headerlink" title="设计模式的原则"></a>设计模式的原则</h2><ol>
+<li><p>开闭原则（Open Close Principle）实现热插拔，提高扩展性。</p>
+</li>
+<li><p>里氏代换原则（Liskov Substitution Principle）实现抽象的规范，实现子父类互相替换；</p>
+</li>
+<li><p>依赖倒转原则（Dependence Inversion Principle）针对接口编程，实现开闭原则的基础；</p>
+</li>
+<li><p>接口隔离原则（Interface Segregation Principle）降低耦合度，接口单独设计，互相隔离；</p>
+</li>
+<li><p>迪米特法则（Demeter Principle）又称最少知道原则：功能模块尽量独立；</p>
+</li>
+<li><p>合成复用原则（Composite Reuse Principle）尽量使用聚合，组合，而不是继承；</p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a></li></ul>
+
+    </footer>
+  </div>
+
+   
+    
+</article>
+
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2025
+        <i class="ri-heart-fill heart_icon"></i> Hxy
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></span>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>    
+    </main>
+    <div class="float_btns">
+      <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+    </div>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/logo.png" alt="Hxy&#39;s Ocean"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/friends">友链</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="/images/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-3.6.0.min.js"></script>
+ 
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdn.staticfile.org/jquery-modal/0.9.2/jquery.modal.min.css"
+/>
+<script src="https://cdn.staticfile.org/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+ <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/photoswipe/4.1.3/default-skin/default-skin.min.css">
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe.min.js"></script>
+<script src="https://cdn.staticfile.org/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script> 
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+ 
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+ 
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+<!-- CodeCopy -->
+ 
+<link rel="stylesheet" href="/css/clipboard.css">
+ <script src="https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+ 
+<!-- CanvasBackground -->
+
+<script>
+  if (window.mermaid) {
+    mermaid.initialize({ theme: "forest" });
+  }
+</script>
+
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=411259022&auto=1&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+    
+
+  </div>
+</body>
+
+</html>
